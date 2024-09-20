@@ -1,4 +1,4 @@
-# Oprec MAKOMTI 2025 Repository
+# Oprec MAKOMTI 2025 Repositories
 
 ## Design
 
