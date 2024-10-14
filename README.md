@@ -24,11 +24,11 @@ https://www.figma.com/files/project/107570013
   - feature: saya menambahkan fitur baru
   - fixing: saya memperbaiki fitur
 
-Contoh: feature/navbar.arya
+Contoh: feature/navbar.sultan
 
 ## Commit message
 
-`<type>[scope]: <short_summary>`
+`<type>: <short_summary>`
 
 - `<type>` :
   - feat: saya menambahkan fitur baru
@@ -50,7 +50,3 @@ Contoh: feat[Homepage]: Creating about section
         - [Page name]
             - page.js
 ```
-
-## Notes
-
-- kalo branch mu udah di merge, jangan lupa juga buat hapus branch mu dari github (biar rapi :>)
