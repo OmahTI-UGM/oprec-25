@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScrolling from "@/contexts/SmoothScroll";
+import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 
 export const metadata: Metadata = {
@@ -17,7 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SmoothScrolling>
-          {children}
+          <div className="flex">
+            <Sidebar />
+            {children}
+          </div>
+          <Footer />
         </SmoothScrolling>
       </body>
     </html>
