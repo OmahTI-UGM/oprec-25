@@ -3,6 +3,7 @@ import "./globals.css";
 import SmoothScrolling from "@/contexts/SmoothScroll";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 
 export const metadata: Metadata = {
@@ -19,8 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SmoothScrolling>
-          <div className="flex">
+          <div className="flex flex-col lg:flex-row">
             <Sidebar />
+            <Navbar />
             {children}
           </div>
           <Footer />

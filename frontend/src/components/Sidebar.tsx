@@ -6,7 +6,6 @@ import { useState } from "react";
 import Title from "./Title";
 
 export default function Sidebar() {
-
   const [selectedNav, setSelectedNav] = useState(null);
   const nav = ["Division", "Interview", "Help Center"];
   const handleClick = (nav) => {
@@ -15,21 +14,20 @@ export default function Sidebar() {
 
   return (
     <>
-      <nav className="min-w-[20%] h-screen pb-[7vh] px-[3vh] pt-[3vh] sticky top-0 hidden bg-custom-black lg:flex flex-col justify-between border-r-2 border-custom-gray-dark">
+      <nav className="bg-custom-black border-custom-gray-dark sticky top-0 hidden h-screen min-w-[20%] flex-col justify-between border-r-2 px-[3vh] pb-[7vh] pt-[3vh] lg:flex">
         <section>
-          
           <Title />
 
           {/* Nav Button */}
-          <div className="font-poppins-medium flex flex-col  gap-[2vh] text-[1.8vh]">
+          <div className="font-poppins-medium mt-[10vh] flex flex-col  gap-[2vh] text-[1.8vh]">
             {nav.map((nav, index) => (
               <div key={index}>
                 <div
                   onClick={() => handleClick(nav)}
-                  className={`pl-[10px] items-center rounded-md gap-[17px] flex py-[1.5vh] cursor-pointer transition-all duration-200 
-                    ${selectedNav === nav ? 'bg-custom-gray-dark border-2 border-custom-gray-dark' : ''}`}
+                  className={`flex cursor-pointer items-center gap-[17px] rounded-md py-[1.5vh] pl-[10px] transition-all duration-200 
+                    ${selectedNav === nav ? "bg-custom-gray-dark border-custom-gray-dark border-2" : ""}`}
                   style={{
-                    transition: 'color 0.2s ease-in-out'
+                    transition: "color 0.2s ease-in-out",
                   }}
                 >
                   <Image
@@ -40,13 +38,15 @@ export default function Sidebar() {
                   />
                   <h1>{nav}</h1>
                 </div>
-                {selectedNav !== nav && <hr className="border-custom-gray-dark" />} {/* Add <hr> for unselected items */}
+                {selectedNav !== nav && (
+                  <hr className="border-custom-gray-dark" />
+                )}{" "}
+                {/* Add <hr> for unselected items */}
               </div>
             ))}
-
           </div>
         </section>
-        
+
         {/* Log Out button */}
         <Logout />
       </nav>
