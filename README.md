@@ -12,8 +12,8 @@ https://www.figma.com/files/project/107570013
 4. Pull origin main 
 5. Add the changed file to git "git add ."
 6. Commit (Please follow the commit messages rule)
-7. Push to main "git push -u origin main"
-8. Create a new pull request to develop branch and mention @salmon
+7. Push to main "git push -u origin dev"
+8. Create a new pull request to dev branch and mention @salmon
 9. Done
 
 ## Branch Naming
