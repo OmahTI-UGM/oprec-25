@@ -1,4 +1,5 @@
 import Divisi from "@/modules/divisi/divisi";
+import Container from "@/components/Container";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page(): JSX.Element {
-  return <Divisi />;
+  return (
+    <Container parentClass={`h-[100vh]`}>
+      <Divisi />
+    </Container>
+  );
 }

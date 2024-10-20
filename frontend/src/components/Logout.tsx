@@ -1,39 +1,39 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
+import { LogOut as LogOutIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Logout() {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <>
-      <a
-        className=" bg-custom-gray-dark hover:bg-custom-gray-light flex w-full cursor-pointer items-center justify-center gap-[17px] rounded-lg px-[10px] py-[14px] transition-all duration-200 ease-in-out hover:-translate-y-2"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+    <AlertDialog>
+      <AlertDialogTrigger
+        className={`flex items-center justify-center gap-4 rounded-md bg-custom-gray-dark py-2 text-white hover:bg-custom-gray-dark/80`}
       >
-        <div className="relative size-6">
-          <Image
-            src="/assets/components/logout.svg"
-            width={24}
-            height={24}
-            alt="Logout icon"
-            style={{
-              filter: isHovered ? "invert(100%)" : "none",
-              transition: "filter 0.2s ease-in-out",
-            }}
-          />
-        </div>
-        <p
-          className={`font-poppins-medium ${isHovered ? "text-black" : "text-custom-silver"}`}
-          style={{
-            transition: "color 0.2s ease-in-out",
-          }}
-        >
-          Log Out
-        </p>
-      </a>
-    </>
+        <LogOutIcon className={`h-8`} />
+        Log Out
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

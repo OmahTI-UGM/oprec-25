@@ -22,8 +22,7 @@ export default function Navbar() {
               <div key={index} className="grow">
                 <div
                   onClick={() => handleClick(item)}
-                  className={`flex items-center justify-center gap-1 border border-custom-gray-dark px-2 py-1.5 text-sm
-                    ${selectedNav === item ? "bg-gray-100" : ""}`}
+                  className={`flex items-center justify-center gap-1 border border-custom-gray-dark px-2 py-1.5 text-sm ${selectedNav === item ? "bg-gray-100" : ""}`}
                 >
                   <Image
                     src="/assets/components/logout.svg"
@@ -38,7 +37,12 @@ export default function Navbar() {
           </div>
           <div className="ml-2 flex gap-2">
             <button className="border border-custom-gray-dark p-1.5">
-              <Image src="/assets/components/logout.svg" width={20} height={20} alt="Logout icon" />
+              <Image
+                src="/assets/components/logout.svg"
+                width={20}
+                height={20}
+                alt="Logout icon"
+              />
             </button>
             <button className="border border-custom-gray-dark p-1.5">
               <Image

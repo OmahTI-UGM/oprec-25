@@ -4,11 +4,17 @@ import SmoothScrolling from "@/contexts/SmoothScroll";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-
+import { Poppins } from "next/font/google";
 export const metadata: Metadata = {
   title: "Oprec Makomti",
   description: "Open Recruitment Himakom & OmahTI",
 };
+
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -17,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${poppins.className}`}>
         <SmoothScrolling>
           <div className="flex flex-col lg:flex-row">
             <Sidebar />
