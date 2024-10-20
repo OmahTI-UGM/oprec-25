@@ -16,13 +16,13 @@ export default function Navbar() {
       <nav className="block w-full px-3 py-4 lg:hidden">
         <Title />
         {/* Nav Button */}
-        <div className="font-poppins-medium mt-3 flex w-full items-center justify-between">
+        <div className="mt-3 flex w-full items-center justify-between font-poppins-medium">
           <div className="flex grow gap-2">
             {nav.map((item, index) => (
               <div key={index} className="grow">
                 <div
                   onClick={() => handleClick(item)}
-                  className={`border-custom-gray-dark flex items-center justify-center gap-1 border px-2 py-1.5 text-sm
+                  className={`flex items-center justify-center gap-1 border border-custom-gray-dark px-2 py-1.5 text-sm
                     ${selectedNav === item ? "bg-gray-100" : ""}`}
                 >
                   <Image
@@ -37,15 +37,10 @@ export default function Navbar() {
             ))}
           </div>
           <div className="ml-2 flex gap-2">
-            <button className="border-custom-gray-dark border p-1.5">
-              <Image
-                src="/assets/components/logout.svg"
-                width={20}
-                height={20}
-                alt="Logout icon"
-              />
+            <button className="border border-custom-gray-dark p-1.5">
+              <Image src="/assets/components/logout.svg" width={20} height={20} alt="Logout icon" />
             </button>
-            <button className="border-custom-gray-dark border p-1.5">
+            <button className="border border-custom-gray-dark p-1.5">
               <Image
                 src="/assets/components/logout.svg"
                 width={20}

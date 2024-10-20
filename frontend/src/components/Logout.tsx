@@ -9,7 +9,7 @@ export default function Logout() {
   return (
     <>
       <a
-        className="bg-custom-gray-dark hover:bg-custom-gray-light flex w-full cursor-pointer items-center justify-center gap-[17px] rounded-lg px-[10px] py-[14px] transition-all duration-200 ease-in-out hover:-translate-y-2"
+        className=" bg-custom-gray-dark hover:bg-custom-gray-light flex w-full cursor-pointer items-center justify-center gap-[17px] rounded-lg px-[10px] py-[14px] transition-all duration-200 ease-in-out hover:-translate-y-2"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

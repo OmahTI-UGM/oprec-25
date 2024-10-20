@@ -5,7 +5,6 @@ import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
-
 export const metadata: Metadata = {
   title: "Oprec Makomti",
   description: "Open Recruitment Himakom & OmahTI",

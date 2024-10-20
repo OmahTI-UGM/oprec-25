@@ -10,10 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'poppins-semibold': ["Poppins SemiBold", "sans-serif"],
-        'poppins-regular': ["Poppins Regular", "sans-serif"],
-        'poppins-light': ["Poppins Light", "sans-serif"],
-        'poppins-medium': ["Poppins Medium", "sans-serif"],
+        "poppins-semibold": ["Poppins SemiBold", "sans-serif"],
+        "poppins-regular": ["Poppins Regular", "sans-serif"],
+        "poppins-light": ["Poppins Light", "sans-serif"],
+        "poppins-medium": ["Poppins Medium", "sans-serif"],
       },
       colors: {
         "custom-black": "#242529",

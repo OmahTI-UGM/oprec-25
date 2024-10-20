@@ -14,18 +14,18 @@ export default function Sidebar() {
 
   return (
     <>
-      <nav className="bg-custom-black border-custom-gray-dark sticky top-0 hidden h-screen min-w-[20%] flex-col justify-between border-r-2 px-[3vh] pb-[7vh] pt-[3vh] lg:flex">
+      <nav className="sticky top-0 hidden h-screen min-w-[20%] flex-col justify-between border-r-2 border-custom-gray-dark bg-custom-black px-[3vh] pb-[7vh] pt-[3vh] lg:flex">
         <section>
           <Title />
 
           {/* Nav Button */}
-          <div className="font-poppins-medium mt-[10vh] flex flex-col  gap-[2vh] text-[1.8vh]">
+          <div className="mt-[10vh] flex flex-col gap-[2vh]  font-poppins-medium text-[1.8vh]">
             {nav.map((nav, index) => (
               <div key={index}>
                 <div
                   onClick={() => handleClick(nav)}
                   className={`flex cursor-pointer items-center gap-[17px] rounded-md py-[1.5vh] pl-[10px] transition-all duration-200 
-                    ${selectedNav === nav ? "bg-custom-gray-dark border-custom-gray-dark border-2" : ""}`}
+                    ${selectedNav === nav ? "border-2 border-custom-gray-dark bg-custom-gray-dark" : ""}`}
                   style={{
                     transition: "color 0.2s ease-in-out",
                   }}
@@ -38,9 +38,7 @@ export default function Sidebar() {
                   />
                   <h1>{nav}</h1>
                 </div>
-                {selectedNav !== nav && (
-                  <hr className="border-custom-gray-dark" />
-                )}{" "}
+                {selectedNav !== nav && <hr className="border-custom-gray-dark" />}{" "}
                 {/* Add <hr> for unselected items */}
               </div>
             ))}

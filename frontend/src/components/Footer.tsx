@@ -1,9 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <footer className="bg-custom-neon h-[40vh] w-screen text-black">
-        INI NAVBAR
-      </footer>
+      <footer className="h-[40vh] w-screen bg-custom-neon text-black">INI NAVBAR</footer>
     </>
   );
 }

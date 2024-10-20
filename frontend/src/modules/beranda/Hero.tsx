@@ -3,7 +3,7 @@ import Image from "next/image";
 const Hero = () => {
   return (
     <>
-      <main className="bg-custom-black w-screen overflow-x-hidden lg:max-w-[80vw]">
+      <main className="w-screen overflow-x-hidden bg-custom-black lg:max-w-[80vw]">
         {/* <div className="flex h-screen items-center justify-center">
           <Image
             src="/assets/components/Loading.gif"
@@ -14,22 +14,22 @@ const Hero = () => {
           />
         </div> */}
         <div className="flex h-screen items-center justify-center">
-          <h1 className="text-custom-lavender text-center">Ini Hero</h1>
+          <h1 className="text-center text-custom-lavender">Ini Hero</h1>
         </div>
         <div className="flex h-screen items-center justify-center">
-          <h1 className="text-custom-lavender text-center">Ini Hero</h1>
+          <h1 className="text-center text-custom-lavender">Ini Hero</h1>
         </div>
         <div className="flex h-screen items-center justify-center">
-          <h1 className="text-custom-lavender text-center">Ini Hero</h1>
+          <h1 className="text-center text-custom-lavender">Ini Hero</h1>
         </div>
         <div className="flex h-screen items-center justify-center">
-          <h1 className="text-custom-lavender text-center">Ini Hero</h1>
+          <h1 className="text-center text-custom-lavender">Ini Hero</h1>
         </div>
         <div className="flex h-screen items-center justify-center">
-          <h1 className="text-custom-lavender text-center">Ini Hero</h1>
+          <h1 className="text-center text-custom-lavender">Ini Hero</h1>
         </div>
         <div className="flex h-screen items-center justify-center">
-          <h1 className="text-custom-lavender text-center">Ini Hero</h1>
+          <h1 className="text-center text-custom-lavender">Ini Hero</h1>
         </div>
       </main>
     </>
