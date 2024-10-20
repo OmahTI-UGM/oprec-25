@@ -1,4 +1,3 @@
-"use client";
 import Hero from "./Hero";
 
 const Beranda = () => {
