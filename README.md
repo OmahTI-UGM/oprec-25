@@ -7,7 +7,7 @@ https://www.figma.com/files/project/107570013
 ## Pull & Push Schema
 
 1. Create and checkout to your developing branch "git checkout -b "branch name"
-2. Pull origin main `git pull -- rebase origin main`
+2. Pull origin main `git pull --rebase origin main`
 3. Code
 4. Pull origin main (using rebase) 
 5. Add the changed file to git "git add ."
