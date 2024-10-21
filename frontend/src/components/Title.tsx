@@ -7,9 +7,9 @@ export default function Title() {
         <div className="relative aspect-square size-[35px]">
           <Image
             alt="Logo"
+            className="object-cover"
             src="https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg?w=826&t=st=1729060915~exp=1729061515~hmac=dc911f470a5362d31529331c2e5ba014647fd3219c2e050b0d34e03a59d6002e"
-            layout="fill"
-            objectFit="cover"
+            fill
           />
         </div>
         <h1 className="hidden text-wrap font-poppins-semibold leading-snug xl:block">

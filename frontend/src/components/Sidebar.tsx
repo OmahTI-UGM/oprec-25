@@ -43,7 +43,7 @@ export default function Sidebar() {
               >
                 <Link href={nav.href}>
                   <div
-                    className={`flex cursor-pointer items-center gap-4 rounded-md py-[1.5vh] pl-[10px] transition-all duration-200 ${pathname === nav.href ? "border-2 border-custom-gray-dark bg-custom-gray-dark" : "text-custom-gray"}`}
+                    className={`flex cursor-pointer items-center gap-4 rounded-md py-[1.5vh] pl-[10px] transition-all duration-200 ${pathname === nav.href ? "border-2 border-custom-gray-dark bg-custom-gray-dark" : "text-custom-gray hover:text-custom-silver"}`}
                     style={{
                       transition: "color 0.2s ease-in-out",
                     }}

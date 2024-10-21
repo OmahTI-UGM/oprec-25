@@ -1,3 +1,5 @@
+import Peringatan from "./components/peringatan";
+
 export default function Divisi() {
   return (
     <>
@@ -8,6 +10,7 @@ export default function Divisi() {
         <span className={`font-semibold`}>Satu jadwal OmahTI</span>
       </p>
       <hr className={`my-4 border-2 border-custom-gray-dark`} />
+      <Peringatan />
     </>
   );
 }
