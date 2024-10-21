@@ -59,15 +59,19 @@ Contoh: feat[Homepage]: Creating about section
 credentials ada di group ya untuk .env nya
 
 ### Cara pull and run
-pull latest change
+pull latest change dulu
+
+install dependencies:
 ```
 npm install
 ```
 
+compile code:
 ```
 npm run build
 ```
 
+run code:
 ```
 npm start
 ```
