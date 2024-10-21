@@ -16,8 +16,10 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const user = await User.create(userData);
 
         const tokens = generateTokens({
+            userId: user.id,
             username: user.username,
-            divisiPilihan: user.divisiPilihan
+            divisiPilihan: user.divisiPilihan,
+            NIM: user.NIM
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -47,8 +49,10 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             return;
         };
         const tokens = generateTokens({
+            userId: user.id,
             username: user.username,
-            divisiPilihan: user.divisiPilihan
+            divisiPilihan: user.divisiPilihan,
+            NIM: user.NIM
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -75,8 +79,10 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         const decoded = verifyToken(refreshToken, JWT_CONFIG.REFRESH_TOKEN_SECRET);
 
         const tokens = generateTokens({
+            userId: decoded.userId,
             username: decoded.username,
-            divisiPilihan: decoded.divisiPilihan
+            divisiPilihan: decoded.divisiPilihan,
+            NIM: decoded.NIM
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
