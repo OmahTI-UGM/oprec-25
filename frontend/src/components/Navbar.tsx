@@ -1,60 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Title from "./Title";
-import Image from "next/image";
+import Container from "./Container";
+import Link from "next/link";
+import { MessageSquare } from "lucide-react";
+import { CircleHelp } from "lucide-react";
+import { Octagon } from "lucide-react";
+import Logout from "./Logout";
 
-export default function Navbar() {
-  const [selectedNav, setSelectedNav] = useState(null);
-  const nav = ["Division", "Interview"];
-  const handleClick = (nav) => {
-    setSelectedNav(nav);
-  };
+const Navbar = () => {
+  const pathname = usePathname();
+  const nav = [
+    {
+      icon: <Octagon className="h-5" />,
+      href: "/divisi",
+      tag: "Divisi",
+    },
+    {
+      icon: <MessageSquare className="h-5" />,
+      href: "/wawancara",
+      tag: "Wawancara",
+    },
+  ];
 
   return (
     <>
-      <nav className="block w-full px-3 py-4 lg:hidden">
+      <Container parentClass="block lg:hidden">
         <Title />
         {/* Nav Button */}
-        <div className="mt-3 flex w-full items-center justify-between font-poppins-medium">
-          <div className="flex grow gap-2">
-            {nav.map((item, index) => (
-              <div key={index} className="grow">
+        <div className="mt-12 flex w-full items-center gap-2 justify-between font-medium">
+            {/* buttons */}
+            {nav.map((nav, index) => (
+              <Link className="w-full" href={nav.href} key={index}>
                 <div
-                  onClick={() => handleClick(item)}
-                  className={`flex items-center justify-center gap-1 border border-custom-gray-dark px-2 py-1.5 text-sm ${selectedNav === item ? "bg-gray-100" : ""}`}
+                  className={`flex w-full cursor-pointer items-center justify-start gap-2 rounded-md p-2 transition-all duration-200 ${pathname === nav.href ? "border-2 border-custom-gray-dark bg-custom-gray-dark" : "border-[1.5px] border-custom-gray text-custom-gray hover:text-custom-silver"}`}
+                  style={{
+                    transition: "color 0.2s ease-in-out",
+                  }}
                 >
-                  <Image
-                    src="/assets/components/logout.svg"
-                    width={16}
-                    height={16}
-                    alt="Nav icon"
-                  />
-                  <span className="truncate">{item}</span>
+                  {nav.icon}
+                  {nav.tag}
                 </div>
-              </div>
+              </Link>
             ))}
-          </div>
-          <div className="ml-2 flex gap-2">
-            <button className="border border-custom-gray-dark p-1.5">
-              <Image
-                src="/assets/components/logout.svg"
-                width={20}
-                height={20}
-                alt="Logout icon"
-              />
-            </button>
-            <button className="border border-custom-gray-dark p-1.5">
-              <Image
-                src="/assets/components/logout.svg"
-                width={20}
-                height={20}
-                alt="Settings icon"
-              />
-            </button>
-          </div>
+            <Help />
+            <Logout />
         </div>
-      </nav>
+      </Container>
     </>
   );
 }
+
+const Help = () => (
+  <Link href={`/`} className={`flex aspect-square items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white hover:bg-custom-gray/90`}
+  >
+    <CircleHelp className={`h-5`} />
+  </Link>
+)
+
+export default Navbar;

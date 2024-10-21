@@ -1,5 +1,6 @@
 import KelasPilihan from "@/modules/divisi/components/KelasPilihan";
-import Card from "@/modules/divisi/components/Card";
+import Card from "./components/Card";
+import KelasLengkap from "./components/KelasLengkap";
 
 export default function Divisi() {
   const cardData = [
@@ -21,11 +22,9 @@ export default function Divisi() {
 
       <KelasPilihan />
 
-      {/* Grid layout for Card components */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {cardData.map((card) => (
-          <Card key={card.id} title={card.title} variant={card.variant} />
-        ))}
+      <div className="mt-4 flex flex-col gap-2">
+        <KelasLengkap variant="omahti" />
+        <KelasLengkap variant="himakom" />
       </div>
     </>
   );
