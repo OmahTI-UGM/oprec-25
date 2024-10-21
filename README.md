@@ -50,3 +50,26 @@ Contoh: feat[Homepage]: Creating about section
         - [Page name]
             - page.js
 ```
+
+
+# BACKEND
+## Cara run
+
+### CRedentials
+credentials ada di group ya untuk .env nya
+
+### Cara pull and run
+pull latest change
+```
+npm install
+```
+
+```
+npm run build
+```
+
+```
+npm start
+```
+
+jadi deh
