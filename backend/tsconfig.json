@@ -1,0 +1,63 @@
+{
+    "compilerOptions": {
+      // Project Settings
+      "target": "ES2020",            // Modern JavaScript features
+      "module": "NodeNext",          // Use Node.js style modules
+      "lib": ["ES2020"],            // Include modern JavaScript features
+      "moduleResolution": "NodeNext", // Modern module resolution strategy
+      "outDir": "./dist",           // Output directory for compiled files
+      "rootDir": "./src",           // Source files directory
+      
+      // Strict Type-Checking
+      "strict": true,               // Enable all strict type checking options
+      "noImplicitAny": true,        // Raise error on expressions and declarations with an implied 'any' type
+      "strictNullChecks": true,     // Enable strict null checks
+      "strictFunctionTypes": true,  // Enable strict checking of function types
+      "strictBindCallApply": true,  // Enable strict 'bind', 'call', and 'apply' methods on functions
+      "strictPropertyInitialization": true, // Ensure non-undefined class properties are initialized
+      "noImplicitThis": true,       // Raise error on 'this' expressions with an implied 'any' type
+      "alwaysStrict": true,         // Parse in strict mode and emit "use strict" for each source file
+      
+      // Additional Checks
+      "noUnusedLocals": true,       // Report errors on unused locals
+      "noUnusedParameters": true,   // Report errors on unused parameters
+      "noImplicitReturns": true,    // Report error when not all code paths in function return a value
+      "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
+      "noUncheckedIndexedAccess": true,   // Include undefined in index signature results
+      
+      // Module Resolution
+      "baseUrl": "./src",           // Base directory to resolve non-relative module names
+      "esModuleInterop": true,      // Enables emit interoperability between CommonJS and ES Modules
+      "resolveJsonModule": true,    // Include modules imported with .json extension
+      
+      // Source Maps
+      "sourceMap": true,            // Generate corresponding .map files
+      "declaration": true,          // Generate corresponding .d.ts files
+      "declarationMap": true,       // Generate sourcemaps for d.ts files
+      
+      // Advanced
+      "skipLibCheck": true,         // Skip type checking of declaration files
+      "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file names
+      
+      // Paths and Aliases
+      "paths": {
+        "@/*": ["*"],              // Enable @ alias for src directory
+        "@config/*": ["config/*"],
+        "@controllers/*": ["controllers/*"],
+        "@middlewares/*": ["middlewares/*"],
+        "@models/*": ["models/*"],
+        "@routes/*": ["routes/*"],
+        "@types/*": ["types/*"],
+        "@utils/*": ["utils/*"]
+      }
+    },
+    "include": [
+      "src/**/*"                    // Include all files in src directory
+    ],
+    "exclude": [
+      "node_modules",               // Exclude node_modules directory
+      "dist",                       // Exclude output directory
+      "**/*.spec.ts",              // Exclude test files
+      "**/*.test.ts"
+    ]
+  }
