@@ -12,6 +12,9 @@ interface User extends Document{
     divisiPilihan?: mongoose.Types.ObjectId[],
     resetToken?: string,
     resetTokenExpiration?: string,
+    tanggalPilihan?: mongoose.Types.ObjectId[],
+    prioritasOti?: mongoose.Types.ObjectId,
+    prioritasHima?: mongoose.Types.ObjectId,
     comparePassword(candidatePassword: string): Promise<boolean>
 }
 
@@ -47,6 +50,18 @@ const userSchema: Schema<User> = new Schema({
       resetTokenExpiration: {
         type: Date,
       },
+      tanggalPilihan: {
+        type: Schema.Types.ObjectId,
+        ref: 'Wawancara'
+      },
+      prioritasOti:{
+        type: Schema.Types.ObjectId,
+        ref: 'Divisi'
+      },
+      prioritasHima:{
+        type: Schema.Types.ObjectId,
+        ref: 'Divisi'
+      }
 });
 
 userSchema.pre<User>('save', async function (next) {
