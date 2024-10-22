@@ -3,7 +3,7 @@ import Image from "next/image";
 const Hero = () => {
   return (
     <>
-      <main className="w-screen overflow-x-hidden bg-custom-black lg:max-w-[80vw]">
+      <main className="w-screen bg-custom-black lg:max-w-[80vw]">
         {/* <div className="flex h-screen items-center justify-center">
           <Image
             src="/assets/components/Loading.gif"

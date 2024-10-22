@@ -13,10 +13,13 @@ const Divisi = () => {
       </p>
       <hr className={`my-4 border-2 border-custom-gray-dark`} />
 
+      {/* kelas yang dipilih user */}
       <KelasPilihan />
-      <div className="mt-4 flex flex-col gap-2">
+
+      {/* kelas lengkap omahti dan himakom */}
+      <div className="mt-4 flex flex-col gap-4">
         <KelasLengkap variant="omahti" />
-        <KelasLengkap />
+        <KelasLengkap variant="himakom" />
       </div>
 
       <Wawancara />

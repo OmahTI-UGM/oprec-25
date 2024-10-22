@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page(): JSX.Element {
   return (
-    <Container parentClass={`pt-0 lg:pt-8`}>
+    <Container parentClass={`pt-0 max-w-[100vw] lg:max-w-[80vw] lg:pt-8`}>
       <Divisi />
     </Container>
   );

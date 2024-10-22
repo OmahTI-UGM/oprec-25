@@ -1,7 +1,13 @@
+import Container from "./Container";
+
 export default function Footer() {
   return (
     <>
-      <footer className="h-[40vh] w-screen bg-custom-neon text-black">INI NAVBAR</footer>
+      <Container parentClass="border-t-2 w-screen border-custom-gray-dark">
+        <footer className="h-[40vh] grid place-items-center w-screen bg-custom-black">
+          INI FOOTER
+        </footer>
+      </Container>
     </>
   );
 }
