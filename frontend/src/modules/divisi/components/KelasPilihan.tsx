@@ -1,4 +1,11 @@
+"use client";
 import Card from "./Card";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
+// swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
 
 export default function KelasPilihan() {
   const cardData = [
@@ -11,13 +18,15 @@ export default function KelasPilihan() {
   return (
     <>
       <p className={`font-semibold`}>Divisi yang Kamu Pilih</p>
-      
-      {/* Grid layout for Card components */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+      {/* swiper component */}
+      <Swiper slidesPerView={4} spaceBetween={20}>
         {cardData.map((card) => (
-          <Card key={card.id} title={card.title} variant={card.variant} />
+          <SwiperSlide>
+            <Card key={card.id} title={card.title} variant={card.variant} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </>
   );
 }

@@ -1,31 +1,24 @@
-import KelasPilihan from "@/modules/divisi/components/KelasPilihan";
-import Card from "./components/Card";
+import KelasPilihan from "./components/KelasPilihan";
 import KelasLengkap from "./components/KelasLengkap";
 
-export default function Divisi() {
-  const cardData = [
-    { id: 1, title: "UI/UX", variant: "omahti" },
-    { id: 2, title: "Frontend", variant: "omahti" },
-    { id: 3, title: "Treasurer", variant: "himakom" },
-    { id: 4, title: "Public Rel", variant: "himakom" },
-  ];
-
+const Divisi = () => {
   return (
     <>
       <h1 className="mb-2 text-2xl font-semibold sm:text-4xl">Divisi</h1>
-      <p>
+      <p className={``}>
         Kamu hanya bisa memilih{" "}
-        <span className="font-semibold">Dua Divisi Himakom</span> dan{" "}
-        <span className="font-semibold">Dua Divisi OmahTI</span>
+        <span className={`font-semibold`}>Dua Divisi Himakom</span> dan{" "}
+        <span className={`font-semibold`}>Dua Divisi OmahTI</span>
       </p>
-      <hr className="my-4 border-2 border-custom-gray-dark" />
+      <hr className={`my-4 border-2 border-custom-gray-dark`} />
 
       <KelasPilihan />
-
       <div className="mt-4 flex flex-col gap-2">
         <KelasLengkap variant="omahti" />
-        <KelasLengkap variant="himakom" />
+        <KelasLengkap />
       </div>
     </>
   );
 }
+
+export default Divisi;

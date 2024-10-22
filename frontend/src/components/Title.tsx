@@ -12,11 +12,11 @@ export default function Title() {
             fill
           />
         </div>
-        <h1 className="hidden text-wrap font-poppins-semibold leading-snug xl:block">
+        <h1 className="hidden text-wrap font-semibold leading-snug xl:block">
           <span className="text-custom-orange">Open</span>{" "}
           <span className="text-custom-lavender">Recruitment</span> Makomti 2024
         </h1>
-        <h1 className="text-wrap font-poppins-semibold leading-snug xl:hidden">
+        <h1 className="text-wrap font-semibold leading-snug xl:hidden">
           <span className="text-custom-orange">Op</span>
           <span className="text-custom-lavender">rec</span> Makomti 2024
         </h1>
