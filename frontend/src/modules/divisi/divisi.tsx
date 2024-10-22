@@ -1,5 +1,6 @@
 import KelasPilihan from "./components/KelasPilihan";
 import KelasLengkap from "./components/KelasLengkap";
+import Wawancara from "./components/Wawancara";
 
 const Divisi = () => {
   return (
@@ -17,6 +18,8 @@ const Divisi = () => {
         <KelasLengkap variant="omahti" />
         <KelasLengkap />
       </div>
+
+      <Wawancara />
     </>
   );
 }
