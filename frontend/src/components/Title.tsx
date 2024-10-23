@@ -13,8 +13,8 @@ const Title = () => {
             fill
           />
         </div>
-        <h1 className="text-wrap font-semibold leading-none">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+        <h1 className="text-wrap font-semibold leading-slug leading">
+          <div className="flex flex-col">
             <AnimatedGradientText className="bg-transparent font-semibold p-0 border-none outline-none">
               <span className="animate-gradient inline bg-gradient-to-r from-custom-peach via-custom-lavender to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
                 Open Recruitment

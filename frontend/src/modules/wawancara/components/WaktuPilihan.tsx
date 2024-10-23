@@ -3,7 +3,7 @@ import Card from "./WaktuPilihanCard";
 const WaktuPilihan = () => {
   return (
     <div className="my-8">
-      <h5 className="font-semibold">Waktu Wawancara yang Kamu Pilih</h5>
+      <h5 className="font-semibold lg:text-lg">Waktu Wawancara yang Kamu Pilih</h5>
       <div className="flex flex-col gap-2 mt-2 xl:flex-row">
         <Card
           variant="omahti"

@@ -9,13 +9,13 @@ const WaktuPilihanCard = ({
   let foo;
   if (variant === "himakom") {
     foo = (
-      <div className="rounded-md bg-custom-black p-1.5 text-custom-lavender">
+      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-lavender">
         Himakom
       </div>
     );
   } else {
     foo = (
-      <div className="rounded-md bg-custom-black p-1.5 text-custom-orange">
+      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-orange">
         OmahTI
       </div>
     );
@@ -23,7 +23,7 @@ const WaktuPilihanCard = ({
 
   return (
     <div className="flex w-full flex-col gap-6 rounded-lg bg-custom-gray-dark p-1.5 text-xs text-custom-silver sm:p-4 sm:text-base">
-      <div className="relative flex w-full items-center gap-1 justify-between">
+      <div className="relative flex w-full items-center justify-between gap-1">
         {/* OMAHTI OR HIMAKOM */}
         {foo}
 
@@ -33,7 +33,7 @@ const WaktuPilihanCard = ({
         {/* LOCATION AND TIME */}
         <div className="flex gap-1">
           {/* location */}
-          <div className="flex items-center gap-0.5 rounded-sm bg-custom-black p-1.5">
+          <div className="flex items-center gap-0.5 rounded-sm bg-custom-black p-1.5 pr-2.5">
             <MapPin className="h-4" />
             {lokasi}
           </div>
