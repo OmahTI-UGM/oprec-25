@@ -34,7 +34,8 @@ const config: Config = {
   			'custom-orange': '#FF7538',
   			'custom-gray-light': '#D7D2D2',
   			'custom-neon': '#4DFF49',
-  			'custom-red': '#FF4949'
+  			'custom-red': '#FF4949',
+				'custom-blue': '#6069FF'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
