@@ -5,7 +5,7 @@ const Title = () => {
   return (
     <>
       <div className="flex items-center gap-[13px]">
-        <div className="relative aspect-square size-[35px]">
+        <div className="relative aspect-square size-[38px]">
           <Image
             alt="Logo"
             className="object-cover"
@@ -13,14 +13,15 @@ const Title = () => {
             fill
           />
         </div>
-        <h1 className="text-wrap font-semibold leading-snug">
-          <AnimatedGradientText className="bg-transparent font-semibold p-0 border-none outline-none">
-            <span className="animate-gradient inline bg-gradient-to-r from-custom-peach via-custom-lavender to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
-              Open Recruitment
-            </span>{" "}
-          </AnimatedGradientText>
-          <br className="block sm:hidden" />
-          Makomti 2024
+        <h1 className="text-wrap font-semibold leading-none">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+            <AnimatedGradientText className="bg-transparent font-semibold p-0 border-none outline-none">
+              <span className="animate-gradient inline bg-gradient-to-r from-custom-peach via-custom-lavender to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
+                Open Recruitment
+              </span>
+            </AnimatedGradientText>
+            <span className="mt-1 sm:mt-0">Makomti 2024</span>
+          </div>
         </h1>
       </div>
     </>
