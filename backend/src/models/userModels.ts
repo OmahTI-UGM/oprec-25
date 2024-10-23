@@ -9,6 +9,7 @@ interface User extends Document{
     email: string,
     NIM: string,
     password: string,
+    divisiPilihan?: mongoose.Types.ObjectId[],
     divisiPilihanOti?: mongoose.Types.ObjectId[],
     divisiPilihanHima?: mongoose.Types.ObjectId[],
     resetToken?: string,
@@ -43,6 +44,21 @@ const userSchema: Schema<User> = new Schema({
         type: String,
         required: true,
       },
+      divisiPilihan: [
+        {
+          divisiId: {
+              type: Schema.Types.ObjectId,
+              ref: 'Divisi',
+              required: true
+          },
+          urutanPrioritas: {
+              type: Number,
+              min: 1,
+              max: 4,
+              required: true
+          }
+        }
+      ],
       divisiPilihanOti: [{
         type: Schema.Types.ObjectId,
         ref: 'Divisi',

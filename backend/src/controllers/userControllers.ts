@@ -18,8 +18,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            divisiPilihanOti: user.divisiPilihanOti,
-            divisiPilihanHima: user.divisiPilihanHima,
+            divisiPilihan: user.divisiPilihan,
             NIM: user.NIM,
             prioritasHima: user.prioritasHima,
             prioritasOti: user.prioritasOti
@@ -54,8 +53,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            divisiPilihanOti: user.divisiPilihanOti,
-            divisiPilihanHima: user.divisiPilihanHima,
+            divisiPilihan: user.divisiPilihan,
             NIM: user.NIM,
             prioritasHima: user.prioritasHima,
             prioritasOti: user.prioritasOti
@@ -87,8 +85,7 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: decoded.userId,
             username: decoded.username,
-            divisiPilihanOti: decoded.divisiPilihanOti,
-            divisiPilihanHima: decoded.divisiPilihanHima,
+            divisiPilihan: decoded.divisiPilihan,
             NIM: decoded.NIM,
             prioritasHima: decoded.prioritasHima,
             prioritasOti: decoded.prioritasOti

@@ -3,74 +3,128 @@ import Divisi from "@/models/divisiModels";
 import { Request, Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { generateTokens, setCookies } from "@/utils/jwt";
-import{COOKIE_CONFIG} from "@/config/jwtcookies";
-export const pilihDivisi = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
-    try{
+import { COOKIE_CONFIG } from "@/config/jwtcookies";
+
+const MAX_DIVISIONS_PER_TYPE = 2;
+
+class DivisionSelectionError extends Error {
+    constructor(message: string, public statusCode: number = 400) {
+        super(message);
+    }
+}
+
+export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Promise<void> => {
+    try {
         const { slug: divisiSlug } = req.params;
-        const { urutanPrioritas } = req.body
-        if(!req.user){
-            res.status(401).json({message: "Unauthorized"});
-            return;
-        }
-        const { userId: userId } = req.user
+        const { urutanPrioritas } = req.body;
 
-        const[divisi, user] = await Promise.all([
-            Divisi.findOne({slug: divisiSlug}),
-            User.findById(userId)
+        if (!req.user?.userId) {
+            throw new DivisionSelectionError("Unauthorized", 401);
+        }
+
+        // Fetch necessary data
+        const [divisi, user] = await Promise.all([
+            Divisi.findOne({ slug: divisiSlug }),
+            User.findById(req.user.userId)
         ]);
-        if(!divisi || !user){
-            res.status(400).json({message: "Divisi atau user gaada asu"});
-            return;
-        }
-        if(divisi.slot <= 0){
-            res.status(400).json({message: "Slot habis"})
-            return;
-        }
-        if(divisi.dipilihOleh?.includes(userId)){
-            res.status(400).json({message: "User udah daftar di sini"})
-            return;
+
+        // Validate existence
+        if (!divisi || !user) {
+            throw new DivisionSelectionError("Division or user not found");
         }
 
-        user.divisiPilihanHima = user.divisiPilihanHima || [];
-        user.divisiPilihanOti = user.divisiPilihanOti || [];
-
-        if (divisi.himakom) {
-            if (urutanPrioritas === 1 && user.divisiPilihanHima?.length < 2) {
-                user.divisiPilihanHima?.push(divisi.id);
-                user.prioritasHima = divisi.id;  // Set as priority Hima division
-            } else if (urutanPrioritas !== 1 && user.divisiPilihanHima?.length < 2) {
-                user.divisiPilihanHima?.push(divisi.id);  // Add without changing priority
-            }
-        } else {
-            if (urutanPrioritas === 1 && user.divisiPilihanOti?.length < 2) {
-                user.divisiPilihanOti?.push(divisi.id);
-                user.prioritasOti = divisi.id;  // Set as priority Oti division
-            } else if (urutanPrioritas !== 1 && user.divisiPilihanOti?.length < 2) {
-                user.divisiPilihanOti?.push(divisi.id);  // Add without changing priority
-            }
+        // Validate division availability
+        if (divisi.slot <= 0) {
+            throw new DivisionSelectionError("No slots available");
         }
-        
 
-        divisi.dipilihOleh?.push(userId);
+        if (divisi.dipilihOleh?.includes(req.user.userId)) {
+            throw new DivisionSelectionError("User already registered for this division");
+        }
+
+        // Handle division selection
+        await handleDivisionSelection(user, divisi, urutanPrioritas);
+
+        // Update division slots
+        divisi.dipilihOleh = [...(divisi.dipilihOleh || []), req.user.userId];
         divisi.slot -= 1;
-        const newToken = generateTokens(
-            {
-                userId: user.id,
-                username: user.username,
-                divisiPilihanOti: user.divisiPilihanOti,
-                divisiPilihanHima: user.divisiPilihanHima,
-                NIM: user.NIM,
-                prioritasHima: user.prioritasHima,
-                prioritasOti: user.prioritasOti
-            }
-        );
+
+        // Generate new token and set cookies
+
+        const newToken = generateTokens({
+            userId: user.id,
+            username: user.username,
+            divisiPilihan: user.divisiPilihan,
+            NIM: user.NIM,
+            prioritasHima: user.prioritasHima,
+            prioritasOti: user.prioritasOti
+        });
         setCookies(res, newToken, COOKIE_CONFIG);
-        await Promise.all([divisi.save(), user.save()]);
-        res.status(200).json({message: "Berhasil daftar divisi"});
-        return;
-    } catch (err) {
-        res.status(500).json({message: err})
-        return;
+
+        // Save changes
+        await Promise.all([user.save(), divisi.save()]);
+
+        res.status(200).json({ message: "Successfully registered for division" });
+    } catch (error) {
+        const status = error instanceof DivisionSelectionError ? error.statusCode : 500;
+        const message = error instanceof Error ? error.message : "Internal server error";
+        res.status(status).json({ message });
+    }
+};
+
+async function handleDivisionSelection(
+    user: any,
+    divisi: any,
+    urutanPrioritas: number
+): Promise<void> {
+    const isHimakom = divisi.himakom;
+    const divisionArray = isHimakom ? user.divisiPilihanHima : user.divisiPilihanOti;
+    const priorityField = isHimakom ? 'prioritasHima' : 'prioritasOti';
+
+    // Initialize arrays if they don't exist
+    user.divisiPilihan = user.divisiPilihan || [];
+    if (isHimakom) {
+        user.divisiPilihanHima = user.divisiPilihanHima || [];
+    } else {
+        user.divisiPilihanOti = user.divisiPilihanOti || [];
+    }
+
+    // Check division limit
+    if ((divisionArray?.length || 0) >= MAX_DIVISIONS_PER_TYPE) {
+        throw new DivisionSelectionError(`Maximum ${MAX_DIVISIONS_PER_TYPE} divisions of this type allowed`);
+    }
+
+    const existingPriority = user.divisiPilihan.find((d: any) => d.urutanPrioritas === urutanPrioritas);
+    if(existingPriority){
+        throw new DivisionSelectionError("Priority already exists");
+    }
+    // Find existing selection
+    const foundDivisi = user.divisiPilihan.find((d: any) => 
+        d.divisiId.toString() === divisi.id.toString()
+    );
+
+    const newSelection = {
+        divisiId: divisi.id,
+        urutanPrioritas
+    };
+
+    if (!foundDivisi) {
+        // Add new selection
+        user.divisiPilihan.push(newSelection);
+        user[priorityField] = divisi.id;
+        divisionArray.push(divisi.id);
+    } else {
+        // Update existing selection based on priority
+        if (urutanPrioritas <= foundDivisi.urutanPrioritas) {
+            user.divisiPilihan = user.divisiPilihan.filter((d: any) => 
+                d.divisiId.toString() !== divisi.id.toString()
+            );
+            user.divisiPilihan.push(newSelection);
+            
+            if (urutanPrioritas < foundDivisi.urutanPrioritas) {
+                user[priorityField] = divisi.id;
+            }
+        }
     }
 }
 

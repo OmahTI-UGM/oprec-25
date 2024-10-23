@@ -15,7 +15,7 @@ export const sudahMemilihOti =  async(req: IGetRequestWithUser, res: Response, n
 }
 
 export const sudahMemilihHima = async(req: IGetRequestWithUser, res: Response, next: NextFunction):Promise<void> => {
-    try {
+    try{
         if(req.user?.divisiPilihanHima?.length === 0){
             res.status(401).json({message: "Belum memilih divisi hima"});
             return;
