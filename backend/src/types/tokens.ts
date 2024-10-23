@@ -5,7 +5,7 @@ export interface TokenPayload{
     username: string,
     NIM: string,
     divisiPilihanOti?: mongoose.Types.ObjectId[],
-    divisiPilihanHima?: mongoose.Types.ObjectId[]
+    divisiPilihanHima?: mongoose.Types.ObjectId[],
     prioritasOti?: mongoose.Types.ObjectId,
     prioritasHima?: mongoose.Types.ObjectId
 }

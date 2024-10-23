@@ -17,6 +17,7 @@ interface User extends Document{
     tanggalPilihanOti?: mongoose.Types.ObjectId[],
     prioritasOti?: mongoose.Types.ObjectId,
     prioritasHima?: mongoose.Types.ObjectId,
+    tugas?: mongoose.Types.ObjectId[],
     comparePassword(candidatePassword: string): Promise<boolean>
 }
 
@@ -71,7 +72,11 @@ const userSchema: Schema<User> = new Schema({
       prioritasHima:{
         type: Schema.Types.ObjectId,
         ref: 'Divisi'
-      }
+      },
+      tugas: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Penugasan'
+      }]
 });
 
 userSchema.pre<User>('save', async function (next) {

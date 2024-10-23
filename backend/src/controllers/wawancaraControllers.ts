@@ -17,18 +17,22 @@ export const pilihWaktuWawancaraOti = async (req: IGetRequestWithUser, res: Resp
         const jamWawancaraDate = new Date(jamWawancara);
 
         // Fetch wawancara and user data concurrently
-        const [wawancara, user] = await Promise.all([
+        const [wawancara, user, wawancaraHimakom] = await Promise.all([
             Wawancara.findById(wawancaraId),
-            User.findById(userId).populate("prioritasOti")
+            User.findById(userId).populate("prioritasOti"),
+            Wawancara.findOne({ "sesi.jam": jamWawancaraDate, himakom: true })
         ]);
-
+        if(wawancaraHimakom) {
+            res.status(400).json({message: "waktu wawancara yang dipilih merupakan waktu wawancara himakom"});
+            return;
+        }
         // Check if wawancara or user exists and if user has prioritasOti
         if (!wawancara) {
-            res.status(400).json({ message: "Wawancara gaada asu" });
+            res.status(400).json({ message: "Wawancara gaada" });
             return;
         }
         if(!user || !user.prioritasOti) {
-            res.status(400).json({ message: "User atau prioritas Oti gaada asu" });
+            res.status(400).json({ message: "User atau prioritas Oti gaada" });
             return;
         }
         if(user.tanggalPilihanOti) {
@@ -78,18 +82,22 @@ export const pilihWaktuWawancaraHima = async (req: IGetRequestWithUser, res: Res
         const jamWawancaraDate = new Date(jamWawancara);
 
         // Fetch wawancara and user data concurrently
-        const [wawancara, user] = await Promise.all([
+        const [wawancara, user, wawancaraOti] = await Promise.all([
             Wawancara.findById(wawancaraId),
-            User.findById(userId).populate("prioritasHima")
+            User.findById(userId).populate("prioritasHima"),
+            Wawancara.findOne({ "sesi.jam": jamWawancaraDate, himakom: false })
         ]);
-
+        if(wawancaraOti){
+            res.status(400).json({message: "waktu wawancara yang dipilih merupakan waktu wawancara OTI"});
+            return;
+        }
         // Check if wawancara or user exists and if user has prioritasHima
         if (!wawancara) {
-            res.status(400).json({ message: "Wawancara gaada asu" });
+            res.status(400).json({ message: "Wawancara gaada" });
             return;
         }
         if(!user || !user.prioritasHima) {
-            res.status(400).json({ message: "User atau prioritas hima gaada asu" });
+            res.status(400).json({ message: "User atau prioritas hima gaada" });
             return;
         }
         if(user.tanggalPilihanHima) {
