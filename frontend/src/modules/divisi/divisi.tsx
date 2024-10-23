@@ -1,3 +1,4 @@
+// components
 import KelasPilihan from "./components/KelasPilihan";
 import KelasLengkap from "./components/KelasLengkap";
 import Wawancara from "./components/Wawancara";

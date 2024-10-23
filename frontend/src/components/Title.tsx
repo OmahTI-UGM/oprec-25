@@ -1,6 +1,7 @@
 import Image from "next/image";
+import AnimatedGradientText from "@/components/ui/animated-gradient-text";
 
-export default function Title() {
+const Title = () => {
   return (
     <>
       <div className="flex items-center gap-[13px]">
@@ -12,15 +13,18 @@ export default function Title() {
             fill
           />
         </div>
-        <h1 className="hidden text-wrap font-semibold leading-snug xl:block">
-          <span className="text-custom-orange">Open</span>{" "}
-          <span className="text-custom-lavender">Recruitment</span> Makomti 2024
-        </h1>
-        <h1 className="text-wrap font-semibold leading-snug xl:hidden">
-          <span className="text-custom-orange">Op</span>
-          <span className="text-custom-lavender">rec</span> Makomti 2024
+        <h1 className="text-wrap font-semibold leading-snug">
+          <AnimatedGradientText className="bg-transparent font-semibold p-0 border-none outline-none">
+            <span className="animate-gradient inline bg-gradient-to-r from-custom-peach via-custom-lavender to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
+              Open Recruitment
+            </span>{" "}
+          </AnimatedGradientText>
+          <br className="block sm:hidden" />
+          Makomti 2024
         </h1>
       </div>
     </>
   );
-}
+};
+
+export default Title;

@@ -12,7 +12,7 @@ const Card = ({ variant, title }: CardProps) => {
         {variant === "omahti" ? "OmahTI" : "Himakom"}
       </div>
 
-      <div className="text-5xl font-bold mt-4 w-fit">
+      <div className="text-5xl truncate font-bold mt-4 w-fit">
         {title}
       </div>
 
