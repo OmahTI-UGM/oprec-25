@@ -13,12 +13,12 @@ const Navbar = () => {
   const pathname = usePathname();
   const nav = [
     {
-      icon: <Octagon className="h-5" />,
+      icon: <Octagon className="h-5 shrink-0" />,
       href: "/divisi",
       tag: "Divisi",
     },
     {
-      icon: <MessageSquare className="h-5" />,
+      icon: <MessageSquare className="h-5 shrink-0" />,
       href: "/wawancara",
       tag: "Wawancara",
     },
@@ -29,10 +29,10 @@ const Navbar = () => {
       <Container parentClass="block lg:hidden">
         <Title />
         {/* Nav Button */}
-        <div className="mt-12 flex w-full items-center gap-2 justify-between font-medium">
+        <div className="mt-12 flex max-w-full items-center gap-2 justify-between font-medium">
             {/* buttons */}
             {nav.map((nav, index) => (
-              <Link className="w-full" href={nav.href} key={index}>
+              <Link className="w-auto grow min-w-0" href={nav.href} key={index}>
                 <div
                   className={`flex w-full cursor-pointer items-center justify-start gap-2 rounded-md p-2 transition-all duration-200 ${pathname === nav.href ? "border-2 border-custom-gray-dark bg-custom-gray-dark" : "border-[1.5px] border-custom-gray text-custom-gray hover:text-custom-silver"}`}
                   style={{
@@ -40,7 +40,9 @@ const Navbar = () => {
                   }}
                 >
                   {nav.icon}
-                  {nav.tag}
+                  <span className="truncate">
+                    {nav.tag}
+                  </span>
                 </div>
               </Link>
             ))}
@@ -53,7 +55,7 @@ const Navbar = () => {
 }
 
 const Help = () => (
-  <Link href={`/`} className={`flex aspect-square items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white hover:bg-custom-gray/90`}
+  <Link href={`/`} className={`shrink-0 flex aspect-square items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white hover:bg-custom-gray/90`}
   >
     <CircleHelp className={`h-5`} />
   </Link>
