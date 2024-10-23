@@ -3,7 +3,7 @@ import { CookieOptions } from 'express';
 export const JWT_CONFIG = {
     ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || 'gabisa',
     REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || 'gabisa',
-    ACCESS_TOKEN_EXPIRY: '20s',
+    ACCESS_TOKEN_EXPIRY: '15m',
     REFRESH_TOKEN_EXPIRY: '7d'
 };
 

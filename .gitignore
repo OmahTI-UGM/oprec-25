@@ -135,4 +135,4 @@ dist
 # jetbrains idea
 .idea
 
-seed.js
+seed.ts

@@ -18,8 +18,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            divisiPilihan: user.divisiPilihan,
-            NIM: user.NIM
+            divisiPilihanOti: user.divisiPilihanOti,
+            divisiPilihanHima: user.divisiPilihanHima,
+            NIM: user.NIM,
+            prioritasHima: user.prioritasHima,
+            prioritasOti: user.prioritasOti
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -30,7 +33,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         })
         return;
     } catch (err) {
-        res.status(500).json({message: "Auth error"});
+        res.status(500).json({message: err});
         return;
     }
 }
@@ -51,8 +54,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            divisiPilihan: user.divisiPilihan,
-            NIM: user.NIM
+            divisiPilihanOti: user.divisiPilihanOti,
+            divisiPilihanHima: user.divisiPilihanHima,
+            NIM: user.NIM,
+            prioritasHima: user.prioritasHima,
+            prioritasOti: user.prioritasOti
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -81,8 +87,11 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: decoded.userId,
             username: decoded.username,
-            divisiPilihan: decoded.divisiPilihan,
-            NIM: decoded.NIM
+            divisiPilihanOti: decoded.divisiPilihanOti,
+            divisiPilihanHima: decoded.divisiPilihanHima,
+            NIM: decoded.NIM,
+            prioritasHima: decoded.prioritasHima,
+            prioritasOti: decoded.prioritasOti
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);

@@ -1,12 +1,9 @@
-import { Request, Response, NextFunction} from "express";
+import { Response, NextFunction} from "express";
 import { verifyToken } from "@utils/jwt";
 import { JWT_CONFIG } from "@config/jwtcookies";
-import { TokenPayload } from "../types/tokens";
+import { IGetRequestWithUser } from "@/types/getUserRequest";
 
-interface RequestWithUser extends Request {
-    user?: TokenPayload
-}
-export const authenticateToken = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+export const authenticateToken = async (req: IGetRequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try{
         const accessToken = req.cookies['accessToken'];
         if(!accessToken){
