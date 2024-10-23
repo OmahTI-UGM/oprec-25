@@ -2,6 +2,7 @@ import mongoose, {Schema, Document} from 'mongoose';
 
 interface Wawancara extends Document{
     tanggal: Date,
+    himakom: boolean,
     sesi: [Sesi]
 }
 
@@ -38,6 +39,7 @@ const sesiSchema: Schema<Sesi> = new Schema({
 })
 const wawancaraSchema: Schema<Wawancara> = new Schema({
     tanggal: Date,
+    himakom: Boolean,
     sesi: [sesiSchema]
 })
 

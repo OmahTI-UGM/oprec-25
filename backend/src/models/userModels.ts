@@ -13,7 +13,8 @@ interface User extends Document{
     divisiPilihanHima?: mongoose.Types.ObjectId[],
     resetToken?: string,
     resetTokenExpiration?: string,
-    tanggalPilihan?: mongoose.Types.ObjectId[],
+    tanggalPilihanHima?: mongoose.Types.ObjectId[],
+    tanggalPilihanOti?: mongoose.Types.ObjectId[],
     prioritasOti?: mongoose.Types.ObjectId,
     prioritasHima?: mongoose.Types.ObjectId,
     comparePassword(candidatePassword: string): Promise<boolean>
@@ -44,12 +45,10 @@ const userSchema: Schema<User> = new Schema({
       divisiPilihanOti: [{
         type: Schema.Types.ObjectId,
         ref: 'Divisi',
-        validate: [limitPerDivisi, 'User can only choose up to 2 divisi']
       }],
       divisiPilihanHima: [{
         type: Schema.Types.ObjectId,
         ref: 'Divisi',
-        validate: [limitPerDivisi, 'User can only choose up to 2 divisi']
       }],
       resetToken: {
         type: String,
@@ -57,7 +56,11 @@ const userSchema: Schema<User> = new Schema({
       resetTokenExpiration: {
         type: Date,
       },
-      tanggalPilihan: {
+      tanggalPilihanHima: {
+        type: Schema.Types.ObjectId,
+        ref: 'Wawancara'
+      },
+      tanggalPilihanOti: {
         type: Schema.Types.ObjectId,
         ref: 'Wawancara'
       },
@@ -70,9 +73,7 @@ const userSchema: Schema<User> = new Schema({
         ref: 'Divisi'
       }
 });
-function limitPerDivisi(val: mongoose.Types.ObjectId[]){
-    return val.length <=2
-}
+
 userSchema.pre<User>('save', async function (next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);

@@ -2,7 +2,8 @@ import User from "@models/userModels";
 import Divisi from "@/models/divisiModels";
 import { Request, Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
-
+import { generateTokens, setCookies } from "@/utils/jwt";
+import{COOKIE_CONFIG} from "@/config/jwtcookies";
 export const pilihDivisi = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
     try{
         const { slug: divisiSlug } = req.params;
@@ -29,26 +30,46 @@ export const pilihDivisi = async(req: IGetRequestWithUser, res: Response): Promi
             res.status(400).json({message: "User udah daftar di sini"})
             return;
         }
-        if(divisi.himakom && user.divisiPilihanHima?.length && user.divisiPilihanHima.length < 2 && urutanPrioritas === 1){
-            user.divisiPilihanHima?.push(divisi.id);
-            user.prioritasHima = divisi.id;
-        } else if(divisi.himakom && user.divisiPilihanOti?.length && user.divisiPilihanOti.length < 2 && urutanPrioritas !== 1){
-            user.divisiPilihanHima?.push(divisi.id);
-        } else if(!divisi.himakom && user.divisiPilihanOti?.length && user.divisiPilihanOti.length < 2 && urutanPrioritas === 1){
-            user.divisiPilihanOti?.push(divisi.id);
-            user.prioritasOti = divisi.id;
-        } else if(!divisi.himakom && user.divisiPilihanHima?.length && user.divisiPilihanHima.length < 2 && urutanPrioritas !== 1){
-            user.divisiPilihanOti?.push(divisi.id);
+
+        user.divisiPilihanHima = user.divisiPilihanHima || [];
+        user.divisiPilihanOti = user.divisiPilihanOti || [];
+
+        if (divisi.himakom) {
+            if (urutanPrioritas === 1 && user.divisiPilihanHima?.length < 2) {
+                user.divisiPilihanHima?.push(divisi.id);
+                user.prioritasHima = divisi.id;  // Set as priority Hima division
+            } else if (urutanPrioritas !== 1 && user.divisiPilihanHima?.length < 2) {
+                user.divisiPilihanHima?.push(divisi.id);  // Add without changing priority
+            }
+        } else {
+            if (urutanPrioritas === 1 && user.divisiPilihanOti?.length < 2) {
+                user.divisiPilihanOti?.push(divisi.id);
+                user.prioritasOti = divisi.id;  // Set as priority Oti division
+            } else if (urutanPrioritas !== 1 && user.divisiPilihanOti?.length < 2) {
+                user.divisiPilihanOti?.push(divisi.id);  // Add without changing priority
+            }
         }
+        
 
         divisi.dipilihOleh?.push(userId);
         divisi.slot -= 1;
-
+        const newToken = generateTokens(
+            {
+                userId: user.id,
+                username: user.username,
+                divisiPilihanOti: user.divisiPilihanOti,
+                divisiPilihanHima: user.divisiPilihanHima,
+                NIM: user.NIM,
+                prioritasHima: user.prioritasHima,
+                prioritasOti: user.prioritasOti
+            }
+        );
+        setCookies(res, newToken, COOKIE_CONFIG);
         await Promise.all([divisi.save(), user.save()]);
         res.status(200).json({message: "Berhasil daftar divisi"});
         return;
     } catch (err) {
-        res.status(500).json({message: "Internal server error"})
+        res.status(500).json({message: err})
         return;
     }
 }
