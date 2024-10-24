@@ -13,17 +13,17 @@ export default function Sidebar() {
   const nav = [
     {
       icon: <Octagon className="h-5" />,
-      href: "/divisi",
+      href: "/dashboard/divisi",
       tag: "Divisi",
     },
     {
       icon: <MessageSquare className="h-5" />,
-      href: "/wawancara",
+      href: "/dashboard/wawancara",
       tag: "Wawancara",
     },
     {
       icon: <CircleHelp className="h-5" />,
-      href: "/bantuan",
+      href: "/dashboard/bantuan",
       tag: "Bantuan",
     },
   ];

@@ -25,11 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} text-custom-silver`}>
         <SmoothScrolling>
-          <div className="flex flex-col lg:flex-row">
-            <Sidebar />
-            <Navbar />
-            {children}
-          </div>
+          {children}
           <Footer />
         </SmoothScrolling>
       </body>
