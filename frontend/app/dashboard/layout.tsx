@@ -1,5 +1,6 @@
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
+import SmoothScrolling from "@/contexts/SmoothScroll";
 
 export default function DashboardLayout({
   children,
@@ -7,12 +8,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col lg:flex-row">
+    <SmoothScrolling>
+      <div className="flex flex-col lg:flex-row">
       <Sidebar />
       <div className="flex-grow">
         <Navbar />
         {children}
       </div>
     </div>
+    </SmoothScrolling>
   );
 }
