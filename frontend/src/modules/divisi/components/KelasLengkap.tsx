@@ -3,6 +3,8 @@ import { useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel } from "swiper/modules";
+import Link from "next/link";
+import { divisi } from "@/helpers/divisi";
 
 // icons
 import { ChevronRight } from "lucide-react";
@@ -30,7 +32,9 @@ const KelasLengkap = ({
     sliderRef.current.swiper.slideNext();
   }, []);
 
-  let divisi =
+  const filteredDivisi = divisi.filter((div) => div.makomti.toLowerCase() === variant.toLowerCase());
+
+  let divisiTitle =
     variant === "omahti" ? (
       <span className="text-custom-orange">OmahTI</span>
     ) : (
@@ -40,15 +44,18 @@ const KelasLengkap = ({
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-custom-gray-dark p-4">
       <h1 className="space-x-4 text-lg">
-        Divisi <span className="font-semibold">{divisi}</span>
-        <KelasFull />
+        Divisi <span className="font-semibold">{divisiTitle}</span>
+        <Keterangan />
       </h1>
 
       <div className="flex w-full items-center justify-between gap-2">
         {/* prev button */}
-        <Button variant={`ghost`} className="py-1 px-2 hover:bg-custom-gray/20" onClick={handlePrev}>
+        <Button 
+          variant="ghost" 
+          className="py-1 px-2 hover:bg-custom-gray/20" 
+          onClick={handlePrev}
+        >
           <ChevronLeft
-            onClick={handleNext}
             className={`${variant === "omahti" ? "text-custom-orange" : "text-custom-lavender"}`}
             strokeWidth={3}
           />
@@ -77,31 +84,25 @@ const KelasLengkap = ({
             },
           }}
         >
-          <SwiperSlide>
-            <KelasCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <KelasCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <KelasCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <KelasCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <KelasCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <KelasCard />
-          </SwiperSlide>
+          {filteredDivisi.map((div) => (
+            <SwiperSlide key={div.id}>
+              <KelasCard
+                title={div.nama}
+                id={div.id}
+                logoUrl={div.logoUrl}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         {/* next button */}
-        <Button variant={`ghost`} className="py-1 px-2 hover:bg-custom-gray/20" onClick={handleNext}>
+        <Button 
+          variant="ghost" 
+          className="py-1 px-2 hover:bg-custom-gray/20" 
+          onClick={handleNext}
+        >
           <ChevronRight
-            onClick={handleNext}
-            className={`${variant === "omahti" ? "text-custom-orange" : "text-custom-lavender"}`}
+            className={`${variant === "omahti" ? "text-custom-orange" : "text-custom-blue"}`}
             strokeWidth={3}
           />
         </Button>
@@ -110,25 +111,37 @@ const KelasLengkap = ({
   );
 };
 
-const KelasCard = ({ title = "PSHT" }: { title?: string }) => (
+const KelasCard = ({ 
+  title = "PSHT", 
+  id,
+  logoUrl 
+}: { 
+  title?: string;
+  id: string;
+  logoUrl?: string;
+}) => (
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
     {/* div for image */}
-    <div className="aspect-square h-8 rounded-sm bg-white" />
+    <div className="aspect-square h-8 rounded-sm bg-white">
+      {logoUrl && <img src={logoUrl} alt={title} className="h-full w-full object-cover" />}
+    </div>
 
     {/* text */}
-    <h3 className="">{title}</h3>
+    <h3 className="truncate">{title}</h3>
 
     {/* button */}
-    <Button
-      className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold"
-      variant={`secondary`}
-    >
-      <ChevronRight />
-    </Button>
+    <Link href={`/dashboard/divisi/${id}`}>
+      <Button
+        className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold"
+        variant="secondary"
+      >
+        <ChevronRight />
+      </Button>
+    </Link>
   </div>
 );
 
-const KelasFull = () => (
+const Keterangan = () => (
   <div className="inline-flex items-center gap-1 rounded-sm bg-custom-black p-1.5 text-xs">
     {/* red block */}
     <div className="aspect-square h-3 border-[1px] border-black bg-custom-red" />

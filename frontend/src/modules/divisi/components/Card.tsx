@@ -7,13 +7,15 @@ interface CardProps {
 
 const Card = ({ variant, title }: CardProps) => {
   return (
-    <div className="bg-custom-gray-dark rounded-lg overflow-clip p-4 min-w-60">
-      <div className={`text-xs bg-custom-black rounded-sm px-2 py-1 w-fit ${variant === "omahti" ? 'text-custom-orange' : 'text-custom-lavender'}`}>
+    <div className="bg-custom-gray-dark rounded-lg p-4 min-w-60">
+      <div className={`font-medium text-xs bg-custom-black rounded-sm px-2 py-1 w-fit ${variant === "omahti" ? 'text-custom-orange' : 'text-custom-lavender'}`}>
         {variant === "omahti" ? "OmahTI" : "Himakom"}
       </div>
 
-      <div className="text-5xl truncate font-bold mt-4 w-fit">
-        {title}
+      <div className="mt-4 w-full overflow-hidden">
+        <h2 className="text-5xl font-bold whitespace-nowrap overflow-hidden text-ellipsis"> {/* bisa juga text-clip (terserah mau pake apa) */}
+          {title}
+        </h2>
       </div>
 
       <button className="bg-custom-gray hover:bg-custom-gray/80 transition-all font-medium mt-6 py-2 px-4 w-full rounded-md">

@@ -10,7 +10,7 @@ export default function KelasPilihan() {
     { id: 1, title: "UI/UX", variant: "omahti" },
     { id: 2, title: "Frontend", variant: "omahti" },
     { id: 3, title: "Treasurer", variant: "himakom" },
-    { id: 4, title: "Public Rel", variant: "himakom" },
+    { id: 4, title: "Public Relation", variant: "himakom" },
   ];
 
   return (

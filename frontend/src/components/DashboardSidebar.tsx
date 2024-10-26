@@ -4,11 +4,11 @@ import Logout from "./Logout";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Title from "./Title";
-import { MessageSquare } from "lucide-react";
+import { MailWarning, MessageSquare } from "lucide-react";
 import { CircleHelp } from "lucide-react";
 import { Octagon } from "lucide-react";
 
-export default function Sidebar() {
+export default function DashboardSidebar() {
   const pathname = usePathname();
   const nav = [
     {
@@ -20,6 +20,11 @@ export default function Sidebar() {
       icon: <MessageSquare className="h-5" />,
       href: "/dashboard/wawancara",
       tag: "Wawancara",
+    },
+    {
+      icon: <MailWarning className="h-5" />,
+      href: "/dashboard/pengumuman",
+      tag: "Pengumuman",
     },
     {
       icon: <CircleHelp className="h-5" />,

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScrolling from "@/contexts/SmoothScroll";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/DashboardSidebar";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/DashboardNavbar";
 import { Poppins } from "next/font/google";
 export const metadata: Metadata = {
   title: "Oprec Makomti",
