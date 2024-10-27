@@ -1,26 +1,7 @@
-import mongoose, {Schema, Document} from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
+import { ISesi, IWawancara, ISlotDivisiPerSesi } from '@/types/IWawancara';
 
-interface Wawancara extends Document{
-    tanggal: Date,
-    himakom: boolean,
-    sesi: [Sesi]
-}
-
-interface SlotDivisiPerSesi extends Document{
-    backend: number,
-    frontend: number,
-    uiux: number,
-    dsai: number,
-    cp: number,
-    mobapps: number,
-    gamedev: number
-}
-interface Sesi extends Document{
-    jam: Date,
-    dipilihOleh: mongoose.Types.ObjectId[],
-    slotDivisi: SlotDivisiPerSesi
-}
-const slotDivisiPerSesiSchema: Schema<SlotDivisiPerSesi> = new Schema({
+const slotDivisiPerSesiSchema: Schema<ISlotDivisiPerSesi> = new Schema({
     backend: Number,
     frontend: Number,
     uiux: Number,
@@ -29,7 +10,7 @@ const slotDivisiPerSesiSchema: Schema<SlotDivisiPerSesi> = new Schema({
     mobapps: Number,
     gamedev: Number
 })
-const sesiSchema: Schema<Sesi> = new Schema({
+const sesiSchema: Schema<ISesi> = new Schema({
     jam: Date,
     dipilihOleh: [{
         type: Schema.Types.ObjectId,
@@ -37,11 +18,11 @@ const sesiSchema: Schema<Sesi> = new Schema({
     }],
     slotDivisi: slotDivisiPerSesiSchema
 })
-const wawancaraSchema: Schema<Wawancara> = new Schema({
+const wawancaraSchema: Schema<IWawancara> = new Schema({
     tanggal: Date,
     himakom: Boolean,
     sesi: [sesiSchema]
 })
 
-const Wawancara = mongoose.model<Wawancara>('Wawancara', wawancaraSchema);
+const Wawancara = mongoose.model<IWawancara>('Wawancara', wawancaraSchema);
 export default Wawancara;

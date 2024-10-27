@@ -2,7 +2,7 @@ import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { Response, NextFunction } from "express";
 export const sudahMemilihOti =  async(req: IGetRequestWithUser, res: Response, next: NextFunction):Promise<void> => {
     try {
-        if(req.user?.divisiPilihanOti?.length === 0){
+        if(!req.user?.prioritasOti){
             console.log(req.user);
             res.status(401).json({message: "Belum memilih divisi OTI"});
             return;
@@ -16,7 +16,7 @@ export const sudahMemilihOti =  async(req: IGetRequestWithUser, res: Response, n
 
 export const sudahMemilihHima = async(req: IGetRequestWithUser, res: Response, next: NextFunction):Promise<void> => {
     try{
-        if(req.user?.divisiPilihanHima?.length === 0){
+        if(!req.user?.prioritasHima){
             res.status(401).json({message: "Belum memilih divisi hima"});
             return;
         }

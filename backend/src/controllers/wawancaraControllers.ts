@@ -1,5 +1,7 @@
 import { Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
+import { IDivisi } from "@/types/IDivisi";
+import { IWawancara } from "@/types/IWawancara";
 import Wawancara from "@/models/wawancaraModels";
 import User from "@/models/userModels";
 
@@ -17,15 +19,10 @@ export const pilihWaktuWawancaraOti = async (req: IGetRequestWithUser, res: Resp
         const jamWawancaraDate = new Date(jamWawancara);
 
         // Fetch wawancara and user data concurrently
-        const [wawancara, user, wawancaraHimakom] = await Promise.all([
+        const [wawancara, user] = await Promise.all([
             Wawancara.findById(wawancaraId),
-            User.findById(userId).populate("prioritasOti"),
-            Wawancara.findOne({ "sesi.jam": jamWawancaraDate, himakom: true })
+            User.findById(userId).populate<{prioritasOti: IDivisi}>("prioritasOti"),
         ]);
-        if(wawancaraHimakom) {
-            res.status(400).json({message: "waktu wawancara yang dipilih merupakan waktu wawancara himakom"});
-            return;
-        }
         // Check if wawancara or user exists and if user has prioritasOti
         if (!wawancara) {
             res.status(400).json({ message: "Wawancara gaada" });
@@ -41,10 +38,10 @@ export const pilihWaktuWawancaraOti = async (req: IGetRequestWithUser, res: Resp
         }
         // Find the matching sesi
         const matchingSesi = wawancara.sesi.find(sesi => sesi.jam.getTime() === jamWawancaraDate.getTime());
-        const slug = (user.prioritasOti as any)?.slug; // Use type assertion for slug
+        const slug = user.prioritasOti?.slug; // Use type assertion for slug
+        
         if (matchingSesi) {
             const slotDivisi = matchingSesi.slotDivisi as unknown as Record<string, number>; // Ensure proper typing
-            console.log(slotDivisi[slug]);
             // Check if the slug exists in slotDivisi
             if (slug in slotDivisi) {
                 if ((slotDivisi[slug] || 0)  <= 0) {
@@ -82,15 +79,13 @@ export const pilihWaktuWawancaraHima = async (req: IGetRequestWithUser, res: Res
         const jamWawancaraDate = new Date(jamWawancara);
 
         // Fetch wawancara and user data concurrently
-        const [wawancara, user, wawancaraOti] = await Promise.all([
+        const [wawancara, user] = await Promise.all([
             Wawancara.findById(wawancaraId),
-            User.findById(userId).populate("prioritasHima"),
-            Wawancara.findOne({ "sesi.jam": jamWawancaraDate, himakom: false })
+            User.findById(userId)
+            .populate<{ prioritasHima: IDivisi }>("prioritasHima")
+            .populate<{ tanggalPilihanOti: IWawancara }>("tanggalPilihanOti"),
         ]);
-        if(wawancaraOti){
-            res.status(400).json({message: "waktu wawancara yang dipilih merupakan waktu wawancara OTI"});
-            return;
-        }
+        console.log(user);
         // Check if wawancara or user exists and if user has prioritasHima
         if (!wawancara) {
             res.status(400).json({ message: "Wawancara gaada" });
@@ -100,13 +95,21 @@ export const pilihWaktuWawancaraHima = async (req: IGetRequestWithUser, res: Res
             res.status(400).json({ message: "User atau prioritas hima gaada" });
             return;
         }
+        const hasOTISesiConflict = user.tanggalPilihanOti?.sesi.some(sesi => {
+            return sesi.jam.getTime() === jamWawancaraDate.getTime();
+        });
+
+        if (hasOTISesiConflict) {
+            res.status(400).json({ message: "Waktu wawancara yang dipilih merupakan waktu wawancara OTI" });
+            return;
+        }
         if(user.tanggalPilihanHima) {
             res.status(400).json({message: "user sudah memilih waktu wawancara untuk hima"});
             return;
         }
         // Find the matching sesi
         const matchingSesi = wawancara.sesi.find(sesi => sesi.jam.getTime() === jamWawancaraDate.getTime());
-        const slug = (user.prioritasHima as any)?.slug; // Use type assertion for slug
+        const slug = user.prioritasHima?.slug; // Use type assertion for slug
         if (matchingSesi) {
             const slotDivisi = matchingSesi.slotDivisi as unknown as Record<string, number>; // Ensure proper typing
             console.log(slotDivisi[slug]);

@@ -1,28 +1,11 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { IUser } from '@/types/IUser';
 import bcrypt from 'bcryptjs';
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const nimRegex = /^\d{2}\/\d{6}\/[A-Z]{2}\/\d{5}$/;
 
-interface User extends Document{
-    username: string,
-    email: string,
-    NIM: string,
-    password: string,
-    divisiPilihan?: mongoose.Types.ObjectId[],
-    divisiPilihanOti?: mongoose.Types.ObjectId[],
-    divisiPilihanHima?: mongoose.Types.ObjectId[],
-    resetToken?: string,
-    resetTokenExpiration?: string,
-    tanggalPilihanHima?: mongoose.Types.ObjectId[],
-    tanggalPilihanOti?: mongoose.Types.ObjectId[],
-    prioritasOti?: mongoose.Types.ObjectId,
-    prioritasHima?: mongoose.Types.ObjectId,
-    tugas?: mongoose.Types.ObjectId[],
-    comparePassword(candidatePassword: string): Promise<boolean>
-}
-
-const userSchema: Schema<User> = new Schema({
+const userSchema: Schema<IUser> = new Schema({
     email: {
         type: String,
         required: true,
@@ -95,7 +78,7 @@ const userSchema: Schema<User> = new Schema({
       }]
 });
 
-userSchema.pre<User>('save', async function (next) {
+userSchema.pre<IUser>('save', async function (next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }
@@ -108,5 +91,5 @@ userSchema.methods.comparePassword = async function (
     return bcrypt.compare(candidatePassword, this.password);
 };
 
-const User = mongoose.model<User>('User', userSchema);
+const User = mongoose.model<IUser>('User', userSchema);
 export default User;

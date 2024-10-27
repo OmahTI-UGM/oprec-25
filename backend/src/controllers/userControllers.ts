@@ -19,9 +19,13 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             userId: user.id,
             username: user.username,
             divisiPilihan: user.divisiPilihan,
+            divisiPilihanOti: user.divisiPilihanOti,
+            divisiPilihanHima: user.divisiPilihanHima,
             NIM: user.NIM,
             prioritasHima: user.prioritasHima,
-            prioritasOti: user.prioritasOti
+            prioritasOti: user.prioritasOti,
+            tanggalPilihanHima: user.tanggalPilihanHima,
+            tanggalPilihanOti: user.tanggalPilihanOti
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -54,9 +58,13 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             userId: user.id,
             username: user.username,
             divisiPilihan: user.divisiPilihan,
+            divisiPilihanOti: user.divisiPilihanOti,
+            divisiPilihanHima: user.divisiPilihanHima,
             NIM: user.NIM,
             prioritasHima: user.prioritasHima,
-            prioritasOti: user.prioritasOti
+            prioritasOti: user.prioritasOti,
+            tanggalPilihanHima: user.tanggalPilihanHima,
+            tanggalPilihanOti: user.tanggalPilihanOti
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -86,11 +94,15 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
             userId: decoded.userId,
             username: decoded.username,
             divisiPilihan: decoded.divisiPilihan,
+            divisiPilihanOti: decoded.divisiPilihanOti,
+            divisiPilihanHima: decoded.divisiPilihanHima,
             NIM: decoded.NIM,
             prioritasHima: decoded.prioritasHima,
-            prioritasOti: decoded.prioritasOti
+            prioritasOti: decoded.prioritasOti,
+            tanggalPilihanHima: decoded.tanggalPilihanHima,
+            tanggalPilihanOti: decoded.tanggalPilihanOti
         })
-
+        console.log(decoded);
         setCookies(res, tokens, COOKIE_CONFIG);
          res.status(200).json({message: "Token refreshed"});
          return;

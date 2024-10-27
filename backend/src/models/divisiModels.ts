@@ -1,39 +1,17 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { IDivisi, IProker, IPenugasan } from '@/types/IDivisi';
 
-interface Divisi extends Document{
-    judul: string,
-    judulPanjang: string,
-    logoDivisi: string,
-    slot: number,
-    slug: string,
-    proker?: [Proker],
-    deskripsi: string,
-    dipilihOleh?: mongoose.Types.ObjectId[],
-    himakom: boolean,
-    penugasan: Penugasan
-}
-interface Proker extends Document{
-    url?: string,
-    filename?: string,
-    deskripsiProker?: string
-}
-interface Penugasan extends Document{
-    deskripsiPenugasan: string,
-    toolsPenugasan: string,
-    linkPenugasan: string,
-}
-
-const prokerSchema: Schema<Proker> = new Schema({
+const prokerSchema: Schema<IProker> = new Schema({
     url: String,
     filename: String,
     deskripsiProker: String
 });
-const penugasanSchema: Schema<Penugasan> = new Schema({
+const penugasanSchema: Schema<IPenugasan> = new Schema({
     deskripsiPenugasan: String,
     toolsPenugasan: String,
     linkPenugasan: String,
 })
-const divisiSchema: Schema<Divisi> = new Schema({
+const divisiSchema: Schema<IDivisi> = new Schema({
     judul: String,
     judulPanjang: String,
     logoDivisi: String,
@@ -48,5 +26,5 @@ const divisiSchema: Schema<Divisi> = new Schema({
     himakom: Boolean,
     penugasan: penugasanSchema
 })
-const Divisi = mongoose.model<Divisi>('Divisi', divisiSchema);
+const Divisi = mongoose.model<IDivisi>('Divisi', divisiSchema);
 export default Divisi; 

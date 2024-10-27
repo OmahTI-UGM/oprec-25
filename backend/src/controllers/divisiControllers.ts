@@ -2,6 +2,8 @@ import User from "@models/userModels";
 import Divisi from "@/models/divisiModels";
 import { Request, Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
+import { IDivisi } from "@/types/IDivisi";
+import { IUser } from "@/types/IUser";
 import { generateTokens, setCookies } from "@/utils/jwt";
 import { COOKIE_CONFIG } from "@/config/jwtcookies";
 
@@ -32,7 +34,7 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         if (!divisi || !user) {
             throw new DivisionSelectionError("Division or user not found");
         }
-
+        
         // Validate division availability
         if (divisi.slot <= 0) {
             throw new DivisionSelectionError("No slots available");
@@ -55,9 +57,13 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
             userId: user.id,
             username: user.username,
             divisiPilihan: user.divisiPilihan,
+            divisiPilihanOti: user.divisiPilihanOti,
+            divisiPilihanHima: user.divisiPilihanHima,
             NIM: user.NIM,
             prioritasHima: user.prioritasHima,
-            prioritasOti: user.prioritasOti
+            prioritasOti: user.prioritasOti,
+            tanggalPilihanHima: user.tanggalPilihanHima,
+            tanggalPilihanOti: user.tanggalPilihanOti
         });
         setCookies(res, newToken, COOKIE_CONFIG);
 
@@ -73,8 +79,8 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
 };
 
 async function handleDivisionSelection(
-    user: any,
-    divisi: any,
+    user: IUser,
+    divisi: IDivisi,
     urutanPrioritas: number
 ): Promise<void> {
     const isHimakom = divisi.himakom;
@@ -83,9 +89,12 @@ async function handleDivisionSelection(
 
     // Initialize arrays if they don't exist
     user.divisiPilihan = user.divisiPilihan || [];
+    
     if (isHimakom) {
+        if(user.tanggalPilihanHima){throw new DivisionSelectionError("User already registered for an interview in HIMA division");}
         user.divisiPilihanHima = user.divisiPilihanHima || [];
     } else {
+        if(user.tanggalPilihanOti){throw new DivisionSelectionError("User already registered for an interview in OTI division");}
         user.divisiPilihanOti = user.divisiPilihanOti || [];
     }
 
@@ -112,7 +121,7 @@ async function handleDivisionSelection(
         // Add new selection
         user.divisiPilihan.push(newSelection);
         user[priorityField] = divisi.id;
-        divisionArray.push(divisi.id);
+        divisionArray?.push(divisi.id);
     } else {
         // Update existing selection based on priority
         if (urutanPrioritas <= foundDivisi.urutanPrioritas) {

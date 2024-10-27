@@ -1,11 +1,5 @@
-import mongoose, {Schema, Document} from 'mongoose';
-
-interface IPenugasan extends Document{
-    link: string,
-    comment: string,
-    disubmitOleh: mongoose.Types.ObjectId,
-    disubmitDi: mongoose.Types.ObjectId
-}
+import mongoose, {Schema} from 'mongoose';
+import { IPenugasan } from '@/types/IPenugasan';
 
 const penugasanSchema: Schema<IPenugasan> = new Schema({
     link: {
