@@ -1,5 +1,5 @@
 import Title from "./components/Title";
-import Peringatan from "./components/Peringatan";
+import Peringatan from "./components/peringatan";
 import WaktuPilihan from "./components/WaktuPilihan";
 
 export default function Divisi() {
