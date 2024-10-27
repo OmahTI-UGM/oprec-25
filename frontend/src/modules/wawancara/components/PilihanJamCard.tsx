@@ -1,8 +1,9 @@
 import React from "react";
+import Pilih from "@/modules/wawancara/components/Pilih"
 
 interface PilihanWaktuProps {
   variant?: "omahti" | "himakom";
-  onSelect: () => void;
+  onSelect?: () => void;
 }
 
 const PilihanWaktuCard = ({ variant = "omahti", onSelect }: PilihanWaktuProps) => {
@@ -23,12 +24,7 @@ const PilihanWaktuCard = ({ variant = "omahti", onSelect }: PilihanWaktuProps) =
       <div className="flex justify-between items-center w-full mb-4">
         {/* Dynamic Title */}
         {foo}
-        <button
-          onClick={onSelect}
-          className="bg-custom-gray text-custom-silver px-12 py-2 rounded-md text-sm tracking-wide hover:bg-gray-500"
-        >
-          Pilih
-        </button>
+        <Pilih />
       </div>
 
       {/* Content Area */}

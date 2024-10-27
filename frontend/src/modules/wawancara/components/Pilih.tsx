@@ -1,4 +1,4 @@
-import { CalendarDays, LogOut as LogOutIcon } from "lucide-react";
+import { CalendarDays, LogOut as LogOutIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -12,16 +12,15 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function Logout({ className }: { className?: string }) {
+export default function Pilih({ className }: { className?: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="w-32 text-lg tracking-wide">Pilih</Button>
+        <Button className="w-32 text-md tracking-wide">Pilih</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-custom-gray-dark p-0 relative overflow-hidden">
+      <AlertDialogContent className="bg-custom-gray-dark p-0 overflow-hidden">
         {/* Top background section */}
         <div className="h-40 bg-custom-black" />
-        
         {/* Calendar icon centered between backgrounds */}
         <div className="absolute left-1/2 -translate-x-1/2" style={{ top: "100px" }}>
           <div className="relative bg-custom-black rounded-full p-6 border border-white w-28 h-28 flex items-center justify-center">
