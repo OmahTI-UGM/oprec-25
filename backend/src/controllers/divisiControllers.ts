@@ -89,12 +89,12 @@ async function handleDivisionSelection(
 
     // Initialize arrays if they don't exist
     user.divisiPilihan = user.divisiPilihan || [];
-    
+
     if (isHimakom) {
-        if(user.tanggalPilihanHima){throw new DivisionSelectionError("User already registered for an interview in HIMA division");}
+        if(user.tanggalPilihanHima?.tanggalId){throw new DivisionSelectionError("User already registered for an interview in HIMA division");}
         user.divisiPilihanHima = user.divisiPilihanHima || [];
     } else {
-        if(user.tanggalPilihanOti){throw new DivisionSelectionError("User already registered for an interview in OTI division");}
+        if(user.tanggalPilihanOti?.tanggalId){throw new DivisionSelectionError("User already registered for an interview in OTI division");}
         user.divisiPilihanOti = user.divisiPilihanOti || [];
     }
 

@@ -1,5 +1,4 @@
 import mongoose, {Document} from "mongoose"
-import { ISesi } from "./IWawancara"
 export interface IUser extends Document{
     username: string,
     email: string,
@@ -25,6 +24,4 @@ export interface DivisiPilihan {
 
 export interface TanggalPilihan{
     tanggalId: mongoose.Types.ObjectId,
-    tanggal: Date,
-    sesi: [ISesi]
 }

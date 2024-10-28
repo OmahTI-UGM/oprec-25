@@ -57,12 +57,16 @@ const userSchema: Schema<IUser> = new Schema({
         type: Date,
       },
       tanggalPilihanHima: {
-        type: Schema.Types.ObjectId,
-        ref: 'Wawancara'
+        tanggalId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Wawancara'
+        }
       },
       tanggalPilihanOti: {
-        type: Schema.Types.ObjectId,
-        ref: 'Wawancara'
+        tanggalId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Wawancara'
+        },
       },
       prioritasOti:{
         type: Schema.Types.ObjectId,

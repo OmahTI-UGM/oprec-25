@@ -1,6 +1,7 @@
 import mongoose, {Document} from "mongoose"
 
 export interface IWawancara extends Document{
+    tanggalId: mongoose.Types.ObjectId,
     tanggal: Date,
     himakom: boolean,
     sesi: [ISesi]
