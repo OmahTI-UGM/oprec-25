@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { generateTokens, verifyToken, setCookies } from "@utils/jwt";
 import { COOKIE_CONFIG, JWT_CONFIG } from "@config/jwtcookies";
 import User from '@/models/userModels';
+import { IGetRequestWithUser } from "@/types/getUserRequest";
+import { IWawancara } from "@/types/IWawancara";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
     try{
@@ -18,14 +20,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            divisiPilihan: user.divisiPilihan,
-            divisiPilihanOti: user.divisiPilihanOti,
-            divisiPilihanHima: user.divisiPilihanHima,
-            NIM: user.NIM,
-            prioritasHima: user.prioritasHima,
-            prioritasOti: user.prioritasOti,
-            tanggalPilihanHima: user.tanggalPilihanHima,
-            tanggalPilihanOti: user.tanggalPilihanOti
+            NIM: user.NIM
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -57,14 +52,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            divisiPilihan: user.divisiPilihan,
-            divisiPilihanOti: user.divisiPilihanOti,
-            divisiPilihanHima: user.divisiPilihanHima,
             NIM: user.NIM,
-            prioritasHima: user.prioritasHima,
-            prioritasOti: user.prioritasOti,
-            tanggalPilihanHima: user.tanggalPilihanHima,
-            tanggalPilihanOti: user.tanggalPilihanOti
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -93,14 +81,7 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: decoded.userId,
             username: decoded.username,
-            divisiPilihan: decoded.divisiPilihan,
-            divisiPilihanOti: decoded.divisiPilihanOti,
-            divisiPilihanHima: decoded.divisiPilihanHima,
-            NIM: decoded.NIM,
-            prioritasHima: decoded.prioritasHima,
-            prioritasOti: decoded.prioritasOti,
-            tanggalPilihanHima: decoded.tanggalPilihanHima,
-            tanggalPilihanOti: decoded.tanggalPilihanOti
+            NIM: decoded.NIM
         })
         console.log(decoded);
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -117,4 +98,43 @@ export const logout = async(_req: Request, res: Response): Promise<void> => {
     res.clearCookie('refreshToken');
     res.status(200).json({message: "Logged out"});
     return;
+}
+
+export const getWawancara = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
+    try{
+        const userId  = req.user?.userId;
+        const user = await User.findById(userId)
+            .populate<{ tanggalPilihanOti: IWawancara }>("tanggalPilihanOti")
+            .populate<{ tanggalPilihanHima: IWawancara }>("tanggalPilihanHima");
+        if(!user) {
+            res.status(400).json({message: "User gaada"});
+            return;
+        }
+        res.status(200).json({oti: user.tanggalPilihanOti, hima: user.tanggalPilihanHima});
+        return;
+    } catch (err) {
+        res.status(500).json({message: "Internal Server Error"});
+        return;
+    }
+}
+
+export const getDivisi = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
+    try {
+        const userId = req.user?.userId;
+        const user = await User.findById(userId)
+            .populate("divisiPilihan")
+        if(!user) {
+            res.status(400).json({message: "User gaada"});
+            return;
+        }
+
+        const sortedUser = user.divisiPilihan?.sort((a, b) => {
+            return a.urutanPrioritas - b.urutanPrioritas;
+        })
+        res.status(200).json({divisiPilihan: sortedUser});
+        return;        
+    } catch (err) {
+        res.status(500).json({message: "Internal Server Error"});
+        return;
+    }
 }

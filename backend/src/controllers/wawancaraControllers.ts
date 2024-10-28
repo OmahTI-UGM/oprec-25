@@ -4,8 +4,6 @@ import { IDivisi } from "@/types/IDivisi";
 import { IWawancara } from "@/types/IWawancara";
 import Wawancara from "@/models/wawancaraModels";
 import User from "@/models/userModels";
-import { generateTokens, setCookies } from "@/utils/jwt";
-import { COOKIE_CONFIG } from "@/config/jwtcookies";
 
 async function handleWawancaraSelection(
     req: IGetRequestWithUser,
@@ -69,19 +67,6 @@ async function handleWawancaraSelection(
                 res.status(400).json({ message: `Divisi ${slug} tidak ditemukan` });
             }
         }
-        const newToken = generateTokens({
-            userId: user.id,
-            username: user.username,
-            divisiPilihan: user.divisiPilihan,
-            divisiPilihanOti: user.divisiPilihanOti,
-            divisiPilihanHima: user.divisiPilihanHima,
-            NIM: user.NIM,
-            prioritasHima: user.prioritasHima?.id,
-            prioritasOti: user.prioritasOti?.id,
-            tanggalPilihanHima: user.tanggalPilihanHima,
-            tanggalPilihanOti: user.tanggalPilihanOti
-        });
-        setCookies(res, newToken, COOKIE_CONFIG);
         await Promise.all([wawancara.save(), user.save()]);
         res.status(200).json({ message: "Waktu wawancara berhasil dipilih" });
         return;

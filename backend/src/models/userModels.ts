@@ -79,7 +79,11 @@ const userSchema: Schema<IUser> = new Schema({
       tugas: [{
         type: Schema.Types.ObjectId,
         ref: 'Penugasan'
-      }]
+      }],
+      diterimaDi: {
+        type: Schema.Types.ObjectId,
+        ref: 'Divisi'
+      }
 });
 
 userSchema.pre<IUser>('save', async function (next) {

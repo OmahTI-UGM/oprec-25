@@ -4,8 +4,6 @@ import { Request, Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { IDivisi } from "@/types/IDivisi";
 import { IUser } from "@/types/IUser";
-import { generateTokens, setCookies } from "@/utils/jwt";
-import { COOKIE_CONFIG } from "@/config/jwtcookies";
 
 const MAX_DIVISIONS_PER_TYPE = 2;
 
@@ -50,23 +48,6 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         // Update division slots
         divisi.dipilihOleh = [...(divisi.dipilihOleh || []), req.user.userId];
         divisi.slot -= 1;
-
-        // Generate new token and set cookies
-
-        const newToken = generateTokens({
-            userId: user.id,
-            username: user.username,
-            divisiPilihan: user.divisiPilihan,
-            divisiPilihanOti: user.divisiPilihanOti,
-            divisiPilihanHima: user.divisiPilihanHima,
-            NIM: user.NIM,
-            prioritasHima: user.prioritasHima,
-            prioritasOti: user.prioritasOti,
-            tanggalPilihanHima: user.tanggalPilihanHima,
-            tanggalPilihanOti: user.tanggalPilihanOti
-        });
-        setCookies(res, newToken, COOKIE_CONFIG);
-
         // Save changes
         await Promise.all([user.save(), divisi.save()]);
 

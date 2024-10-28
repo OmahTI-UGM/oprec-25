@@ -14,6 +14,7 @@ export interface IUser extends Document{
     prioritasOti?: mongoose.Types.ObjectId,
     prioritasHima?: mongoose.Types.ObjectId,
     tugas?: mongoose.Types.ObjectId[],
+    diterimaDi?: mongoose.Types.ObjectId,
     comparePassword(candidatePassword: string): Promise<boolean>
 }
 
