@@ -1,5 +1,9 @@
+"use client";
 import React from "react";
 import Pilih from "@/modules/wawancara/components/Pilih"
+import JadwalWawancara from "./JadwalWawancara";
+import Selesai from "./Selesai";
+
 
 interface PilihanWaktuProps {
   variant?: "omahti" | "himakom";
@@ -9,7 +13,7 @@ interface PilihanWaktuProps {
 const PilihanWaktuCard = ({ variant = "omahti", onSelect }: PilihanWaktuProps) => {
   const foo =
     variant === "himakom" ? (
-      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-lavender">
+      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-blue">
         Himakom
       </div>
     ) : (
@@ -24,11 +28,11 @@ const PilihanWaktuCard = ({ variant = "omahti", onSelect }: PilihanWaktuProps) =
       <div className="flex justify-between items-center w-full mb-4">
         {/* Dynamic Title */}
         {foo}
-        <Pilih />
+        <Selesai />
       </div>
 
       {/* Content Area */}
-      <div className="w-full h-[350px] bg-white"></div>
+      <JadwalWawancara category={variant === "himakom" ? "Himakom" : "OmahTI"} />
     </div>
   );
 };

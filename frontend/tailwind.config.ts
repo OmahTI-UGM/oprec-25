@@ -11,11 +11,14 @@ const config: Config = {
   theme: {
   	extend: {
       screens: {
-        'xs': '385px',
+        'xxs': '360px',
+		'xs': '480px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',
         'xl': '1280px',
+		'2xl': '1536px',
+		'3xl': '1800px'
       },
   		fontFamily: {
   			'poppins-semibold': ["Poppins SemiBold", "sans-serif"],
