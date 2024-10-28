@@ -101,22 +101,41 @@ export const logout = async(_req: Request, res: Response): Promise<void> => {
 }
 
 export const getWawancara = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
-    try{
-        const userId  = req.user?.userId;
-        const user = await User.findById(userId)
-            .populate<{ tanggalPilihanOti: IWawancara }>("tanggalPilihanOti")
-            .populate<{ tanggalPilihanHima: IWawancara }>("tanggalPilihanHima");
-        if(!user) {
-            res.status(400).json({message: "User gaada"});
+    try {
+        if(!req.user){
+            res.status(401).json({message: "Unauthorized"});
             return;
         }
-        res.status(200).json({oti: user.tanggalPilihanOti, hima: user.tanggalPilihanHima});
+        const userId = req.user?.userId;
+
+        const user = await User.findById(userId)
+            .populate<{ tanggalPilihanOti: IWawancara }>("tanggalPilihanOti.tanggalId")
+            .populate<{ tanggalPilihanHima: IWawancara }>("tanggalPilihanHima.tanggalId");
+
+        if (!user) {
+            res.status(400).json({ message: "User gaada" });
+            return;
+        }
+        // Filter `sesi` array in `tanggalPilihanOti` and `tanggalPilihanHima` based on `userId`
+        const filteredOti = user.tanggalPilihanOti?.tanggalId ? {
+            tanggal: (user.tanggalPilihanOti.tanggalId as unknown as IWawancara).tanggal,
+            sesi: (user.tanggalPilihanOti.tanggalId as unknown as IWawancara).sesi.filter(sesi => sesi.dipilihOleh.includes(userId))
+        } : null;
+
+        const filteredHima = user.tanggalPilihanHima?.tanggalId ? {
+            tanggal: (user.tanggalPilihanHima.tanggalId as unknown as IWawancara).tanggal,
+            sesi: (user.tanggalPilihanHima.tanggalId as unknown as IWawancara).sesi.filter(sesi => sesi.dipilihOleh.includes(userId))
+            
+        } : null;
+
+        res.status(200).json({filteredOti, filteredHima });
         return;
     } catch (err) {
-        res.status(500).json({message: "Internal Server Error"});
+        res.status(500).json({ message: "Internal Server Error" });
         return;
     }
-}
+};
+
 
 export const getDivisi = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
     try {

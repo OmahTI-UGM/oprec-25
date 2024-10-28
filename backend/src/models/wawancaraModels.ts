@@ -2,13 +2,34 @@ import mongoose, {Schema} from 'mongoose';
 import { ISesi, IWawancara, ISlotDivisiPerSesi } from '@/types/IWawancara';
 
 const slotDivisiPerSesiSchema: Schema<ISlotDivisiPerSesi> = new Schema({
-    backend: Number,
-    frontend: Number,
-    uiux: Number,
-    dsai: Number,
-    cp: Number,
-    mobapps: Number,
-    gamedev: Number
+    backend: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    frontend: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    uiux: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    dsai: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    cp: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    mobapps: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    gamedev: {
+        sisaSlot: Number,
+        lokasi: String
+    }
 })
 const sesiSchema: Schema<ISesi> = new Schema({
     jam: Date,

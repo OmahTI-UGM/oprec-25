@@ -1,10 +1,13 @@
 import { Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { IDivisi } from "@/types/IDivisi";
-import { IWawancara } from "@/types/IWawancara";
+import { IDivisiSlot, IWawancara } from "@/types/IWawancara";
 import Wawancara from "@/models/wawancaraModels";
 import User from "@/models/userModels";
 
+interface DIVISISLOT{
+    [key: string]: IDivisiSlot;
+}
 async function handleWawancaraSelection(
     req: IGetRequestWithUser,
     res: Response,
@@ -18,6 +21,7 @@ async function handleWawancaraSelection(
         }
         const queryFields = isHimakom ? "prioritasHima" : "prioritasOti";
         const tanggalFields = isHimakom ? "tanggalPilihanHima" : "tanggalPilihanOti";
+        const tanggalConflict = isHimakom ? "tanggalPilihanOti" : "tanggalPilihanHima";
         const {userId} = req.user;
         const {wawancaraId} = req.params;
         const {jamWawancara} = req.body;
@@ -27,7 +31,8 @@ async function handleWawancaraSelection(
             Wawancara.findById(wawancaraId),
             User.findById(userId)
             .populate<{prioritasHima: IDivisi; prioritasOti: IDivisi}>(queryFields)
-            .populate<{tanggalPilihanOti: IWawancara; tanggalPilihanHima: IWawancara}>(tanggalFields)
+            .populate<{tanggalPilihanOti: IWawancara; tanggalPilihanHima: IWawancara}>(`${tanggalFields}.tanggalId`)
+            .populate<{tanggalPilihanOti: IWawancara; tanggalPilihanHima: IWawancara}>(`${tanggalConflict}.tanggalId`)
         ]);
         if(!wawancara) {
             res.status(400).json({message: "Wawancara gaada"});
@@ -37,14 +42,15 @@ async function handleWawancaraSelection(
             res.status(400).json({message: `User atau ${queryFields} gaada`});
             return;
         }
-        const hasConflicts = user[tanggalFields]?.sesi.some(sesi => {
+        const hasConflicts = (user[tanggalConflict].tanggalId as unknown as IWawancara).sesi?.some(sesi => {
             return sesi.jam.getTime() === jamWawancaraDate.getTime();
         })
+        console.log((user[tanggalConflict].tanggalId as unknown as IWawancara).sesi);
         if(hasConflicts) {
-            res.status(400).json({message: `Waktu wawancara yang dipilih sudah dipilih untuk ${tanggalFields}`});
+            res.status(400).json({message: `Waktu wawancara yang dipilih sudah dipilih untuk ${tanggalConflict}`});
             return;
         }
-        if(user[tanggalFields]) {
+        if(user[tanggalFields].tanggalId) {
             res.status(400).json({message: `User sudah memilih waktu wawancara untuk ${tanggalFields}`});
             return;
         }
@@ -52,16 +58,16 @@ async function handleWawancaraSelection(
         const slug = user[queryFields].slug; // Use type assertion for slug
         
         if (matchingSesi) {
-            const slotDivisi = matchingSesi.slotDivisi as unknown as Record<string, number>; // Ensure proper typing
+            const slotDivisi = matchingSesi.slotDivisi as unknown as DIVISISLOT; // Ensure proper typing
             // Check if the slug exists in slotDivisi
             if (slug in slotDivisi) {
-                if ((slotDivisi[slug] || 0)  <= 0) {
+                if ((slotDivisi[slug]?.sisaSlot || 0)  <= 0) {
                     res.status(400).json({ message: `Slot untuk ${slug} habis` });
                     return;
                 } else {
-                    slotDivisi[slug] -= 1;
+                    (slotDivisi[slug] as IDivisiSlot).sisaSlot -= 1;
                     matchingSesi.dipilihOleh.push(userId);
-                    user[tanggalFields] = wawancara.id;
+                    user[tanggalFields].tanggalId = wawancara.id;
                 }
             } else {
                 res.status(400).json({ message: `Divisi ${slug} tidak ditemukan` });
@@ -71,7 +77,8 @@ async function handleWawancaraSelection(
         res.status(200).json({ message: "Waktu wawancara berhasil dipilih" });
         return;
     } catch (err) {
-        res.status(500).json({ message: "Internal Server Error" });
+        console.log(err)
+        res.status(500).json({ message: err });
         return;
     }
 }
