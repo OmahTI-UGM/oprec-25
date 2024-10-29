@@ -54,7 +54,13 @@ const Background = () => (
     {/* image */}
     <div className="absolute inset-0">
       <div className="relative h-full w-full">
-        <Image className="z-10 object-contain" src={diddy} sizes="50%" fill alt="Diddy" />
+        <Image
+          className="z-10 object-contain"
+          src={diddy}
+          sizes="100%"
+          fill
+          alt="Diddy"
+        />
       </div>
     </div>
     {/* circle in the background */}
