@@ -1,5 +1,6 @@
 import Image from "next/image";
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
+import Link from "next/link";
 
 const Title = () => {
   return (
@@ -13,16 +14,18 @@ const Title = () => {
             fill
           />
         </div>
-        <h1 className="text-wrap font-semibold leading-slug leading">
-          <div className="flex flex-col">
-            <AnimatedGradientText className="bg-transparent font-semibold p-0 border-none outline-none">
-              <span className="animate-gradient inline bg-gradient-to-r from-custom-peach via-custom-blue to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
-                Open Recruitment
-              </span>
-            </AnimatedGradientText>
-            <span className="mt-1 sm:mt-0">Makomti 2024</span>
-          </div>
-        </h1>
+        <Link href={`/`}>
+          <h1 className="leading-slug leading text-wrap font-semibold">
+            <div className="flex flex-col">
+              <AnimatedGradientText className="border-none bg-transparent p-0 font-semibold outline-none">
+                <span className="inline animate-gradient bg-gradient-to-r from-custom-peach via-custom-blue to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
+                  Open Recruitment
+                </span>
+              </AnimatedGradientText>
+              <span>Makomti 2024</span>
+            </div>
+          </h1>
+        </Link>
       </div>
     </>
   );

@@ -4,6 +4,9 @@ import Beranda from "@/modules/beranda";
 
 export default function Home() {
   return (
-    <><Navbar /><Beranda /></>
+    <>
+      <Navbar />
+      <Beranda />
+    </>
   );
 }
