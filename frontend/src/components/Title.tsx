@@ -11,6 +11,7 @@ const Title = () => {
             alt="Logo"
             className="object-cover"
             src="https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg?w=826&t=st=1729060915~exp=1729061515~hmac=dc911f470a5362d31529331c2e5ba014647fd3219c2e050b0d34e03a59d6002e"
+            sizes="100%"
             fill
           />
         </div>
