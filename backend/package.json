@@ -22,12 +22,14 @@
   },
   "homepage": "https://github.com/OmahTI-UGM/oprec-25#readme",
   "dependencies": {
+    "@types/nodemailer": "^6.4.16",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.7.2",
+    "nodemailer": "^6.9.16"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
