@@ -3,6 +3,7 @@ import React from "react";
 import Pilih from "@/modules/wawancara/components/Pilih"
 import JadwalWawancara from "./JadwalWawancara";
 import Selesai from "./Selesai";
+import Gagal from "./Gagal";
 
 
 interface PilihanWaktuProps {
@@ -28,7 +29,7 @@ const PilihanWaktuCard = ({ variant = "omahti", onSelect }: PilihanWaktuProps) =
       <div className="flex justify-between items-center w-full mb-4">
         {/* Dynamic Title */}
         {foo}
-        <Selesai />
+        <Gagal />
       </div>
 
       {/* Content Area */}
