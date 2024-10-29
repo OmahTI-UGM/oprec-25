@@ -45,7 +45,6 @@ async function handleWawancaraSelection(
         const hasConflicts = (user[tanggalConflict].tanggalId as unknown as IWawancara).sesi?.some(sesi => {
             return sesi.jam.getTime() === jamWawancaraDate.getTime();
         })
-        console.log((user[tanggalConflict].tanggalId as unknown as IWawancara).sesi);
         if(hasConflicts) {
             res.status(400).json({message: `Waktu wawancara yang dipilih sudah dipilih untuk ${tanggalConflict}`});
             return;
@@ -77,8 +76,7 @@ async function handleWawancaraSelection(
         res.status(200).json({ message: "Waktu wawancara berhasil dipilih" });
         return;
     } catch (err) {
-        console.log(err)
-        res.status(500).json({ message: err });
+        res.status(500).json({ message: "Internal server error" });
         return;
     }
 }

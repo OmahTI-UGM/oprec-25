@@ -84,7 +84,6 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
             username: decoded.username,
             NIM: decoded.NIM
         })
-        console.log(decoded);
         setCookies(res, tokens, COOKIE_CONFIG);
          res.status(200).json({message: "Token refreshed"});
          return;
