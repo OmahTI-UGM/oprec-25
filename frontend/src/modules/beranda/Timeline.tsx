@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, date, description, showButton }) => {
   return (
-    <div className="w-[290px] h-[130px] bg-custom-gray-dark rounded-lg p-4 flex flex-col justify-between shadow-md">
+    <div className="w-[290px] h-[130px] bg-custom-gray-dark rounded-lg p-4 flex flex-col justify-between shadow-md relative">
       <div>
         <h3 className="text-custom-silver text-xl font-semibold">{title}</h3>
         <p className="text-custom-silver text-sm font-semibold">{date}</p>
