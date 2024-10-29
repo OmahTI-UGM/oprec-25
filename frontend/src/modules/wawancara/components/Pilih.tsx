@@ -31,20 +31,20 @@ export default function Pilih({ className }: { className?: string }) {
 
         {/* Reduced vertical spacing */}
         <div className="text-center space-y-1 sm:space-y-2 mt-6 sm:mt-8 lg:mt-16 px-4">
-          <p className="text-white text-xs lg:text-xl mb-2 sm:mb-4">Konfirmasi Jadwal</p>
-          <h2 className="text-white text-lg sm:text-xl lg:text-3xl font-bold">Kamu Sudah Yakin?</h2>
-          <p className="text-white text-xs lg:text-base">Pilihan Jadwal Tidak Dapat Dirubah</p>
+          <p className="text-white text-xxs sm:text-xs lg:text-sm mb-2 sm:mb-4">Konfirmasi Jadwal</p>
+          <h2 className="text-white text-md xs:text-lg sm:text-xl lg:text-2xl font-bold">Kamu Sudah Yakin?</h2>
+          <p className="text-white text-xxs sm:text-xs lg:text-sm">Pilihan Jadwal Tidak Dapat Dirubah</p>
         </div>
         
         {/* Compact button section */}
         <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-4 sm:px-4">
           <AlertDialogCancel className="mt-0" asChild>
-            <Button variant={"outline"} className="w-full lg:w-1/2 h-8 sm:h-10 text-sm sm:text-base">
+            <Button variant={"outline"} className="w-full lg:w-1/2 h-8 sm:h-10 text-sm lg:text-base">
               Batal
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button className="w-full lg:w-1/2 h-8 sm:h-10 text-sm sm:text-base">
+            <Button className="w-full lg:w-1/2 h-8 sm:h-10 text-sm lg:text-base">
               Pilih
             </Button>
           </AlertDialogAction>

@@ -26,6 +26,17 @@ const config: Config = {
   			'poppins-light': ["Poppins Light", "sans-serif"],
   			'poppins-medium': ["Poppins Medium", "sans-serif"]
   		},
+		fontSize: {
+			xxs : '0.5rem',
+			xs : '0.6rem',
+			sm: '0.8rem',
+			base: '1rem',
+			xl: '1.25rem',
+			'2xl': '1.563rem',
+			'3xl': '1.953rem',
+			'4xl': '2.441rem',
+			'5xl': '3.052rem',
+		},
   		colors: {
   			'custom-black': '#242529',
   			'custom-gray-dark': '#37373F',
@@ -48,6 +59,7 @@ const config: Config = {
   		animation: {
   			gradient: 'gradient 8s linear infinite'
   		},
+		
   		keyframes: {
   			gradient: {
   				to: {
