@@ -3,6 +3,7 @@ export interface TokenPayload{
     userId: mongoose.Types.ObjectId,
     username: string,
     NIM: string,
+    isAdmin: boolean
 }
 
 export interface AuthTokens {

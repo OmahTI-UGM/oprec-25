@@ -15,13 +15,14 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const userData = {email, username, password, NIM};
+        const userData = {email, username, password, NIM, isAdmin: false};
         const user = await User.create(userData);
 
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
-            NIM: user.NIM
+            NIM: user.NIM,
+            isAdmin: user.isAdmin
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -54,6 +55,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             userId: user.id,
             username: user.username,
             NIM: user.NIM,
+            isAdmin: user.isAdmin
         })
 
         setCookies(res, tokens, COOKIE_CONFIG);
@@ -82,7 +84,8 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         const tokens = generateTokens({
             userId: decoded.userId,
             username: decoded.username,
-            NIM: decoded.NIM
+            NIM: decoded.NIM,
+            isAdmin: decoded.isAdmin
         })
         setCookies(res, tokens, COOKIE_CONFIG);
          res.status(200).json({message: "Token refreshed"});
@@ -213,3 +216,17 @@ export const resetPassword = async (req: Request, res: Response) => {
         return;
     }
 };
+
+export const validate = async (req: IGetRequestWithUser, res: Response) => {
+    try{
+        if(!req.user){
+            res.status(401).json({message: "Unauthorized"});
+            return;
+        }
+        res.status(200).json({message: "Authorized", user: req.user});
+        return;
+    } catch (err) {
+        res.status(500).json({message: "Internal server error"});
+        return; 
+    }
+}

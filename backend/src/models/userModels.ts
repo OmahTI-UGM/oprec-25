@@ -83,7 +83,12 @@ const userSchema: Schema<IUser> = new Schema({
       diterimaDi: {
         type: Schema.Types.ObjectId,
         ref: 'Divisi'
-      }
+      },
+      isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
 });
 
 userSchema.pre<IUser>('save', async function (next) {
