@@ -1,31 +1,7 @@
 import Header from "@/modules/beranda/components/Header";
 import Container from "@/components/Container";
 import Image from "next/image";
-
-const linimasaDetail = [
-  {
-    title: "Pilih Divisi",
-    date: "23 Nov - 24 Nov",
-    description:
-      "Memilih 2 divisi Himakom (Opsional) dan 2 divisi OmahTI (Opsional)",
-  },
-  {
-    title: "Penugasan",
-    date: "23 Nov - 24 Nov",
-    description: "Melakukan penugasan sesuai divisi",
-  },
-  {
-    title: "Wawancara",
-    date: "23 Nov - 24 Nov",
-    description:
-      "Wawancara Himakomd dan OmahTI sesuai divisi yang telah dipilih",
-  },
-  {
-    title: "Pengumuman",
-    date: "23 Nov - 24 Nov",
-    description: "Hasil Pengumuman OmahTI dan Himakom",
-  },
-];
+import { LINIMASA_DETAIL } from "@/lib/utils";
 
 const Linimasa = () => {
   return (
@@ -41,7 +17,7 @@ const Linimasa = () => {
 
         {/* timeline */}
         <div className="grid auto-rows-fr grid-cols-1 lg:gap-6 sm:grid-cols-2 gap-3">
-          {linimasaDetail.map((detail, i) => (
+          {LINIMASA_DETAIL.map((detail, i) => (
             <LinimasaCard
               key={i}
               title={detail.title}

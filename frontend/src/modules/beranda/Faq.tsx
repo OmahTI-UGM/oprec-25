@@ -7,32 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const OMAHTI_FAQ = [
-  {
-    question: "Apa itu OmahTI?",
-    answer: "Sample answer",
-  },
-  {
-    question: "Sample Question",
-    answer: "Sample answer",
-  },
-  {
-    question: "Sample Question",
-    answer: "Sample answer",
-  },
-];
-
-const HIMAKOM_FAQ = [
-  {
-    question: "Sample Question",
-    answer: "Sample answer",
-  },
-  {
-    question: "Sample Question",
-    answer: "Sample answer",
-  },
-];
+import { HIMAKOM_FAQ, OMAHTI_FAQ } from "@/lib/utils";
 
 const Faq = () => {
   return (

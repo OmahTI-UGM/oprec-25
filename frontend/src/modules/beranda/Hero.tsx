@@ -59,6 +59,7 @@ const Background = () => (
           src={diddy}
           sizes="100%"
           fill
+          placeholder="blur"
           alt="Diddy"
         />
       </div>

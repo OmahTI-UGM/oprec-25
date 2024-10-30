@@ -1,6 +1,67 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
+
+
+// LINIMASA / RECRUITMENT TIMELINE
+// --------------------------------------------------------------------
+export const LINIMASA_DETAIL = [
+  {
+    title: "Pilih Divisi",
+    date: "23 Nov - 24 Nov",
+    description:
+      "Memilih 2 divisi Himakom (Opsional) dan 2 divisi OmahTI (Opsional)",
+  },
+  {
+    title: "Penugasan",
+    date: "23 Nov - 24 Nov",
+    description: "Melakukan penugasan sesuai divisi",
+  },
+  {
+    title: "Wawancara",
+    date: "23 Nov - 24 Nov",
+    description:
+      "Wawancara Himakomd dan OmahTI sesuai divisi yang telah dipilih",
+  },
+  {
+    title: "Pengumuman",
+    date: "23 Nov - 24 Nov",
+    description: "Hasil Pengumuman OmahTI dan Himakom",
+  },
+];
+// --------------------------------------------------------------------
+
+// FAQ QUESTIONS AND ANSWERS
+// --------------------------------------------------------------------
+export const OMAHTI_FAQ = [
+  {
+    question: "Apa itu OmahTI?",
+    answer: "Sample answer",
+  },
+  {
+    question: "Siapa CEO OmahTI?",
+    answer: "Puff Daddy",
+  },
+  {
+    question: "Sample Question",
+    answer: "Sample answer",
+  },
+];
+export const HIMAKOM_FAQ = [
+  {
+    question: "Apa itu Himakom?",
+    answer: "Sample answer",
+  },
+  {
+    question: "Siapa Himakom Siji?",
+    answer: "Muhammad Ilham Rajo Sikumbang",
+  },
+  {
+    question: "Sample Question",
+    answer: "Sample answer",
+  },
+];
+// --------------------------------------------------------------------
