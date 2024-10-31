@@ -219,11 +219,13 @@ export const resetPassword = async (req: Request, res: Response) => {
 
 export const validate = async (req: IGetRequestWithUser, res: Response) => {
     try{
+        console.log("REQUEST HIT");
         if(!req.user){
             res.status(401).json({message: "Unauthorized"});
             return;
         }
-        res.status(200).json({message: "Authorized", user: req.user});
+        console.log(req.user);
+        res.status(200).json({message: "Authorized", user: req.user, isAuthenticated: true});
         return;
     } catch (err) {
         res.status(500).json({message: "Internal server error"});
