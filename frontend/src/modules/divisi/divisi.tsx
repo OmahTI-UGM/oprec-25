@@ -2,12 +2,24 @@
 import DivisiPilihan from "./components/DivisiPilihan";
 import DivisiLengkap from "./components/DivisiLengkap";
 import Wawancara from "./components/Wawancara";
-
-const Divisi = () => {
+import { getCurrentUser } from "@/utils/auth";
+import { getAllDivisi } from "@/utils/fetch";
+const Divisi = async () => {
+  const user = getCurrentUser();
+  const divisi = await getAllDivisi();
   return (
     <>
-      <Title />
 
+    {divisi.map((divisi: any) => (
+      <div key={divisi.id}>
+        <h1>{divisi.nama}</h1>
+        <p>{divisi.deskripsi}</p>
+      </div>
+    ))}
+      <Title />
+    <h1>HALO {user?.username}</h1>
+    <h1>NIM {user?.NIM}</h1>
+    <h1>isAdmin {user?.isAdmin}</h1>
       {/* kelas yang dipilih user */}
       <DivisiPilihan />
 

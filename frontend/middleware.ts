@@ -27,7 +27,9 @@ export async function middleware(request: NextRequest) {
   const refreshToken = request.cookies.get('refreshToken')?.value;
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
-
+  if(isPublicRoute){
+    return NextResponse.next();
+  }
   if (isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
     if (validationResponse.ok) {
@@ -56,7 +58,13 @@ export async function middleware(request: NextRequest) {
   if (!isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
     if (validationResponse.ok) {
-      return NextResponse.next();
+      const { user } = await validationResponse.json();
+      const nextResponse = NextResponse.next();
+      nextResponse.headers.set('x-user-id', user.userId);
+      nextResponse.headers.set('x-user-NIM', user.NIM);
+      nextResponse.headers.set('x-user-username', user.username || '');
+      nextResponse.headers.set('x-user-isAdmin', user.isAdmin|| false);  
+      return nextResponse;
     } else if (validationResponse.status === 401 && refreshToken) {
       const refreshResponse = await refreshTokenValidation(PUBLIC_API_URL, refreshToken);
       if (refreshResponse.ok) {
