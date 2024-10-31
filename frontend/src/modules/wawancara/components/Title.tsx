@@ -1,6 +1,6 @@
 const Title = () => (
   <>
-    <h1 className="mb-2 text-2xl font-semibold sm:text-4xl">Wawancara</h1>
+    <h1 className="text-2xl font-semibold sm:text-4xl">Wawancara</h1>
     <p className={``}>
       Kamu hanya bisa memilih{" "}
       <span className={`font-semibold`}>Satu jadwal Himakom</span> dan{" "}

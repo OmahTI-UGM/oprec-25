@@ -44,7 +44,7 @@ const ImagesCard = ({
         fill
       />
 
-      <p className="z-20 text-xl font-semibold text-custom-silver">
+      <p className="z-20 text-2xl font-semibold text-custom-silver">
         {variant === "omahti"
           ? "We Make IT for Everyone"
           : "Computer Love and Life"}
@@ -65,7 +65,7 @@ const Questions = ({
 }) => {
   return (
     <div className="space-y-2">
-      <div className="w-full rounded-lg bg-custom-gray-dark p-2 text-sm font-semibold">
+      <div className="w-full rounded-lg bg-custom-gray-dark px-2 py-3 text font-semibold">
         Frequently Asked Questions -{" "}
         {variant === "omahti" ? (
           <span className="text-custom-orange">OmahTI</span>
@@ -78,7 +78,7 @@ const Questions = ({
         {FAQ.map((faq, i) => (
           <Accordion type="single" collapsible>
             <AccordionItem className="border-b-0" value="item-1">
-              <AccordionTrigger className="rounded-lg bg-custom-gray-dark p-2 py-4 hover:no-underline">
+              <AccordionTrigger className="rounded-lg bg-custom-gray-dark text-base p-2 py-6 hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className='mt-2 p-2 rounded-lg bg-custom-gray'>{faq.answer}</AccordionContent>

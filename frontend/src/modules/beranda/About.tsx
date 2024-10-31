@@ -21,7 +21,7 @@ const AboutCard: React.FC<AboutProps> = ({ category }) => {
             : "Organisasi Mahasiswa Ahli Teknologi Informasi"}
         </p>
       </div>
-      <button className="absolute bottom-4 right-4 flex items-center justify-center p-2 xs:p-3 rounded-lg bg-white shadow-md hover:bg-custom-gray">
+      <button className="absolute bottom-4 right-4 flex items-center justify-center p-2 xs:p-3 transition-colors rounded-lg bg-white shadow-md hover:bg-white/80">
           <ArrowRight className="text-custom-black w-4 xxs:w-6 sm:w-8 h-4 xxs:h-6 sm:h-8" />
       </button>
     </div>

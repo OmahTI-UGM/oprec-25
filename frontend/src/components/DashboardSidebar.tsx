@@ -13,6 +13,11 @@ export default function DashboardSidebar() {
   const nav = [
     {
       icon: <Octagon className="h-5" />,
+      href: "/dashboard/admin",
+      tag: "Admin",
+    },
+    {
+      icon: <Octagon className="h-5" />,
       href: "/dashboard/divisi",
       tag: "Divisi",
     },
@@ -35,7 +40,7 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      <nav className="sticky top-0 hidden h-screen w-[20vw] shrink-0 flex-col justify-between border-r-2 border-custom-gray-dark bg-custom-black px-[min(3vh,1.5rem)] pb-[7vh] pt-[3vh] lg:flex">
+      <nav className="sticky top-0 hidden h-screen w-[20vw] shrink-0 flex-col justify-between border-r-2 border-b-2 border-custom-gray-dark bg-custom-black px-[min(3vh,1.5rem)] pb-[7vh] pt-[3vh] lg:flex">
         {/* wrapper for title and nav buttons */}
         <div>
           <Title />

@@ -2,7 +2,6 @@
 import { useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel } from "swiper/modules";
 import Link from "next/link";
 import { divisi } from "@/helpers/divisi";
 
@@ -15,7 +14,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/mousewheel";
 
-const KelasLengkap = ({
+const DivisiLengkap = ({
   variant = "omahti",
 }: {
   variant?: "omahti" | "himakom";
@@ -32,7 +31,9 @@ const KelasLengkap = ({
     sliderRef.current.swiper.slideNext();
   }, []);
 
-  const filteredDivisi = divisi.filter((div) => div.makomti.toLowerCase() === variant.toLowerCase());
+  const filteredDivisi = divisi.filter(
+    (div) => div.makomti.toLowerCase() === variant.toLowerCase(),
+  );
 
   let divisiTitle =
     variant === "omahti" ? (
@@ -50,9 +51,9 @@ const KelasLengkap = ({
 
       <div className="flex w-full items-center justify-between gap-2">
         {/* prev button */}
-        <Button 
-          variant="ghost" 
-          className="py-1 px-2 hover:bg-custom-gray/20" 
+        <Button
+          variant="ghost"
+          className="px-2 py-1 hover:bg-custom-gray/20"
           onClick={handlePrev}
         >
           <ChevronLeft
@@ -79,26 +80,22 @@ const KelasLengkap = ({
             1024: {
               slidesPerView: 4,
             },
-            1280: {
+            1536: {
               slidesPerView: 5,
             },
           }}
         >
           {filteredDivisi.map((div) => (
             <SwiperSlide key={div.id}>
-              <KelasCard
-                title={div.nama}
-                id={div.id}
-                logoUrl={div.logoUrl}
-              />
+              <DivisiCard title={div.nama} id={div.id} logoUrl={div.logoUrl} />
             </SwiperSlide>
           ))}
         </Swiper>
 
         {/* next button */}
-        <Button 
-          variant="ghost" 
-          className="py-1 px-2 hover:bg-custom-gray/20" 
+        <Button
+          variant="ghost"
+          className="px-2 py-1 hover:bg-custom-gray/20"
           onClick={handleNext}
         >
           <ChevronRight
@@ -111,11 +108,11 @@ const KelasLengkap = ({
   );
 };
 
-const KelasCard = ({ 
-  title = "PSHT", 
+const DivisiCard = ({
+  title = "PSHT",
   id,
-  logoUrl 
-}: { 
+  logoUrl,
+}: {
   title?: string;
   id: string;
   logoUrl?: string;
@@ -123,7 +120,9 @@ const KelasCard = ({
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
     {/* div for image */}
     <div className="aspect-square h-8 rounded-sm bg-white">
-      {logoUrl && <img src={logoUrl} alt={title} className="h-full w-full object-cover" />}
+      {logoUrl && (
+        <img src={logoUrl} alt={title} className="h-full w-full object-cover" />
+      )}
     </div>
 
     {/* text */}
@@ -142,11 +141,11 @@ const KelasCard = ({
 );
 
 const Keterangan = () => (
-  <div className="inline-flex items-center gap-1 rounded-sm bg-custom-black p-1.5 text-xs">
+  <div className="inline-flex items-center gap-1 rounded-sm bg-custom-black px-1.5 text-xs">
     {/* red block */}
     <div className="aspect-square h-3 border-[1px] border-black bg-custom-red" />
     = Full
   </div>
 );
 
-export default KelasLengkap;
+export default DivisiLengkap;

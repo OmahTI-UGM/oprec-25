@@ -1,7 +1,7 @@
 {
-  "extends": ["next"],
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": "error"
-  }
+  "extends": ["next"]
+//  "plugins": ["prettier"],
+//  "rules": {
+//    "prettier/prettier": "error"
+//  }
 }

@@ -52,15 +52,15 @@ const LinimasaCard = ({
   date: string;
   description: string;
 }) => (
-  <div className="flex w-full flex-col justify-between space-y-2 rounded-xl bg-custom-gray-dark p-4">
+  <div className="flex w-full flex-col justify-between space-y-3 rounded-xl bg-custom-gray-dark p-4">
     {/* top part */}
     <div className="*:font-medium">
-      <h1 className="text-lg">{title}</h1>
-      <h2 className="text-sm">{date}</h2>
+      <h1 className="text-xl">{title}</h1>
+      <h2>{date}</h2>
     </div>
 
     {/* bottom part */}
-    <p className="text-pretty text-sm">{description}</p>
+    <p className="text-pretty">{description}</p>
   </div>
 );
 
