@@ -15,7 +15,7 @@ export const authenticateToken = async (req: IGetRequestWithUser, res: Response,
         req.user = decoded;
         next();
     } catch (err) {
-        res.status(403).json({message: "Token might be invalid or expired"});
+        res.status(401).json({message: "Token might be invalid or expired"});
         return;
     }
 }
