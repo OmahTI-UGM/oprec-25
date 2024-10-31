@@ -2,9 +2,14 @@ import { notFound } from "next/navigation";
 import { divisi } from "@/helpers/divisi";
 import ButtonLink from "@/components/ui/ButtonLink";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Container from "@/components/Container";
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
+
 
 export const metadata = {
   title: "Divisi",
@@ -32,15 +37,14 @@ const Page = ({ params }: DivisiPageProps) => {
 
   return (
     <>
-      <Container parentClass={`h-screen ${divisiData.makomti === "himakom" ? "bg-gradient-to-b from-custom-blue to-30% to-custom-black" : "bg-gradient-to-b from-custom-orange via-cus to-30% to-custom-black"}`
-          }>
-        <section className="flex flex-col xl:flex-row gap-4 bg-transparent h-auto">
+      <section 
+        className={`relative py-8 flex flex-col xl:flex-row gap-4 bg-transparent h-auto ${divisiData.makomti === "himakom" ? "bg-gradient-to-b from-custom-blue to-30% to-custom-black" : "bg-gradient-to-b from-custom-orange via-cus to-30% to-custom-black"}`}>
           <div className="space-y-6 xl:w-[70vw]">
-            <ButtonLink href="/dashboard/divisi" className="mt-2 px-4 py-2 rounded-sm bg-custom-gray-dark text-white flex justify-center items-center gap-2">
+            <ButtonLink href="/dashboard/divisi" className="mt-2 px-4 py-2 rounded-sm bg-custom-gray-dark text-white flex justify-center items-center gap-2 ml-[min(5vw,32px)]">
               <ArrowLeft className="h-5" />
               Kembali
             </ButtonLink>
-            <div className="flex justify-between lg:flex-grow flex-col md:flex-row md:items-end space-y-3">
+            <div className="flex justify-between lg:flex-grow flex-col md:flex-row md:items-end space-y-3 px-[min(5vw,32px)] xl:pr-0">
               <div className="flex items-end gap-4">
                 <Image
                   alt="Logo"
@@ -71,7 +75,7 @@ const Page = ({ params }: DivisiPageProps) => {
               </div>
             </div>
             {/* Tentang */}
-            <div className="w-full space-y-3">
+            <div className="w-full space-y-3 px-[min(5vw,32px)] xl:pr-0">
               <h1 className="font-semibold text-lg">Tentang Kami</h1>
               <div className="bg-custom-gray-dark p-3 rounded-lg text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
@@ -79,16 +83,10 @@ const Page = ({ params }: DivisiPageProps) => {
               </div>
             </div>
             {/* Proyek */}
-            <div className="w-full space-y-3">
-              <h1 className="font-semibold text-lg">Proyek / Program Kerja / Kegiatan</h1>
-              {/* PAKE SWIPERZZZZZZZZZZZZZ */}
-              <div>
-                
-              </div>
-            </div>
+            <ProjectsSwiper divisiData={divisiData} />
           </div>
           {/* Penugasan */}
-          <div className="w-full bg-custom-gray-dark rounded-lg h-auto p-3 xl:h-full xl:w-[30vw]">
+          <div className="bg-custom-gray-dark rounded-lg h-auto p-3 xl:h-full xl:w-[30vw] mx-[min(5vw,32px)] xl:ml-0">
             <h1 className={`${divisiData.makomti == "himakom" ? "text-custom-blue" : "text-custom-orange"} mb-4`}>Penugasan</h1>
             
             {/* Nanti penugasan pake react markdown */}
@@ -112,7 +110,6 @@ const Page = ({ params }: DivisiPageProps) => {
             </div>
           </div>
         </section>
-      </Container>
     </>
   );
 };
