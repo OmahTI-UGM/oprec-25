@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import Pilih from "@/modules/wawancara/components/Pilih"
+import Pilih from "@/modules/wawancara/components/PopupKonfirmasi"
 import JadwalWawancara from "./JadwalWawancara";
-import Selesai from "./Selesai";
-import Gagal from "./Gagal";
+import Selesai from "./PopupJadwalBerhasil";
+import Gagal from "./PopupGagal";
 
 
 interface PilihanWaktuProps {
