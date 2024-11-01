@@ -15,9 +15,6 @@ const Divisi = async () => {
   return (
     <>
       <Title />
-    <h1>HALO {user?.username}</h1>
-    <h1>NIM {user?.NIM}</h1>
-    <h1>isAdmin {user?.isAdmin}</h1>
       {/* kelas yang dipilih user */}
       <DivisiPilihan pilihanDivisi={pilihanDivisi}/>
 
