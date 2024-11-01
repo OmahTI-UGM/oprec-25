@@ -3,7 +3,13 @@ import DivisiPilihan from "./components/DivisiPilihan";
 import DivisiLengkap from "./components/DivisiLengkap";
 import Wawancara from "./components/Wawancara";
 import { getCurrentUser } from "@/utils/auth";
-import { getAllDivisi, getEnrolledDivisi, getPilihanWawancara, getAllWawancara } from "@/utils/fetch";
+import {
+  getAllDivisi,
+  getEnrolledDivisi,
+  getPilihanWawancara,
+  getAllWawancara,
+} from "@/utils/fetch";
+
 import { cookies } from "next/headers";
 const Divisi = async () => {
   const accessToken = cookies().get("accessToken")?.value;
@@ -20,8 +26,8 @@ const Divisi = async () => {
 
       {/* kelas lengkap omahti dan himakom */}
       <div className="mt-4 flex flex-col gap-4">
-        <DivisiLengkap variant="omahti" divisi={divisi.otiDivisi}/>
-        <DivisiLengkap variant="himakom" divisi={divisi.himakomDivisi}/>
+        <DivisiLengkap variant="omahti" divisi={divisi.otiDivisi} />
+        <DivisiLengkap variant="himakom" divisi={divisi.himakomDivisi} />
       </div>
 
       <Wawancara />

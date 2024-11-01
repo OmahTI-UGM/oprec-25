@@ -8,9 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page(): JSX.Element {
-  return (
-    <Container parentClass={`pt-0 w-screen lg:w-[80vw] lg:pt-8 min-h-screen`}>
-      <Divisi />
-    </Container>
-  );
+  return <Divisi />;
 }

@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/mousewheel";
 const DivisiLengkap = ({
   variant = "omahti",
-  divisi
+  divisi,
 }: {
   variant?: "omahti" | "himakom";
   divisi?: any[];
@@ -26,9 +26,12 @@ const DivisiLengkap = ({
     sliderRef.current.swiper.slideNext();
   }, []);
 
-  let divisiTitle = variant === "omahti"
-    ? <span className="text-custom-orange">OmahTI</span>
-    : <span className="text-custom-lavender">Himakom</span>;
+  let divisiTitle =
+    variant === "omahti" ? (
+      <span className="text-custom-orange">OmahTI</span>
+    ) : (
+      <span className="text-custom-lavender">Himakom</span>
+    );
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-custom-gray-dark p-4">
@@ -43,7 +46,14 @@ const DivisiLengkap = ({
           className="px-2 py-1 hover:bg-custom-gray/20"
           onClick={handlePrev}
         >
-          <ChevronLeft className={variant === "omahti" ? "text-custom-orange" : "text-custom-lavender"} strokeWidth={3} />
+          <ChevronLeft
+            className={
+              variant === "omahti"
+                ? "text-custom-orange"
+                : "text-custom-lavender"
+            }
+            strokeWidth={3}
+          />
         </Button>
 
         <Swiper
@@ -60,7 +70,11 @@ const DivisiLengkap = ({
         >
           {divisi?.map((divisiong: any) => (
             <SwiperSlide key={divisiong.id}>
-              <DivisiCard title={divisiong.judul} logoUrl={divisiong.logoUrl} slug={divisiong.slug} />
+              <DivisiCard
+                title={divisiong.judul}
+                logoUrl={divisiong.logoUrl}
+                slug={divisiong.slug}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -70,7 +84,12 @@ const DivisiLengkap = ({
           className="px-2 py-1 hover:bg-custom-gray/20"
           onClick={handleNext}
         >
-          <ChevronRight className={variant === "omahti" ? "text-custom-orange" : "text-custom-blue"} strokeWidth={3} />
+          <ChevronRight
+            className={
+              variant === "omahti" ? "text-custom-orange" : "text-custom-blue"
+            }
+            strokeWidth={3}
+          />
         </Button>
       </div>
     </div>
@@ -93,8 +112,11 @@ const DivisiCard = ({
       )}
     </div>
     <h3 className="truncate">{title}</h3>
-    <Link href={`/dashboard/divisi/${slug}`}>
-      <Button className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold" variant="secondary">
+    <Link href={`/(dashboard)/divisi/${slug}`}>
+      <Button
+        className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold"
+        variant="secondary"
+      >
         <ChevronRight />
       </Button>
     </Link>
@@ -103,7 +125,8 @@ const DivisiCard = ({
 
 const Keterangan = () => (
   <div className="inline-flex items-center gap-1 rounded-sm bg-custom-black px-1.5 text-xs">
-    <div className="aspect-square h-3 border-[1px] border-black bg-custom-red" />= Full
+    <div className="aspect-square h-3 border-[1px] border-black bg-custom-red" />
+    = Full
   </div>
 );
 
