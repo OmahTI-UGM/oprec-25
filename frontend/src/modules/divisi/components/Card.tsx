@@ -4,9 +4,10 @@ interface CardProps {
   id?: number;
   variant?: "himakom" | "omahti";
   title: string;
+  slug: string
 }
 
-const DivisiCard = ({ id = 1, variant = "omahti", title }: CardProps) => {
+const DivisiCard = ({ id = 1, variant = "omahti", title, slug }: CardProps) => {
   return (
     <div className="w-full rounded-lg bg-custom-gray-dark p-4">
       <div className="flex gap-2 items-center">
@@ -26,9 +27,9 @@ const DivisiCard = ({ id = 1, variant = "omahti", title }: CardProps) => {
         </h2>
       </div>
 
-      <button className="mt-6 w-full rounded-md bg-custom-gray px-4 py-2 font-medium transition-all hover:bg-custom-gray/80">
+      <a href={`/dashboard/divisi/${slug}`} className="mt-6 w-full rounded-md bg-custom-gray px-4 py-2 font-medium transition-all hover:bg-custom-gray/80">
         Selengkapnya
-      </button>
+      </a>
     </div>
   );
 };

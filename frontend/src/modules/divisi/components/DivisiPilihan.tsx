@@ -5,23 +5,9 @@ import { Grid, FreeMode } from "swiper/modules"; // Import Grid module
 import "swiper/css";
 import "swiper/css/grid"; // Import Grid CSS
 
-export default function DivisiPilihan() {
+export default function DivisiPilihan({pilihanDivisi}: {pilihanDivisi: any}) {
   // ini temporary, nanti ganti authentication
   const hasChosen = true;
-
-  interface Card {
-    id: number;
-    title: string;
-    variant: "himakom" | "omahti";
-  }
-
-  const cardData: Card[] = [
-    { id: 1, title: "UI/UX", variant: "omahti" },
-    { id: 2, title: "FE", variant: "omahti" },
-    { id: 3, title: "Treasurer", variant: "himakom" },
-    { id: 4, title: "Public Relation", variant: "himakom" },
-  ];
-
   return (
     <>
       <p className="font-semibold lg:text-lg">Divisi yang Kamu Pilih</p>
@@ -59,9 +45,9 @@ export default function DivisiPilihan() {
             },
           }}
         >
-          {cardData.map((card) => (
-            <SwiperSlide key={card.id}>
-              <DivisiCard {...card} />
+          {pilihanDivisi.map((divisi: any) => (
+            <SwiperSlide key={divisi.id}>
+              <DivisiCard title={divisi.divisiId.judul} variant={divisi.divisiId.himakom ? "himakom" : "omahti" } slug={divisi.divisiId.slug} />
             </SwiperSlide>
           ))}
         </Swiper>

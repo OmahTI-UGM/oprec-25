@@ -1,7 +1,4 @@
-import { cookies } from "next/headers";
-
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
-const accessToken = cookies().get("accessToken")?.value;
 export const getAllDivisi = async () => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi`);
     const {semuaDivisi} = await res.json();
@@ -23,7 +20,7 @@ export const getAllWawancara = async () => {
 
     return wawancara;
 }
-export const getEnrolledDivisi = async () => {
+export const getEnrolledDivisi = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/auth/divisi`, {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include",
@@ -33,7 +30,7 @@ export const getEnrolledDivisi = async () => {
     return divisiPilihan;
 }
 
-export const getPilihanWawancara = async () => {
+export const getPilihanWawancara = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/auth/wawancara`, {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include",
