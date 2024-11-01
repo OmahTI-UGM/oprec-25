@@ -4,15 +4,14 @@ import DivisiLengkap from "./components/DivisiLengkap";
 import Wawancara from "./components/Wawancara";
 import { getCurrentUser } from "@/utils/auth";
 import { getAllDivisi, getEnrolledDivisi, getPilihanWawancara, getAllWawancara } from "@/utils/fetch";
+import { cookies } from "next/headers";
 const Divisi = async () => {
+  const accessToken = cookies().get("accessToken")?.value;
   const user = getCurrentUser();
   const divisi = await getAllDivisi();
-  const pilihanDivisi  = await getEnrolledDivisi();
+  const pilihanDivisi  = await getEnrolledDivisi(accessToken as string);
   const wawancara = await getAllWawancara();
-  const {filteredOti: wawancaraPilihanOti, filteredHima: wawancaraPilihanHima} = await getPilihanWawancara();
-  console.log(wawancaraPilihanOti, wawancaraPilihanHima);
-  console.log(wawancara);
-  console.log(pilihanDivisi);
+  const {filteredOti: wawancaraPilihanOti, filteredHima: wawancaraPilihanHima} = await getPilihanWawancara(accessToken as string);
   return (
     <>
       <Title />
@@ -20,7 +19,7 @@ const Divisi = async () => {
     <h1>NIM {user?.NIM}</h1>
     <h1>isAdmin {user?.isAdmin}</h1>
       {/* kelas yang dipilih user */}
-      <DivisiPilihan />
+      <DivisiPilihan pilihanDivisi={pilihanDivisi}/>
 
       {/* kelas lengkap omahti dan himakom */}
       <div className="mt-4 flex flex-col gap-4">
