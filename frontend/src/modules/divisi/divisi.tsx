@@ -3,29 +3,38 @@ import DivisiPilihan from "./components/DivisiPilihan";
 import DivisiLengkap from "./components/DivisiLengkap";
 import Wawancara from "./components/Wawancara";
 import { getCurrentUser } from "@/utils/auth";
-import { getAllDivisi, getEnrolledDivisi, getPilihanWawancara, getAllWawancara } from "@/utils/fetch";
+import {
+  getAllDivisi,
+  getEnrolledDivisi,
+  getPilihanWawancara,
+  getAllWawancara,
+} from "@/utils/fetch";
+
 const Divisi = async () => {
   const user = getCurrentUser();
   const divisi = await getAllDivisi();
-  const pilihanDivisi  = await getEnrolledDivisi();
+  const pilihanDivisi = await getEnrolledDivisi();
   const wawancara = await getAllWawancara();
-  const {filteredOti: wawancaraPilihanOti, filteredHima: wawancaraPilihanHima} = await getPilihanWawancara();
+  const {
+    filteredOti: wawancaraPilihanOti,
+    filteredHima: wawancaraPilihanHima,
+  } = await getPilihanWawancara();
   console.log(wawancaraPilihanOti, wawancaraPilihanHima);
   console.log(wawancara);
   console.log(pilihanDivisi);
   return (
     <>
       <Title />
-    <h1>HALO {user?.username}</h1>
-    <h1>NIM {user?.NIM}</h1>
-    <h1>isAdmin {user?.isAdmin}</h1>
+      <h1>HALO {user?.username}</h1>
+      <h1>NIM {user?.NIM}</h1>
+      <h1>isAdmin {user?.isAdmin}</h1>
       {/* kelas yang dipilih user */}
       <DivisiPilihan />
 
       {/* kelas lengkap omahti dan himakom */}
       <div className="mt-4 flex flex-col gap-4">
-        <DivisiLengkap variant="omahti" divisi={divisi.otiDivisi}/>
-        <DivisiLengkap variant="himakom" divisi={divisi.himakomDivisi}/>
+        <DivisiLengkap variant="omahti" divisi={divisi.otiDivisi} />
+        <DivisiLengkap variant="himakom" divisi={divisi.himakomDivisi} />
       </div>
 
       <Wawancara />

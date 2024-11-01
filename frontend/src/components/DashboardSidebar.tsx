@@ -13,27 +13,27 @@ export default function DashboardSidebar() {
   const nav = [
     {
       icon: <Octagon className="h-5" />,
-      href: "/dashboard/admin",
+      href: "/admin",
       tag: "Admin",
     },
     {
       icon: <Octagon className="h-5" />,
-      href: "/dashboard/divisi",
+      href: "/divisi",
       tag: "Divisi",
     },
     {
       icon: <MessageSquare className="h-5" />,
-      href: "/dashboard/wawancara",
+      href: "/wawancara",
       tag: "Wawancara",
     },
     {
       icon: <MailWarning className="h-5" />,
-      href: "/dashboard/pengumuman",
+      href: "/pengumuman",
       tag: "Pengumuman",
     },
     {
       icon: <CircleHelp className="h-5" />,
-      href: "/dashboard/bantuan",
+      href: "/bantuan",
       tag: "Bantuan",
     },
   ];
@@ -54,10 +54,7 @@ export default function DashboardSidebar() {
               >
                 <Link href={nav.href}>
                   <div
-                    className={`flex cursor-pointer items-center gap-4 rounded-md py-3 pl-[10px] transition-all duration-200 ${pathname === nav.href ? "border-2 border-custom-gray-dark bg-custom-gray-dark" : "text-custom-gray hover:text-custom-silver"}`}
-                    style={{
-                      transition: "color 0.2s ease-in-out",
-                    }}
+                    className={`flex cursor-pointer items-center gap-4 rounded-md py-3 pl-[10px] transition-all duration-200 ${pathname === nav.href ? "bg-custom-gray-dark" : "text-custom-gray hover:bg-custom-gray-dark/20"}`}
                   >
                     {nav.icon}
                     <h1>{nav.tag}</h1>
