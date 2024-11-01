@@ -44,7 +44,7 @@ const NavbarButtons = ({ className }: { className?: string }) => {
           Masuk
         </Button>
       </Link>
-      <Link href={`dashboard/admin`}>
+      <Link href={`admin`}>
         <Button variant={`whiteOutline`} size={`lg`}>
           Admin
         </Button>

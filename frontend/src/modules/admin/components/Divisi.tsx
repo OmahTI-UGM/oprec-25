@@ -2,6 +2,7 @@
 import { useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Mousewheel } from "swiper/modules";
 import DivisiCard from "./Card";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
@@ -47,9 +48,18 @@ const Divisi = ({ variant = "omahti" }: DivisiProps) => {
           />
         </Button>
         <Swiper
-          className="mySwiper"
+          className="mySwiper overflow-hidden"
+          modules={[Mousewheel]}
           ref={sliderRef}
           spaceBetween={10}
+          mousewheel={{
+            enabled: true,
+            forceToAxis: true,
+          }}
+          style={{ 
+            overscrollBehaviorX: 'contain', // Prevent page scroll
+            overscrollBehaviorY: 'none'
+          }}
           breakpoints={{
             0: {
               slidesPerView: 1,

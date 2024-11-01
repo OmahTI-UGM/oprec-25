@@ -29,7 +29,7 @@ export default function LoginPage() {
         throw new Error('Invalid email or password');
       }
 
-      router.push('/dashboard');
+      router.push('/');
     } catch (err: any) {
       setError(err.message || 'Failed to log in');
     }
