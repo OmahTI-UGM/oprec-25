@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { IDivisi } from "@/types/IDivisi";
 import { IDivisiSlot, IWawancara } from "@/types/IWawancara";
@@ -86,4 +86,15 @@ export const pilihWaktuWawancaraOti = async (req: IGetRequestWithUser, res: Resp
 
 export const pilihWaktuWawancaraHima = async (req: IGetRequestWithUser, res: Response): Promise<void> => {
     await handleWawancaraSelection(req, res, true);
+}
+
+export const getAllWawancara = async (_req: Request, res: Response): Promise<void> => {
+    try {
+        const wawancara = await Wawancara.find();
+        res.status(200).json({ wawancara });
+        return;
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error" });
+        return;
+    }
 }
