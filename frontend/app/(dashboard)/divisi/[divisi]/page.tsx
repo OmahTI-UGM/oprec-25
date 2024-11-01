@@ -3,13 +3,14 @@ import ButtonLink from "@/components/ui/ButtonLink";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import Container from "@/components/Container";
-
+import PopupUrutan from "@/modules/divisi/components/PopupUrutan";
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
 
 import { getOneDivisi } from "@/utils/fetch";
+import PopupDivisiBerhasil from "@/modules/divisi/components/PopupDivisiBerhasil";
 
 type DivisiPageProps = {
   params: {
@@ -57,6 +58,7 @@ const Page = async ({ params }: DivisiPageProps) => {
                     <h4>5/10</h4>
                   </div>
                   {/* Button Pilih Divisi, nanti diganti Butotn terus dikasih onClick */}
+                  <PopupUrutan slug={params.divisi}/>
                   <div className="w-full bg-custom-gray rounded-lg md:rounded-sm text-center py-1">
                     Pilih Divisi
                   </div>
