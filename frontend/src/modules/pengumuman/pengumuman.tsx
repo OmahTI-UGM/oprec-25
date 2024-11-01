@@ -1,16 +1,6 @@
-import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Smile } from "lucide-react";
+import PopupTerima from "./components/PopupTerima";
+import PopupTolak from "./components/PopupTolak";
 
 const Pengumuman = () => {
   return (
@@ -19,7 +9,7 @@ const Pengumuman = () => {
       <div className="flex flex-col h-96 items-center justify-center gap-4 rounded-xl bg-custom-gray-dark p-6">
         <Smile size={100} />
         <h1 className="text-xl text-center font-medium">kamu dapat membuka pengumuman</h1>
-        <HasilButton />
+        <PopupTerima category="Data Science & Artificial Intelligent"/>
       </div>
     </div>
   );
@@ -35,28 +25,5 @@ const Title = () => (
     </p>
   </div>
 );
-
-const HasilButton = ({ className }: { className?: string }) => {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button className="text-base" size={`lg`} variant={`white`}>Buka Pengumuman</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-};
 
 export default Pengumuman;
