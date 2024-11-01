@@ -9,13 +9,6 @@ const Divisi = async () => {
   const divisi = await getAllDivisi();
   return (
     <>
-
-    {divisi.map((divisi: any) => (
-      <div key={divisi.id}>
-        <h1>{divisi.nama}</h1>
-        <p>{divisi.deskripsi}</p>
-      </div>
-    ))}
       <Title />
     <h1>HALO {user?.username}</h1>
     <h1>NIM {user?.NIM}</h1>
@@ -25,8 +18,8 @@ const Divisi = async () => {
 
       {/* kelas lengkap omahti dan himakom */}
       <div className="mt-4 flex flex-col gap-4">
-        <DivisiLengkap variant="omahti" />
-        <DivisiLengkap variant="himakom" />
+        <DivisiLengkap variant="omahti" divisi={divisi.otiDivisi}/>
+        <DivisiLengkap variant="himakom" divisi={divisi.himakomDivisi}/>
       </div>
 
       <Wawancara />

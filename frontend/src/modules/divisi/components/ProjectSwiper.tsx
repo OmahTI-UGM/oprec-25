@@ -24,7 +24,7 @@ const projects: Project[] = [
 
 // ProjectCard component
 
-const ProjectCard = ({ project, divisiData }: { project: Project; divisiData: { makomti: string } }) => (
+const ProjectCard = ({ project, divisiData }: { project: Project; divisiData: { himakom: boolean } }) => (
   <div className="relative overflow-hidden rounded-lg bg-custom-gray-dark h-[200px] md:h-[250px] group/card">
     <Image
       src={project.image}
@@ -34,7 +34,7 @@ const ProjectCard = ({ project, divisiData }: { project: Project; divisiData: { 
       className="w-full h-full object-cover transition-transform duration-300 group-hover/card:scale-105"
     />
     <div className="absolute bottom-0 left-0 right-0 bg-custom-gray-dark px-3 py-1">
-      <h3 className={`text-lg font-medium ${divisiData.makomti === "himakom" ? "text-custom-blue" : "text-custom-orange"}`}>
+      <h3 className={`text-lg font-medium ${divisiData.himakom === true ? "text-custom-blue" : "text-custom-orange"}`}>
         {project.title}
       </h3>
     </div>
@@ -46,7 +46,7 @@ const ProjectCard = ({ project, divisiData }: { project: Project; divisiData: { 
 
 interface ProjectsSwiperProps {
   divisiData: {
-    makomti: string;
+    himakom: boolean;
   };
 }
 

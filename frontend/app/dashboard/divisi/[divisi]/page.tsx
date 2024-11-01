@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { divisi } from "@/helpers/divisi";
 import ButtonLink from "@/components/ui/ButtonLink";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
@@ -10,17 +9,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
 
-
-export const metadata = {
-  title: "Divisi",
-  description: "",
-};
-
-export function generateStaticParams() {
-  return divisi.map((div) => ({
-    divisi: div.id,
-  }));
-}
+import { getOneDivisi } from "@/utils/fetch";
 
 type DivisiPageProps = {
   params: {
@@ -28,8 +17,8 @@ type DivisiPageProps = {
   };
 };
 
-const Page = ({ params }: DivisiPageProps) => {
-  const divisiData = divisi.find((div) => div.id === params.divisi);
+const Page = async ({ params }: DivisiPageProps) => {
+  const divisiData = await getOneDivisi(params.divisi);
 
   if (!divisiData) {
     notFound();
@@ -38,7 +27,7 @@ const Page = ({ params }: DivisiPageProps) => {
   return (
     <>
       <section 
-        className={`relative py-8 flex flex-col xl:flex-row gap-4 bg-transparent h-auto ${divisiData.makomti === "himakom" ? "bg-gradient-to-b from-custom-blue to-30% to-custom-black" : "bg-gradient-to-b from-custom-orange via-cus to-30% to-custom-black"}`}>
+        className={`relative py-8 flex flex-col xl:flex-row gap-4 bg-transparent h-auto ${divisiData.himakom === true ? "bg-gradient-to-b from-custom-blue to-30% to-custom-black" : "bg-gradient-to-b from-custom-orange via-cus to-30% to-custom-black"}`}>
           <div className="space-y-6 xl:w-[70vw]">
             <ButtonLink href="/dashboard/divisi" className="mt-2 px-4 py-2 rounded-sm bg-custom-gray-dark text-white flex justify-center items-center gap-2 ml-[min(5vw,32px)]">
               <ArrowLeft className="h-5" />
@@ -55,8 +44,8 @@ const Page = ({ params }: DivisiPageProps) => {
                   width={64}
                 />
                 <div className="flex flex-col">
-                  <h1 className={`text-[3rem] font-semibold ${divisiData.makomti === "himakom" ? "text-custom-blue" : "text-custom-orange"}`}>{divisiData.nama}</h1>
-                  <h2>Deskripsi DIVISI</h2>
+                  <h1 className={`text-[3rem] font-semibold ${divisiData.himakom === true ? "text-custom-blue" : "text-custom-orange"}`}>{divisiData.judul}</h1>
+                  <h2>{divisiData.judulPanjang}</h2>
                 </div>
               </div>
               {/* Status */}
@@ -78,27 +67,31 @@ const Page = ({ params }: DivisiPageProps) => {
             <div className="w-full space-y-3 px-[min(5vw,32px)] xl:pr-0">
               <h1 className="font-semibold text-lg">Tentang Kami</h1>
               <div className="bg-custom-gray-dark p-3 rounded-lg text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
+                {divisiData.deskripsi}
                 {/* React Markdown juga */}
               </div>
             </div>
             {/* Proyek */}
-            <ProjectsSwiper divisiData={divisiData} />
+            <ProjectsSwiper divisiData={divisiData.proker} />
           </div>
           {/* Penugasan */}
           <div className="bg-custom-gray-dark rounded-lg h-auto p-3 xl:h-full xl:w-[30vw] mx-[min(5vw,32px)] xl:ml-0">
-            <h1 className={`${divisiData.makomti == "himakom" ? "text-custom-blue" : "text-custom-orange"} mb-4`}>Penugasan</h1>
+            <h1 className={`${divisiData.himakom == true ? "text-custom-blue" : "text-custom-orange"} mb-4`}>Penugasan</h1>
             
             {/* Nanti penugasan pake react markdown */}
             <div className="mt-2 space-y-3">
               <div>
                 <h1 className="font-medium mb-1">Brief Penugasan</h1>
-                <div className="w-full text-justify leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna </div>
+                <div className="w-full text-justify leading-relaxed">{divisiData.penugasan.deskripsiPenugasan}</div>
               </div>
 
               <div>
+                <h1 className="font-medium mb-1">Tools</h1>
+                <div className="w-full text-justify leading-relaxed">{divisiData.penugasan.toolsPenugasan}</div>
+              </div>
+              <div>
                 <h1 className="font-medium mb-1">Keperluan</h1>
-                <div className="w-full bg-custom-gray flex justify-center items-center rounded-sm py-1">Download Keperluan</div>
+                <div className="w-full bg-custom-gray flex justify-center items-center rounded-sm py-1">{divisiData.penugasan.linkPenugasan}</div>
               </div>
 
               <div className="space-y-1">
