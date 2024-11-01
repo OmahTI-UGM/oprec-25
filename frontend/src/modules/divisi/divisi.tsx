@@ -3,10 +3,16 @@ import DivisiPilihan from "./components/DivisiPilihan";
 import DivisiLengkap from "./components/DivisiLengkap";
 import Wawancara from "./components/Wawancara";
 import { getCurrentUser } from "@/utils/auth";
-import { getAllDivisi } from "@/utils/fetch";
+import { getAllDivisi, getEnrolledDivisi, getPilihanWawancara, getAllWawancara } from "@/utils/fetch";
 const Divisi = async () => {
   const user = getCurrentUser();
   const divisi = await getAllDivisi();
+  const pilihanDivisi  = await getEnrolledDivisi();
+  const wawancara = await getAllWawancara();
+  const {filteredOti: wawancaraPilihanOti, filteredHima: wawancaraPilihanHima} = await getPilihanWawancara();
+  console.log(wawancaraPilihanOti, wawancaraPilihanHima);
+  console.log(wawancara);
+  console.log(pilihanDivisi);
   return (
     <>
       <Title />
