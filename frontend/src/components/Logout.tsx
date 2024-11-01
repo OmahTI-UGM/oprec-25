@@ -37,7 +37,7 @@ export default function Logout({ className }: { className?: string }) {
         <LogOutIcon className="h-5 lg:h-8" />
         <p className="hidden lg:block">Log Out</p>
       </AlertDialogTrigger>
-      <AlertDialogContent className="flex scale-50">
+      <AlertDialogContent className="scale-90 lg:scale-100 rounded-lg">
         <AlertDialogHeader>
           <AlertDialogTitle>Konfirmasi</AlertDialogTitle>
           <AlertDialogDescription>
