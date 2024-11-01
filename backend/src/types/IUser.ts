@@ -16,6 +16,8 @@ export interface IUser extends Document{
     tugas?: mongoose.Types.ObjectId[],
     diterimaDi?: mongoose.Types.ObjectId,
     isAdmin: boolean,
+    accessToken?: string,
+    refreshToken?: string,
     comparePassword(candidatePassword: string): Promise<boolean>
 }
 

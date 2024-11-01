@@ -89,6 +89,13 @@ const userSchema: Schema<IUser> = new Schema({
         required: true,
         default: false,
       },
+      accessToken: {
+        type: String
+      },
+      refreshToken: {
+        type: String
+      }
+
 });
 
 userSchema.pre<IUser>('save', async function (next) {

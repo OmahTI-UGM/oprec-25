@@ -24,7 +24,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             NIM: user.NIM,
             isAdmin: user.isAdmin
         })
-
+        user.accessToken = tokens.accessToken;
+        user.refreshToken = tokens.refreshToken;
+        await user.save();
         setCookies(res, tokens, COOKIE_CONFIG);
 
         res.status(201).json({
@@ -33,7 +35,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         })
         return;
     } catch (err) {
-        res.status(500).json({message: err});
+        res.status(500).json({message: "Registration error"});
         return;
     }
 }
@@ -57,7 +59,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             NIM: user.NIM,
             isAdmin: user.isAdmin
         })
-
+        user.accessToken = tokens.accessToken;
+        user.refreshToken = tokens.refreshToken;
+        await user.save();
         setCookies(res, tokens, COOKIE_CONFIG);
 
          res.status(201).json({
@@ -78,7 +82,11 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
             res.status(401).json({message: "No refresh token"})
             return;
         };
-
+        const user = await User.findOne({refreshToken});
+        if(!user){
+            res.status(401).json({message: "Invalid refresh token"})
+            return;
+        }
         const decoded = verifyToken(refreshToken, JWT_CONFIG.REFRESH_TOKEN_SECRET);
 
         const tokens = generateTokens({
@@ -87,6 +95,9 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
             NIM: decoded.NIM,
             isAdmin: decoded.isAdmin
         })
+        user.accessToken = tokens.accessToken;
+        user.refreshToken = tokens.refreshToken
+        await user.save();
         setCookies(res, tokens, COOKIE_CONFIG);
          res.status(200).json({message: "Token refreshed"});
          return;
@@ -96,9 +107,18 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export const logout = async(_req: Request, res: Response): Promise<void> => {
+export const logout = async(req: Request, res: Response): Promise<void> => {
+    const accessToken = req.cookies['accessToken'];
+    const user = await User.findOne({accessToken});
+    if(!user){
+        res.status(401).json({message: "Invalid access token"});
+        return;
+    }
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
+    user.accessToken = undefined;
+    user.refreshToken = undefined;
+    await user.save();
     res.status(200).json({message: "Logged out"});
     return;
 }
@@ -203,7 +223,8 @@ export const resetPassword = async (req: Request, res: Response) => {
             res.status(400).json({ message: 'Invalid or expired token' });
             return;
         }
-
+        user.accessToken = undefined;
+        user.refreshToken = undefined;
         user.password = newPassword; // Hash password before saving
         user.resetToken = undefined;
         user.resetTokenExpiration = undefined;
