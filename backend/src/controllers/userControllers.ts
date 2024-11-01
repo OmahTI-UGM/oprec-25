@@ -164,12 +164,11 @@ export const getDivisi = async(req: IGetRequestWithUser, res: Response): Promise
     try {
         const userId = req.user?.userId;
         const user = await User.findById(userId)
-            .populate("divisiPilihan")
+            .populate("divisiPilihan.divisiId");
         if(!user) {
             res.status(400).json({message: "User gaada"});
             return;
         }
-
         const sortedUser = user.divisiPilihan?.sort((a, b) => {
             return a.urutanPrioritas - b.urutanPrioritas;
         })
