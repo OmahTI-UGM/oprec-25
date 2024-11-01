@@ -164,47 +164,47 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Backend',
-        judulPanjang: 'Backend Development',
-        logoDivisi: 'backend_logo.png',
+        judul: 'Backendhima',
+        judulPanjang: 'Backendhima Development',
+        logoDivisi: 'backendhima_logo.png',
         slot: 10,
-        slug: 'backend',
+        slug: 'backendhima',
         proker: [
           {
-            url: 'https://example.com/backend_proker',
-            filename: 'backend_proker.pdf',
-            deskripsiProker: 'Backend division project description',
+            url: 'https://example.com/backendhima_proker',
+            filename: 'backendhima_proker.pdf',
+            deskripsiProker: 'Backendhima division project description',
           },
         ],
         deskripsi: 'Responsible for server-side logic and database management.',
         dipilihOleh: [],
         himakom: true,
         penugasan: {
-          deskripsiPenugasan: 'Complete a backend task.',
+          deskripsiPenugasan: 'Complete a backendhima task.',
           toolsPenugasan: 'Node.js, Express',
-          linkPenugasan: 'https://example.com/backend_task',
+          linkPenugasan: 'https://example.com/backendhima_task',
         },
       },
       {
-        judul: 'Frontend',
-        judulPanjang: 'Frontend Development',
-        logoDivisi: 'frontend_logo.png',
+        judul: 'Frontendhima',
+        judulPanjang: 'Frontendhima Development',
+        logoDivisi: 'frontendhima_logo.png',
         slot: 8,
-        slug: 'frontend',
+        slug: 'frontendhima',
         proker: [
           {
-            url: 'https://example.com/frontend_proker',
-            filename: 'frontend_proker.pdf',
-            deskripsiProker: 'Frontend division project description',
+            url: 'https://example.com/frontendhima_proker',
+            filename: 'frontendhima_proker.pdf',
+            deskripsiProker: 'Frontendhima division project description',
           },
         ],
         deskripsi: 'Focuses on the visual elements and user experience.',
         dipilihOleh: [],
         himakom: true,
         penugasan: {
-          deskripsiPenugasan: 'Build a frontend interface.',
+          deskripsiPenugasan: 'Build a frontendhima interface.',
           toolsPenugasan: 'React, Vue.js',
-          linkPenugasan: 'https://example.com/frontend_task',
+          linkPenugasan: 'https://example.com/frontendhima_task',
         },
       },
       {
@@ -212,11 +212,11 @@ const seedDivisi = async () => {
         judulPanjang: 'UI/UX Design',
         logoDivisi: 'uiux_logo.png',
         slot: 5,
-        slug: 'uiux',
+        slug: 'uiuxhima',
         proker: [
           {
-            url: 'https://example.com/uiux_proker',
-            filename: 'uiux_proker.pdf',
+            url: 'https://example.com/uiuxhima_proker',
+            filename: 'uiuxhima_proker.pdf',
             deskripsiProker: 'UI/UX division project description',
           },
         ],
@@ -226,19 +226,19 @@ const seedDivisi = async () => {
         penugasan: {
           deskripsiPenugasan: 'Design a user-friendly interface.',
           toolsPenugasan: 'Figma, Adobe XD',
-          linkPenugasan: 'https://example.com/uiux_task',
+          linkPenugasan: 'https://example.com/uiuxhima_task',
         },
       },
       {
         judul: 'Data Science & AI',
         judulPanjang: 'Data Science and Artificial Intelligence',
-        logoDivisi: 'dsai_logo.png',
+        logoDivisi: 'dsaihima_logo.png',
         slot: 6,
-        slug: 'dsai',
+        slug: 'dsaihima',
         proker: [
           {
-            url: 'https://example.com/dsai_proker',
-            filename: 'dsai_proker.pdf',
+            url: 'https://example.com/dsaihima_proker',
+            filename: 'dsaihima_proker.pdf',
             deskripsiProker: 'Data Science division project description',
           },
         ],
@@ -248,7 +248,7 @@ const seedDivisi = async () => {
         penugasan: {
           deskripsiPenugasan: 'Create a data analysis project.',
           toolsPenugasan: 'Python, TensorFlow',
-          linkPenugasan: 'https://example.com/dsai_task',
+          linkPenugasan: 'https://example.com/dsaihima_task',
         },
       },
       {
@@ -256,11 +256,11 @@ const seedDivisi = async () => {
         judulPanjang: 'Competitive Programming',
         logoDivisi: 'cp_logo.png',
         slot: 7,
-        slug: 'cp',
+        slug: 'cphima',
         proker: [
           {
-            url: 'https://example.com/cp_proker',
-            filename: 'cp_proker.pdf',
+            url: 'https://example.com/cphima_proker',
+            filename: 'cphima_proker.pdf',
             deskripsiProker: 'Competitive Programming division project description',
           },
         ],
@@ -270,7 +270,7 @@ const seedDivisi = async () => {
         penugasan: {
           deskripsiPenugasan: 'Solve a programming challenge.',
           toolsPenugasan: 'C++, Java',
-          linkPenugasan: 'https://example.com/cp_task',
+          linkPenugasan: 'https://example.com/cphima_task',
         },
       },
       {
@@ -278,11 +278,11 @@ const seedDivisi = async () => {
         judulPanjang: 'Mobile Application Development',
         logoDivisi: 'mobapps_logo.png',
         slot: 6,
-        slug: 'mobapps',
+        slug: 'mobappshima',
         proker: [
           {
-            url: 'https://example.com/mobapps_proker',
-            filename: 'mobapps_proker.pdf',
+            url: 'https://example.com/mobappshima_proker',
+            filename: 'mobappshima_proker.pdf',
             deskripsiProker: 'Mobile Apps division project description',
           },
         ],
@@ -292,7 +292,7 @@ const seedDivisi = async () => {
         penugasan: {
           deskripsiPenugasan: 'Create a mobile app.',
           toolsPenugasan: 'Flutter, React Native',
-          linkPenugasan: 'https://example.com/mobapps_task',
+          linkPenugasan: 'https://example.com/mobappshima_task',
         },
       },
       {
@@ -300,11 +300,11 @@ const seedDivisi = async () => {
         judulPanjang: 'Game Development',
         logoDivisi: 'gamedev_logo.png',
         slot: 4,
-        slug: 'gamedev',
+        slug: 'gamedevhima',
         proker: [
           {
-            url: 'https://example.com/gamedev_proker',
-            filename: 'gamedev_proker.pdf',
+            url: 'https://example.com/gamedevhima_proker',
+            filename: 'gamedevhima_proker.pdf',
             deskripsiProker: 'Game Development division project description',
           },
         ],
@@ -314,7 +314,7 @@ const seedDivisi = async () => {
         penugasan: {
           deskripsiPenugasan: 'Create a game prototype.',
           toolsPenugasan: 'Unity, Unreal Engine',
-          linkPenugasan: 'https://example.com/gamedev_task',
+          linkPenugasan: 'https://example.com/gamedevhima_task',
         },
       },
     ];
