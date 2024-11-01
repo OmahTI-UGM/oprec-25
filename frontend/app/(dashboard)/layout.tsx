@@ -15,22 +15,20 @@ export default function DashboardLayout({
   const isDivisiPage = pathname?.includes("/dashboard/divisi/");
 
   if (isDivisiPage) {
-    return <SmoothScrolling>{children}</SmoothScrolling>;
+    return { children };
   }
 
   return (
-    <SmoothScrolling>
-      <div className="flex flex-col lg:flex-row">
-        <DashboardSidebar />
-        <div className="flex-grow">
-          <DashboardNavbar />
-          <Container
-            parentClass={`pt-0 w-screen lg:w-[80vw] lg:pt-8 min-h-screen`}
-          >
-            {children}
-          </Container>
-        </div>
+    <div className="flex flex-col lg:flex-row">
+      <DashboardSidebar />
+      <div className="flex-grow">
+        <DashboardNavbar />
+        <Container
+          parentClass={`pt-0 w-screen lg:w-[80vw] lg:pt-8 min-h-screen`}
+        >
+          {children}
+        </Container>
       </div>
-    </SmoothScrolling>
+    </div>
   );
 }
