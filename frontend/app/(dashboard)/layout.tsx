@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import SmoothScrolling from "@/contexts/SmoothScroll";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import DashboardNavbar from "@/components/DashboardNavbar";
+import Container from "@/components/Container";
 
 export default function DashboardLayout({
   children,
@@ -23,7 +24,11 @@ export default function DashboardLayout({
         <DashboardSidebar />
         <div className="flex-grow">
           <DashboardNavbar />
-          {children}
+          <Container
+            parentClass={`pt-0 w-screen lg:w-[80vw] lg:pt-8 min-h-screen`}
+          >
+            {children}
+          </Container>
         </div>
       </div>
     </SmoothScrolling>

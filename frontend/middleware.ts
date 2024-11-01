@@ -2,12 +2,7 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 // Define public routes that don't require authentication
-const PUBLIC_ROUTES = [
-  '/',
-  "/auth/login",
-  "/auth/register",
-  "/forgot-password"
-];
+const PUBLIC_ROUTES = ["/auth/login", "/auth/register", "/forgot-password"];
 
 async function validateToken(PUBLIC_API_URL: string, token: string) {
   const response = await fetch(`${PUBLIC_API_URL}/auth/validate`, {
@@ -34,14 +29,14 @@ export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
-  const isPublicRoute =
-    PUBLIC_ROUTES.includes(pathname)
+  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   //if it's a public route (unprotected route) redirect to dashboard if the user is logged in
   if (isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
     if (validationResponse.ok) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    } else if (validationResponse.status === 401 && refreshToken) {  //if the token is expired, try to refresh it, if it fails then just redirect to login
+      return NextResponse.redirect(new URL("/", request.url));
+    } else if (validationResponse.status === 401 && refreshToken) {
+      //if the token is expired, try to refresh it, if it fails then just redirect to login
       const refreshResponse = await refreshTokenValidation(
         PUBLIC_API_URL,
         refreshToken,
@@ -69,12 +64,13 @@ export async function middleware(request: NextRequest) {
     if (validationResponse.ok) {
       const { user } = await validationResponse.json();
       const nextResponse = NextResponse.next();
-      nextResponse.headers.set('x-user-id', user.userId);
-      nextResponse.headers.set('x-user-NIM', user.NIM);
-      nextResponse.headers.set('x-user-username', user.username || '');
-      nextResponse.headers.set('x-user-isAdmin', user.isAdmin|| false);  
+      nextResponse.headers.set("x-user-id", user.userId);
+      nextResponse.headers.set("x-user-NIM", user.NIM);
+      nextResponse.headers.set("x-user-username", user.username || "");
+      nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
       return nextResponse;
-    } else if (validationResponse.status === 401 && refreshToken) { //if the access token is expired, try to refresh it
+    } else if (validationResponse.status === 401 && refreshToken) {
+      //if the access token is expired, try to refresh it
       const refreshResponse = await refreshTokenValidation(
         PUBLIC_API_URL,
         refreshToken,
