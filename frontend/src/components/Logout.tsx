@@ -39,9 +39,9 @@ export default function Logout({ className }: { className?: string }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Konfirmasi</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will log you out of your account.
+            Apakah kamu yakin ingin keluar?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
