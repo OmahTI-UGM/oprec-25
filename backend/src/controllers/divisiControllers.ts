@@ -4,6 +4,8 @@ import { Request, Response } from "express";
 import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { IDivisi } from "@/types/IDivisi";
 import { IUser } from "@/types/IUser";
+import { generateTokens, setCookies } from "@/utils/jwt";
+import { COOKIE_CONFIG } from "@/config/jwtcookies";
 
 const MAX_DIVISIONS_PER_TYPE = 2;
 
@@ -48,6 +50,15 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         // Update division slots
         divisi.dipilihOleh = [...(divisi.dipilihOleh || []), req.user.userId];
         divisi.slot -= 1;
+        const tokens = generateTokens({
+            userId: user.id,
+            username: user.username,
+            NIM: user.NIM,
+            isAdmin: user.isAdmin,
+            enrolledSlugHima: user.enrolledSlugHima,
+            enrolledSlugOti: user.enrolledSlugOti
+        })
+        setCookies(res, tokens, COOKIE_CONFIG);
         // Save changes
         await Promise.all([user.save(), divisi.save()]);
 
@@ -102,6 +113,8 @@ async function handleDivisionSelection(
         // Add new selection
         user.divisiPilihan.push(newSelection);
         user[priorityField] = divisi.id;
+        user.enrolledSlugHima = isHimakom ? divisi.slug : user.enrolledSlugHima;
+        user.enrolledSlugOti = isHimakom ? user.enrolledSlugOti : divisi.slug;
         divisionArray?.push(divisi.id);
     } else {
         // Update existing selection based on priority
@@ -110,9 +123,10 @@ async function handleDivisionSelection(
                 d.divisiId.toString() !== divisi.id.toString()
             );
             user.divisiPilihan.push(newSelection);
-            
             if (urutanPrioritas < foundDivisi.urutanPrioritas) {
                 user[priorityField] = divisi.id;
+                user.enrolledSlugHima = isHimakom ? divisi.slug : user.enrolledSlugHima;
+                user.enrolledSlugOti = isHimakom ? user.enrolledSlugOti : divisi.slug;
             }
         }
     }

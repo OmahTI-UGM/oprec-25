@@ -18,6 +18,8 @@ export interface IUser extends Document{
     isAdmin: boolean,
     accessToken?: string,
     refreshToken?: string,
+    enrolledSlugHima?: string,
+    enrolledSlugOti?: string,
     comparePassword(candidatePassword: string): Promise<boolean>
 }
 
