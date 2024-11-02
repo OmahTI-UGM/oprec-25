@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Beranda from "@/modules/beranda";
 import Layout from "@/../app/(dashboard)/layout";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const user = getCurrentUser();
@@ -11,7 +12,7 @@ export default function Home() {
   if (user) {
     return (
       <Layout>
-        nigger
+        <p>nigger</p>
       </Layout>
     )
   }
@@ -19,6 +20,7 @@ export default function Home() {
     <>
       <Navbar />
       <Beranda />
+      <Footer />
     </>
   );
 }

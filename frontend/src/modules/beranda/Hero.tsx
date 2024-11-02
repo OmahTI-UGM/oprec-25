@@ -36,7 +36,7 @@ const TitleCTA = () => (
       Be Great. Be Us.
     </h1>
     <Link href={`dashboard`}>
-      <Button variant={`white`} className="shadow-2xl">
+      <Button variant={`white`} size={`lg`} className="shadow-2xl">
         Daftar Sekarang
       </Button>
     </Link>

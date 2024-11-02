@@ -26,7 +26,8 @@ export default function Logout({ className }: { className?: string }) {
       throw new Error('Failed to log out');
     }
 
-    router.push('/auth/login');
+    router.push('/');
+    router.refresh();
   };
 
   return (

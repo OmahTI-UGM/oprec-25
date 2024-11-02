@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
-  // If it's the root route, always allow access
+  // always allow access to root route
   if (pathname === '/') {
     // If there's an access token, validate it
     if (accessToken) {
@@ -54,7 +54,7 @@ export async function middleware(request: NextRequest) {
   if (isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
     if (validationResponse.ok) {
-      return NextResponse.redirect(new URL("/dashboard", request.url)); // Changed from "/"
+      return NextResponse.redirect(new URL("/", request.url)); // Changed from "/"
     } else if (validationResponse.status === 401 && refreshToken) {
       const refreshResponse = await refreshTokenValidation(
         PUBLIC_API_URL,

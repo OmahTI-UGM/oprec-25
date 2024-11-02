@@ -12,12 +12,12 @@ const Linimasa = () => {
         <span className="text-custom-blue">Recruitment</span>
       </Header>
 
-      <div className="grid grid-cols-1 sm:grid-rows-2 lg:grid-rows-1 lg:gap-8 lg:grid-cols-2 gap-3 lg:auto-cols-fr sm:auto-rows-fr">
+      <div className="grid grid-cols-1 gap-3 sm:auto-rows-fr sm:grid-rows-2 lg:auto-cols-fr lg:grid-cols-2 lg:grid-rows-1 lg:gap-8">
         {/* image */}
         <ImageCard />
 
         {/* timeline */}
-        <div className="grid auto-rows-fr grid-cols-1 lg:gap-6 sm:grid-cols-2 gap-3">
+        <div className="grid auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2 lg:gap-6">
           {LINIMASA_DETAIL.map((detail, i) => (
             <LinimasaCard
               key={i}
