@@ -13,8 +13,8 @@ const Hero = () => {
   return (
     <>
       <Container
-        parentClass="overflow-hidden"
-        className="flex h-[70vh] xs:h-[32rem] w-full flex-col items-center justify-end gap-4 bg-custom-black sm:h-[75vh]"
+        parentClass="overflow-y-hidden"
+        className="flex h-[67vh] xs:h-[32rem] w-full flex-col items-center justify-end gap-4 bg-custom-black sm:h-[75vh]"
       >
         {/* logo himakom omahti */}
         <Logos />
@@ -45,8 +45,8 @@ const TitleCTA = () => (
 
 const Logos = () => (
   <div className="z-20 flex items-center gap-2">
-    <Image src={himakom} alt="Logo Himakom" />
-    <Image src={omahti} alt="Logo OmahTI" />
+    <Image src={himakom} alt="" priority />
+    <Image src={omahti} alt="" priority />
   </div>
 );
 
@@ -60,7 +60,7 @@ const Background = () => (
           src={himakomModel}
           sizes="100%"
           fill
-          alt="Diddy"
+          alt=""
           priority
         />
         <Image
@@ -68,7 +68,7 @@ const Background = () => (
           src={omahtiModel}
           sizes="100%"
           fill
-          alt="Diddy"
+          alt=""
           priority
         />
       </div>
