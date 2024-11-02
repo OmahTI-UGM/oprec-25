@@ -71,7 +71,7 @@ const Questions = ({
 }) => {
   return (
     <div className="space-y-2">
-      <div className="w-full rounded-lg bg-custom-gray-dark px-2 py-3 font-semibold">
+      <div className="w-full rounded-lg bg-custom-gray-dark px-4 py-3 font-semibold">
         Frequently Asked Questions -{" "}
         {variant === "omahti" ? (
           <span className="text-custom-orange">OmahTI</span>

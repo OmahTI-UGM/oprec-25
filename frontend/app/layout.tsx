@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} text-custom-silver`}>
+      <body className={`${poppins.className} text-custom-silver font-poppins-regular`}>
         <SmoothScrolling>
           <GSAPProvider>
             {children}
