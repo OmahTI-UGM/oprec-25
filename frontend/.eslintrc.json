@@ -1,7 +1,22 @@
 {
-  "extends": ["next"]
+  "extends": ["next"],
 //  "plugins": ["prettier"],
 //  "rules": {
 //    "prettier/prettier": "error"
 //  }
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@modules", "./src/modules/"],
+          ["@hooks", "./src/hooks/"],
+          ["@components", "./src/components/"],
+          ["@helpers", "./src/helpers/"],
+          ["@contexts", "./src/contexts/"],
+          ["@assets", "./public/assets/"]
+        ],
+        "extensions": [".ts", ".js", ".tsx", ".json"]
+      }
+    }
+  }
 }

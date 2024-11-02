@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScrolling from "@/contexts/SmoothScroll";
-import Sidebar from "@/components/DashboardSidebar";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/DashboardNavbar";
 import { Poppins } from "next/font/google";
+import GSAPProvider from "@/contexts/GSAP";
 export const metadata: Metadata = {
   title: "Oprec Makomti",
   description: "Open Recruitment Himakom & OmahTI",
@@ -25,8 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} text-custom-silver`}>
         <SmoothScrolling>
-          {children}
-          <Footer />
+          <GSAPProvider>
+            {children}
+            <Footer />
+          </GSAPProvider>
         </SmoothScrolling>
       </body>
     </html>

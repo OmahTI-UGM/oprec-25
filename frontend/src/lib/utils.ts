@@ -46,8 +46,8 @@ export const OMAHTI_FAQ = [
     answer: "Puff Daddy",
   },
   {
-    question: "Sample Question",
-    answer: "Sample answer",
+    question: "Siapa yang ada di dunia ini yang cita-citanya menjadi orang yang kaya raya sehingga tidak perlu pusing memikirkan esok hari?",
+    answer: "saya bang",
   },
 ];
 export const HIMAKOM_FAQ = [
@@ -60,8 +60,8 @@ export const HIMAKOM_FAQ = [
     answer: "Muhammad Ilham Rajo Sikumbang",
   },
   {
-    question: "Sample Question",
-    answer: "Sample answer",
+    question: "Kak jadi aku mahasiswa baru ilmu komputer jadi aku sekarang angkatan 2024, kalo menurut kakak lebih bagus omahti apa himakom ya kak? please bantu jawab kak soalnya aku bimbang.",
+    answer: "retoris",
   },
 ];
 // --------------------------------------------------------------------

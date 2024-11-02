@@ -1,4 +1,7 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import omahti from "@/../public/assets/beranda/about/omahti.webp";
+import himakom from "@/../public/assets/beranda/about/himakom.webp";
 
 interface AboutProps {
   category: "Himakom" | "OmahTI";
@@ -7,10 +10,18 @@ interface AboutProps {
 const AboutCard: React.FC<AboutProps> = ({ category }) => {
   return (
     <div
+      data-gsap={`${ category === "Himakom" ? "right" : "left"}`}
       className={`relative w-full h-40 xs:h-56 sm:h-80 xl:h-96 rounded-xl p-6 bg-gradient-to-b ${
         category === "Himakom" ? "from-custom-blue from-50%" : "from-custom-orange from-50%"
       } to-custom-gray-dark`}
     >
+      <Image
+        className={`object-cover rounded`}
+        sizes="100%"
+        src={category === "OmahTI" ? omahti : himakom}
+        alt=""
+        fill
+      />
       <div className="absolute bottom-4 left-4">
         <h2 className="text-custom-silver text-xl xxs:text-2xl xs:text-3xl sm:text-4xl xl:text-5xl font-semibold">
           {category}
@@ -31,8 +42,8 @@ const AboutCard: React.FC<AboutProps> = ({ category }) => {
 const About: React.FC = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 w-full ">
-      <AboutCard category="OmahTI" />
       <AboutCard category="Himakom" />
+      <AboutCard category="OmahTI" />
     </div>
   );
 };
