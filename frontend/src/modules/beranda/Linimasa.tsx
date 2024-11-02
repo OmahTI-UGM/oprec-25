@@ -2,6 +2,7 @@ import Header from "@/modules/beranda/components/Header";
 import Container from "@/components/Container";
 import Image from "next/image";
 import { LINIMASA_DETAIL } from "@/lib/utils";
+import timelineImage from "@/../public/assets/beranda/timeline/tipis.jpeg";
 
 const Linimasa = () => {
   return (
@@ -32,12 +33,12 @@ const Linimasa = () => {
 };
 
 const ImageCard = () => (
-  <div className="relative h-full min-h-40 w-full overflow-hidden rounded-xl">
+  <div className="relative h-full min-h-40 w-full overflow-hidden rounded-xl" data-gsap="down">
     <Image
       className="object-cover"
       sizes="100%"
-      src={`placeholder.svg`}
-      alt="Placeholder"
+      src={timelineImage}
+      alt=""
       fill
     />
   </div>
@@ -52,7 +53,7 @@ const LinimasaCard = ({
   date: string;
   description: string;
 }) => (
-  <div className="flex w-full flex-col justify-between space-y-3 rounded-xl bg-custom-gray-dark p-4">
+  <div className="flex w-full flex-col justify-between space-y-3 rounded-xl bg-custom-gray-dark p-4" data-gsap="up">
     {/* top part */}
     <div className="*:font-medium">
       <h1 className="text-xl">{title}</h1>
