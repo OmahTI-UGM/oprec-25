@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScrolling from "@/contexts/SmoothScroll";
-import Footer from "@/components/Footer";
 import { Poppins } from "next/font/google";
 import GSAPProvider from "@/contexts/GSAP";
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export default function RootLayout({
         <SmoothScrolling>
           <GSAPProvider>
             {children}
-            <Footer />
           </GSAPProvider>
         </SmoothScrolling>
       </body>

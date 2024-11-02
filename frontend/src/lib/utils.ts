@@ -56,7 +56,7 @@ export const HIMAKOM_FAQ = [
     answer: "Sample answer",
   },
   {
-    question: "Siapa Himakom Siji?",
+    question: "Siapa Himakom Biji?",
     answer: "Muhammad Ilham Rajo Sikumbang",
   },
   {

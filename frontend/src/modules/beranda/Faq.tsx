@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import placeholder from "@/../public/placeholder.jpeg";
 import { HIMAKOM_FAQ, OMAHTI_FAQ } from "@/lib/utils";
 import himakomFaq from "@/../public/assets/beranda/faq/omahti.png";
 import omahtiFaq from "@/../public/assets/beranda/faq/omahti.png";
@@ -56,7 +57,7 @@ const ImagesCard = ({
       </p>
 
       {/* gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-custom-black/70 to-transparent" />
+      <div className={`absolute inset-0 bg-gradient-to-t from-custom-black/70 ${variant === 'omahti' ? 'to-custom-orange/30': 'to-custom-blue/30'}`} />
     </div>
   );
 };
