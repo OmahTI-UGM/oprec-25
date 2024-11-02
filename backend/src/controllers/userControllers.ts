@@ -22,7 +22,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             userId: user.id,
             username: user.username,
             NIM: user.NIM,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            enrolledSlugHima: user.enrolledSlugHima,
+            enrolledSlugOti: user.enrolledSlugOti
         })
         user.accessToken = tokens.accessToken;
         user.refreshToken = tokens.refreshToken;
@@ -57,7 +59,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             userId: user.id,
             username: user.username,
             NIM: user.NIM,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            enrolledSlugHima: user.enrolledSlugHima,
+            enrolledSlugOti: user.enrolledSlugOti
         })
         user.accessToken = tokens.accessToken;
         user.refreshToken = tokens.refreshToken;
@@ -93,7 +97,9 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
             userId: decoded.userId,
             username: decoded.username,
             NIM: decoded.NIM,
-            isAdmin: decoded.isAdmin
+            isAdmin: decoded.isAdmin,
+            enrolledSlugHima: decoded.enrolledSlugHima,
+            enrolledSlugOti: decoded.enrolledSlugOti
         })
         user.accessToken = tokens.accessToken;
         user.refreshToken = tokens.refreshToken
@@ -246,7 +252,7 @@ export const validate = async (req: IGetRequestWithUser, res: Response) => {
         res.status(200).json({message: "Authorized", user: req.user, isAuthenticated: true});
         return;
     } catch (err) {
-        res.status(500).json({message: "Internal server error"});
+        res.status(401).json({message: "Internal server error"});
         return; 
     }
 }

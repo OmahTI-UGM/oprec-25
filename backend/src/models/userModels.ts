@@ -94,8 +94,13 @@ const userSchema: Schema<IUser> = new Schema({
       },
       refreshToken: {
         type: String
+      },
+      enrolledSlugHima: {
+        type: String
+      },
+      enrolledSlugOti: {
+        type: String
       }
-
 });
 
 userSchema.pre<IUser>('save', async function (next) {
