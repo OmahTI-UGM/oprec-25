@@ -7,10 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import placeholder from "@/../public/placeholder.jpeg";
+import placeholder from "@/placeholder.jpeg";
 import { HIMAKOM_FAQ, OMAHTI_FAQ } from "@/lib/utils";
-import himakomFaq from "@/../public/assets/beranda/faq/omahti.png";
-import omahtiFaq from "@/../public/assets/beranda/faq/omahti.png";
+import himakomFaq from "@/assets/beranda/faq/omahti.png";
+import omahtiFaq from "@/assets/beranda/faq/omahti.png";
 
 const Faq = () => {
   return (

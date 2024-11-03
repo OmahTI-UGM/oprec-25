@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
-import github from "@/../public/assets/icons/github.svg";
-import x from "@/../public/assets/icons/x.svg";
+import github from "@/assets/icons/github.svg";
+import x from "@/assets/icons/x.svg";
 import Image from "next/image";
 import Link from "next/link";
 

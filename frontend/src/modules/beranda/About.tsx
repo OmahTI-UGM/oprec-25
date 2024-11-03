@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import omahti from "@/../public/assets/beranda/about/omahti.webp";
-import himakom from "@/../public/assets/beranda/about/himakom.webp";
+import omahti from "@/assets/beranda/about/omahti.webp";
+import himakom from "@/assets/beranda/about/himakom.webp";
 
 interface AboutProps {
   category: "Himakom" | "OmahTI";
