@@ -1,5 +1,4 @@
 import { Smile } from "lucide-react";
-import PopupTerima from "./components/PopupTerima";
 import PopupPengumuman from "./components/PopupPengumuman";
 
 const Pengumuman = () => {
