@@ -75,7 +75,7 @@ const Background = () => (
     </div>
 
     {/* circle in the background */}
-    {/* <div className="absolute bottom-0 z-0 aspect-square h-auto w-full max-w-xl rounded-full bg-custom-gray lg:bottom-[-10rem]" /> */}
+    <div className="absolute bottom-[-4rem] z-0 aspect-square h-auto w-full max-w-xl rounded-full bg-custom-gray lg:bottom-[-10rem]" />
 
     {/* gradients */}
     <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />

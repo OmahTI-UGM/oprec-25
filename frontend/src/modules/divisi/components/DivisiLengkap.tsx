@@ -115,7 +115,7 @@ const DivisiCard = ({
       )}
     </div>
     <h3 className="truncate">{title}</h3>
-    <Link href={`/(dashboard)/divisi/${slug}`}>
+    <Link href={`/divisi/${slug}`}>
       <Button
         className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold"
         variant="secondary"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import ButtonLink from "@/components/ui/ButtonLink";
-import { ArrowLeft, Info, LoaderCircle, X } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Info, LoaderCircle, X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -18,6 +18,7 @@ interface FormData {
 const RegisterForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [hide, setHide] = useState<boolean>(true);
   const {
     register,
     handleSubmit,
@@ -77,7 +78,8 @@ const RegisterForm = () => {
           />
           {errors.username && (
             <p className="flex gap-1.5 text-sm text-red-500">
-              <Info size={10} className="shrink-0 mt-1" /> Name must have at least 1 character.
+              <Info size={10} className="mt-1 shrink-0" /> Name must have at
+              least 1 character.
             </p>
           )}
         </div>
@@ -96,7 +98,8 @@ const RegisterForm = () => {
           />
           {errors.email && (
             <p className="flex gap-1.5 text-sm text-red-500">
-              <Info size={10} className="shrink-0 mt-1" /> Invalid email address.
+              <Info size={10} className="mt-1 shrink-0" /> Invalid email
+              address.
             </p>
           )}
         </div>
@@ -108,19 +111,29 @@ const RegisterForm = () => {
           >
             Password
           </label>
-          <input
-            type="password"
-            className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.password && "border border-red-500"}`}
-            {...register("password", {
-              required: true,
-              pattern:
-                /^(?=.*[a-z])(?=.*\d)[a-z\d!@#$%^&*()_+[\]{}|\\;',./:<>?`~"-]{8,}$/,
-            })}
-          />
+          <div className="relative">
+            <input
+              type={hide ? "password" : "text"}
+              className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.password && "border border-red-500"}`}
+              {...register("password", {
+                required: true,
+                pattern:
+                  /^(?=.*[a-z])(?=.*\d)[a-z\d!@#$%^&*()_+[\]{}|\\;',./:<>?`~"-]{8,}$/,
+              })}
+            />
+            <span className="absolute right-1 top-1/2 -translate-y-1/2">
+              <div
+                className="cursor-pointer p-2 text-custom-silver"
+                onClick={() => setHide(!hide)}
+              >
+                {hide ? <EyeOff size={18} /> : <Eye size={18} />}
+              </div>
+            </span>
+          </div>
           {errors.password && (
             <p className="flex gap-1.5 text-sm text-red-500">
-              <Info size={10} className="shrink-0 mt-1" /> Password must have at least 8 characters and
-              contain one number.
+              <Info size={10} className="mt-1 shrink-0" /> Password must have at
+              least 8 characters and contain one number.
             </p>
           )}
         </div>
@@ -134,12 +147,12 @@ const RegisterForm = () => {
             className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.NIM && "border border-red-500"}`}
             {...register("NIM", {
               required: true,
-              pattern: /^\d{2}\/\d{6}\/[A-Z]{2}\/\d{5}$/i,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
             })}
           />
           {errors.NIM && (
             <p className="flex gap-1.5 text-sm text-red-500">
-              <Info size={10} className="shrink-0 mt-1" /> Invalid NIM format.
+              <Info size={10} className="mt-1 shrink-0" /> Invalid NIM format.
             </p>
           )}
         </div>
@@ -171,7 +184,7 @@ const ErrorToast = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="flex w-full max-w-sm  items-center justify-between rounded-lg border-2 p-4 border-red-800 bg-red-900/30 font-medium text-custom-silver">
+    <div className="flex w-full max-w-sm items-center justify-between rounded-lg border-2 border-red-800 bg-red-900/30 p-4 font-medium text-custom-silver">
       <span>{message}</span>
       <X
         size={18}

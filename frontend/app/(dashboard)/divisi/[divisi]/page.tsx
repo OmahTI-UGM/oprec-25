@@ -30,12 +30,13 @@ const Page = async ({ params }: DivisiPageProps) => {
   return (
     <>
       <section
-        className={`relative flex h-auto flex-col gap-4 bg-transparent xl:flex-row ${divisiData.himakom === true ? "bg-gradient-to-b from-custom-blue to-custom-black to-30%" : "via-cus bg-gradient-to-b from-custom-orange to-custom-black to-30%"}`}
+        className={`relative bg-transparent ${divisiData.himakom === true ? "bg-gradient-to-b from-custom-blue to-custom-black to-30%" : "via-cus bg-gradient-to-b from-custom-orange to-custom-black to-30%"}`}
       >
         <Container
           className="flex flex-col gap-4 xl:flex-row"
           parentClass="bg-transparent"
         >
+          {/* left side 70% */}
           <div className="space-y-6 xl:w-[70%]">
             {/* button to go back to divisi */}
             <ButtonLink href="/divisi">
@@ -56,6 +57,8 @@ const Page = async ({ params }: DivisiPageProps) => {
             {/* Proyek */}
             <ProjectsSwiper divisiData={divisiData.proker} />
           </div>
+
+          {/* right side 30% */}
           <Penugasan data={divisiData} />
         </Container>
       </section>
@@ -104,7 +107,7 @@ const About = ({ text }: { text: string }) => {
   return (
     <div className="w-full space-y-3 xl:pr-0">
       <h1 className="text-lg font-semibold">Tentang Kami</h1>
-      <div className="rounded-lg bg-custom-gray-dark p-3 text-justify">
+      <div className="rounded-lg bg-custom-gray-dark p-3 text-pretty">
         {text}
         {/* React Markdown juga */}
       </div>

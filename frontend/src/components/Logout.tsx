@@ -53,14 +53,14 @@ export default function Logout({ className }: { className?: string }) {
       <AlertDialogContent className="scale-90 rounded-lg lg:scale-100">
         <AlertDialogHeader>
           <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="text-[0.9rem]">
             Are you sure you want to log out? You will need to sign in again to
             access your account.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
-          <Button size={`lg`} disabled={loading} onClick={handleLogout}>
+          <Button variant={`destructive`} size={`lg`} disabled={loading} onClick={handleLogout}>
             {loading ? (
               <div className="flex items-center justify-center gap-2">
                 <LoaderCircle className="animate-spin" size={25} />

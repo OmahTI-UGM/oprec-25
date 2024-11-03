@@ -1,8 +1,7 @@
 "use client";
-import { useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import DivisiCard from "./Card";
 import { ChevronRight } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
@@ -17,18 +16,6 @@ interface DivisiProps {
 }
 
 const Divisi = ({ variant = "omahti" }: DivisiProps) => {
-  const sliderRef = useRef<any>(null);
-
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slideNext();
-  }, []);
-
   return (
     <div>
       <h1 className={`mb-3 text-xl font-semibold`}>
@@ -39,8 +26,7 @@ const Divisi = ({ variant = "omahti" }: DivisiProps) => {
         {/* prev button */}
         <Button
           variant="ghost"
-          className="px-2 py-1 hover:bg-custom-gray/20"
-          onClick={handlePrev}
+          className={`px-2 py-1 hover:bg-custom-gray/20 ${variant === "omahti" ? "oti-prev" : "hima-prev"}`}
         >
           <ChevronLeft
             className={`${variant === "omahti" ? "text-custom-orange" : "text-custom-lavender"}`}
@@ -49,17 +35,12 @@ const Divisi = ({ variant = "omahti" }: DivisiProps) => {
         </Button>
         <Swiper
           className="mySwiper overflow-hidden"
-          modules={[Mousewheel]}
-          ref={sliderRef}
+          modules={[Navigation]}
+          navigation={{
+            prevEl: variant === "omahti" ? ".oti-prev" : ".hima-prev",
+            nextEl: variant === "omahti" ? ".oti-next" : ".hima-next",
+          }}
           spaceBetween={10}
-          mousewheel={{
-            enabled: true,
-            forceToAxis: true,
-          }}
-          style={{ 
-            overscrollBehaviorX: 'contain', // Prevent page scroll
-            overscrollBehaviorY: 'none'
-          }}
           breakpoints={{
             0: {
               slidesPerView: 1,
@@ -101,8 +82,7 @@ const Divisi = ({ variant = "omahti" }: DivisiProps) => {
         {/* next button */}
         <Button
           variant="ghost"
-          className="px-2 py-1 hover:bg-custom-gray/20"
-          onClick={handleNext}
+          className={`px-2 py-1 hover:bg-custom-gray/20 ${variant === "omahti" ? "oti-next" : "hima-next"}`}
         >
           <ChevronRight
             className={`${variant === "omahti" ? "text-custom-orange" : "text-custom-blue"}`}
