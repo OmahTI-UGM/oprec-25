@@ -9,8 +9,8 @@ import {
   getPilihanWawancara,
   getAllWawancara,
 } from "@/utils/fetch";
-
 import { cookies } from "next/headers";
+
 const Divisi = async () => {
   const accessToken = cookies().get("accessToken")?.value;
   const user = getCurrentUser();
