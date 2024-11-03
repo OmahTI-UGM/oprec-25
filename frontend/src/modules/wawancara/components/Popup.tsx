@@ -26,7 +26,7 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
         return {
           icon: <X className="h-10 sm:h-12 lg:h-16 w-10 sm:w-12 lg:w-16 text-white" />,
           title: "Isi Divisi Terlebih Dahulu",
-          subtitle: "sebelum memilih pilihan wawancara",
+          subtitle: "Sebelum memilih pilihan wawancara",
           headerText: "Akses Wawancara",
           buttonLabel: "Selesai",
           cancelable: false,
@@ -90,7 +90,7 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
       <AlertDialogTrigger asChild>
         <Button className="w-20 sm:w-24 lg:w-32 text-sm lg:text-md tracking-wide">Pilih</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[80vw] xxs:w-[70vw] xs:w-[50vw] md:w-[35vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto">
+      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[90vw] xxs:w-[76vw] xs:w-[56vw] sm:w-[48vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto">
         <div className="h-14 sm:h-20 lg:h-24 bg-custom-black rounded-t-lg" />
 
         <div className="absolute left-1/2 -translate-x-1/2 top-[25px] sm:top-[35px] lg:top-[40px]">
@@ -99,16 +99,16 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
           </div>
         </div>
 
-        <div className="text-center space-y-1 sm:space-y-2 mt-6 sm:mt-8 lg:mt-16 px-4">
-          <p className="text-white text-xxs sm:text-xs lg:text-sm mb-2 sm:mb-4">{content.headerText}</p>
-          <h2 className="text-white text-md xs:text-lg sm:text-xl lg:text-2xl font-bold">{content.title}</h2>
-          <p className="text-white text-xxs sm:text-xs lg:text-sm">{content.subtitle}</p>
+        <div className="text-center mt-6 sm:mt-8 lg:mt-16 px-4">
+          <p className="text-white text-sm mb-0 sm:mb-1 lg:mb-2">{content.headerText}</p>
+          <h2 className="text-white text-xl lg:text-2xl font-bold mb-0 sm:mb-1 lg:mb-2">{content.title}</h2>
+          <p className="text-white text-sm mb-4">{content.subtitle}</p>
         </div>
 
         <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-4 sm:px-4">
           {content.cancelable && (
             <AlertDialogCancel asChild>
-              <Button variant={"outline"} className="w-full lg:w-1/2 h-8 sm:h-10 text-xs sm:text-sm lg:text-base">
+              <Button variant={"outline"} className="w-full lg:w-1/2 h-8 sm:h-10 lg:h-12 text-sm lg:text-base mt-0">
                 Batal
               </Button>
             </AlertDialogCancel>
@@ -116,7 +116,7 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
           <AlertDialogAction asChild>
             <Button 
               onClick={handleConfirm} // Trigger confirmation request
-              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 sm:h-10 text-xs sm:text-sm lg:text-base`}
+              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 sm:h-10 lg:h-12 text-sm lg:text-base`}
             >
               {content.buttonLabel}
             </Button>

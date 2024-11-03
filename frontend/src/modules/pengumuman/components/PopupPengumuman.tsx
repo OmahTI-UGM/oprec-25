@@ -50,7 +50,7 @@ export default function PopupPengumuman({ className, status, category }: PopupPe
           Buka Pengumuman
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[80vw] xxs:w-[70vw] xs:w-[50vw] md:w-[35vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto scale-95">
+      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[99vw] xxs:w-[80vw] xs:w-[55vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] h-auto scale-95">
         <div className="h-14 sm:h-20 lg:h-24 bg-custom-black rounded-t-lg" />
 
         <div className="absolute left-1/2 -translate-x-1/2 top-[25px] sm:top-[35px] lg:top-[40px]">
@@ -72,22 +72,22 @@ export default function PopupPengumuman({ className, status, category }: PopupPe
         <div className="text-center mt-6 sm:mt-8 lg:mt-16 px-4">
           {status === 'tolak' ? (
             <>
-              <p className="text-white text-xxs sm:text-xs lg:text-sm mb-10 sm:mb-12">
+              <p className="text-white text-sm md:text-base lg:text-lg mb-10 sm:mb-12 lg:mb-14">
                 Maaf kamu belum diterima dalam <br /> periode rekruitmen ini
               </p>
-              <p className="text-white text-xxs sm:text-xs lg:text-sm">
+              <p className="text-white text-sm md:text-base lg:text-lg">
                 Jangan menyerah dan tetap semangat!
               </p>
             </>
           ) : (
             <>
-              <p className="text-white text-[55%] sm:text-[75%] md:text-[65%] lg:text-[90%]">
+              <p className="text-white text-sm lg:text-base">
                 Kamu berhasil diterima di divisi
               </p>
-              <h2 className="text-white text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+              <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12">
                 {category}
               </h2>
-              <p className="text-white text-[55%] sm:text-[75%] md:text-[65%] lg:text-[90%]">
+              <p className="text-white text-sm lg:text-base">
                 Jangan lupa untuk bergabung dengan grup
               </p>
             </>
@@ -97,19 +97,19 @@ export default function PopupPengumuman({ className, status, category }: PopupPe
         <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-2 sm:px-4">
           {status === 'tolak' ? (
             <AlertDialogAction asChild>
-              <Button className="w-full h-8 sm:h-10 text-xs sm:text-sm lg:text-base">
+              <Button className="w-full h-8 sm:h-10 lg:h-12 text-sm md:text-base lg:text-lg">
                 Selesai
               </Button>
             </AlertDialogAction>
           ) : (
             <>
               <AlertDialogCancel className="mt-0" asChild>
-                <Button variant="outline" className="w-full lg:w-1/2 h-8 sm:h-10 text-xs sm:text-sm lg:text-base">
+                <Button variant="outline" className="w-full lg:w-1/2 h-8 sm:h-10 lg:h-12 text-sm md:text-base lg:text-lg">
                   Kembali
                 </Button>
               </AlertDialogCancel>
               <AlertDialogAction asChild>
-                <Button className="w-full lg:w-1/2 h-8 sm:h-10 text-xs sm:text-sm lg:text-base">
+                <Button className="w-full lg:w-1/2 h-8 sm:h-10 lg:h-12 text-sm md:text-base lg:text-lg">
                   Grup
                 </Button>
               </AlertDialogAction>
