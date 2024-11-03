@@ -58,7 +58,7 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button className="w-20 sm:w-24 lg:w-32 text-sm lg:text-md tracking-wide">Pilih</Button>
+          <Button className="w-full text-sm lg:text-md tracking-wide">Pilih Divisi</Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[90vw] xxs:w-[75vw] xs:w-[55vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto scale-[80%] sm:scale-[75%] lg:scale-[72%] xl:scale-[90%]">
           <div className="h-14 sm:h-20 lg:h-24 bg-custom-black rounded-t-lg" />

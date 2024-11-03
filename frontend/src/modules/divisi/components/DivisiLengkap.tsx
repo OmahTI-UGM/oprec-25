@@ -1,13 +1,21 @@
 "use client";
-import { useRef, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Swiper, SwiperSlide } from "swiper/react";
+// next
+import Image from "next/image";
 import Link from "next/link";
+
+// swiper stuff
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+// ui
+import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+
+// swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/mousewheel";
-import Image from "next/image";
+
 const DivisiLengkap = ({
   variant = "omahti",
   divisi,
@@ -15,18 +23,6 @@ const DivisiLengkap = ({
   variant?: "omahti" | "himakom";
   divisi?: any[];
 }) => {
-  const sliderRef = useRef<any>(null);
-
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slideNext();
-  }, []);
-
   let divisiTitle =
     variant === "omahti" ? (
       <span className="text-custom-orange">OmahTI</span>
@@ -44,23 +40,26 @@ const DivisiLengkap = ({
       <div className="flex w-full items-center justify-between gap-2">
         <Button
           variant="ghost"
-          className="px-2 py-1 hover:bg-custom-gray/20"
-          onClick={handlePrev}
+          className={`px-2 py-1 hover:bg-custom-gray/20 ${variant === "omahti" ? "oti-prev" : "hima-prev"}`}
         >
           <ChevronLeft
-            className={
+            className={` ${
               variant === "omahti"
                 ? "text-custom-orange"
                 : "text-custom-lavender"
-            }
+            }`}
             strokeWidth={3}
           />
         </Button>
 
         <Swiper
           className="mySwiper"
-          ref={sliderRef}
           spaceBetween={10}
+          modules={[Navigation]}
+          navigation={{
+            prevEl: variant === "omahti" ? ".oti-prev" : ".hima-prev",
+            nextEl: variant === "omahti" ? ".oti-next" : ".hima-next",
+          }}
           breakpoints={{
             0: { slidesPerView: 1 },
             490: { slidesPerView: 2 },
@@ -82,8 +81,7 @@ const DivisiLengkap = ({
 
         <Button
           variant="ghost"
-          className="px-2 py-1 hover:bg-custom-gray/20"
-          onClick={handleNext}
+          className={`px-2 py-1 hover:bg-custom-gray/20 ${variant === "omahti" ? "oti-next" : "hima-next"}`}
         >
           <ChevronRight
             className={
@@ -109,7 +107,11 @@ const DivisiCard = ({
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
     <div className="aspect-square h-8 rounded-sm bg-white">
       {logoUrl && (
-        <Image src={logoUrl} alt={title} className="h-full w-full object-cover" />
+        <Image
+          src={logoUrl}
+          alt={title}
+          className="h-full w-full object-cover"
+        />
       )}
     </div>
     <h3 className="truncate">{title}</h3>
