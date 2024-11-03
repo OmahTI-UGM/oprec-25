@@ -7,6 +7,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/mousewheel";
+import Image from "next/image";
 const DivisiLengkap = ({
   variant = "omahti",
   divisi,
@@ -108,7 +109,7 @@ const DivisiCard = ({
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
     <div className="aspect-square h-8 rounded-sm bg-white">
       {logoUrl && (
-        <img src={logoUrl} alt={title} className="h-full w-full object-cover" />
+        <Image src={logoUrl} alt={title} fill sizes="100%" className="object-cover" />
       )}
     </div>
     <h3 className="truncate">{title}</h3>

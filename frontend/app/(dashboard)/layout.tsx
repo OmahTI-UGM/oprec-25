@@ -1,21 +1,16 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import SmoothScrolling from "@/contexts/SmoothScroll";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import DashboardNavbar from "@/components/DashboardNavbar";
 import Container from "@/components/Container";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isDivisiPage = pathname?.includes("/dashboard/divisi/");
 
   if (isDivisiPage) {
-    return { children };
+    return <>{children}</>;
   }
 
   return (
