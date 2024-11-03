@@ -11,17 +11,15 @@ const Divisi = async () => {
   const user = await getCurrentUser();
   const enrolledSlugHima = user?.enrolledSlugHima;
   const enrolledSlugOti = user?.enrolledSlugOti;
-  const wawancara = await getAllWawancara();
+  const {wawancaraHimakom, wawancaraOti} = await getAllWawancara();
   const {filteredHima, filteredOti} = await getPilihanWawancara(accessToken as string);
-  console.log(filteredHima, filteredOti);
-  
   return (
     <>
       <Title />
       <hr className={`my-4 border-2 border-custom-gray-dark`} />
       <Peringatan />
       <WaktuPilihan filteredHima={filteredHima} slugOti={enrolledSlugOti} slugHima={enrolledSlugHima} filteredOti={filteredOti}/>
-      <PilihanWaktu />
+      <PilihanWaktu wawancaraHimakom={wawancaraHimakom} wawancaraOti={wawancaraOti}/>
     </>
   );
 }

@@ -1,77 +1,87 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface ScheduleSlot {
-  day: string;
-  time: string;
+  id: string; // ID of the tanggal item
+  sesi: Date; // Date object of the session's jam time
+  himakom: boolean
 }
 
 interface JadwalWawancaraProps {
   category: "Himakom" | "OmahTI";
+  wawancara: {
+    himakom: boolean;
+    _id: string; // ID for the tanggal item
+    tanggal: Date;
+    sesi: {
+      jam: Date;
+      dipilihOleh: string[];
+      slotDivisi: {
+        backend: { sisaSlot: number; lokasi: string };
+        frontend: { sisaSlot: number; lokasi: string };
+        uiux: { sisaSlot: number; lokasi: string };
+        dsai: { sisaSlot: number; lokasi: string };
+        cp: { sisaSlot: number; lokasi: string };
+        mobapps: { sisaSlot: number; lokasi: string };
+        gamedev: { sisaSlot: number; lokasi: string };
+        _id: string;
+      };
+      _id: string;
+    }[];
+  }[];
+  selectedSlot: ScheduleSlot | null;
+  onSlotSelect: (id: string, sesi: Date, himakom: boolean) => void;
 }
 
-const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category }) => {
-  const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
-
-  const schedule: { [key: string]: string[] } = {
-    "Senin": [
-      "10.15 - 10.45", "11.00 - 11.30", "13.30 - 14.00", 
-      "14.15 - 14.45", "15.00 - 15.30", "15.45 - 16.15"
-    ],
-    "Selasa": [
-      "10.15 - 10.45", "11.00 - 11.30", "13.30 - 14.00", 
-      "14.15 - 14.45", "15.00 - 15.30", "15.45 - 16.15"
-    ],
-    "Rabu": ["18.30 - 19.00", "19.15 - 19.45", "20.00 - 20.30"],
-    "Kamis": ["18.30 - 19.00", "19.15 - 19.45", "20.00 - 20.30"],
-    "Jum'at": ["18.30 - 19.00", "19.15 - 19.45", "20.00 - 20.30"]
-  };
-
-  const dateMapping: { [key: string]: string } = {
-    "Senin": "11 Nov",
-    "Selasa": "12 Nov",
-    "Rabu": "13 Nov",
-    "Kamis": "14 Nov",
-    "Jum'at": "15 Nov"
-  };
-
-  const handleSlotClick = (day: string, time: string) => {
-    setSelectedSlot({ day, time });
-  };
-
+const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category, wawancara, selectedSlot, onSlotSelect }) => {
   return (
     <div className="w-full h-auto bg-white p-4 rounded-md">
       <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto">
-        {Object.keys(schedule).map((day) => (
-          <div key={day}>
-            <h3 
-              className={`text-center text-base font-semibold mb-2 ${
-                category === "Himakom" ? 'text-custom-blue' : 'text-custom-orange'
-              }`}
-            >
-              {day}
-            </h3>
-            <h3 
-              className={`text-center text-xl font-semibold mb-2 ${
-                category === "Himakom" ? 'text-custom-blue' : 'text-custom-orange'
-              }`}
-            >
-              {dateMapping[day]}
-            </h3>
-            {schedule[day].map((time) => (  
-              <button 
-                key={time}
-                onClick={() => handleSlotClick(day, time)}
-                className={`w-full py-2 mb-2 rounded ${
-                  selectedSlot?.day === day && selectedSlot?.time === time
-                    ? (category === "Himakom" ? 'bg-custom-blue text-white' : 'bg-custom-orange text-white')
-                    : 'bg-gray-200 text-gray-800'
-                }`}                  
-              >
-                {time}
-              </button>
-            ))}
-          </div>
-        ))}
+        {wawancara.map((item) => {
+          const tanggalDate = new Date(item.tanggal);
+
+          if (isNaN(tanggalDate.getTime())) {
+            console.error("Invalid date:", item.tanggal);
+            return null;
+          }
+
+          const day = tanggalDate.toLocaleDateString("id-ID", { weekday: "long" });
+          const date = tanggalDate.toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+
+          return (
+            <div key={item._id}>
+              <h3 className={`text-center text-base font-semibold mb-2 ${category === "Himakom" ? 'text-custom-blue' : 'text-custom-orange'}`}>
+                {day}
+              </h3>
+              <h3 className={`text-center text-xl font-semibold mb-2 ${category === "Himakom" ? 'text-custom-blue' : 'text-custom-orange'}`}>
+                {date}
+              </h3>
+              {item.sesi.map((session) => {
+                const jamDate = new Date(session.jam);
+
+                if (isNaN(jamDate.getTime())) {
+                  console.error("Invalid time:", session.jam);
+                  return null;
+                }
+
+                const timeString = jamDate.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+
+                return (
+                  <button
+                    key={session._id}
+                    onClick={() => onSlotSelect(item._id, jamDate, item.himakom)}
+                    className={`w-full py-2 mb-2 rounded ${
+                      selectedSlot?.id === item._id && selectedSlot?.sesi.getTime() === jamDate.getTime()
+                        ? (category === "Himakom" ? 'bg-custom-blue text-white' : 'bg-custom-orange text-white')
+                        : 'bg-gray-200 text-gray-800'
+                    }`}
+                  >
+                    {timeString}
+                  </button>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

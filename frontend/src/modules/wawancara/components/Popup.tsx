@@ -7,13 +7,19 @@ import {
   AlertDialogContent,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+interface ScheduleSlot {
+  id: string;
+  sesi: Date;
+  himakom: boolean;
+}
 
 interface PopupProps {
   type: "gagal" | "berhasil" | "konfirmasi";
   className?: string;
+  selectedSlot: ScheduleSlot | null; // Pass selected slot information
 }
 
-export default function Popup({ type, className }: PopupProps) {
+export default function Popup({ type, className, selectedSlot }: PopupProps) {
   const getContent = () => {
     switch (type) {
       case "gagal":
@@ -51,12 +57,40 @@ export default function Popup({ type, className }: PopupProps) {
   const content = getContent();
   if (!content) return null;
 
+  const handleConfirm = async () => {
+    const hima = selectedSlot?.himakom ? "hima" : "oti";
+    if (type === "konfirmasi" && selectedSlot) {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wawancara/${hima}/${selectedSlot.id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            jamWawancara: selectedSlot.sesi,
+          }),
+          credentials: 'include'
+        });
+        const responseJSON = await response.json();
+        console.log(responseJSON);
+        if (response.ok) {
+          console.log("Schedule confirmed successfully.");
+          // Handle successful confirmation here (e.g., show success popup)
+        } else {
+          console.error("Failed to confirm schedule.");
+        }
+      } catch (error) {
+        console.error("Error confirming schedule:", error);
+      }
+    }
+  };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button className="w-20 sm:w-24 lg:w-32 text-sm lg:text-md tracking-wide">Pilih</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[80vw] xxs:w-[70vw] xs:w-[50vw] md:w-[35vw]  lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto">
+      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[80vw] xxs:w-[70vw] xs:w-[50vw] md:w-[35vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto">
         <div className="h-14 sm:h-20 lg:h-24 bg-custom-black rounded-t-lg" />
 
         <div className="absolute left-1/2 -translate-x-1/2 top-[25px] sm:top-[35px] lg:top-[40px]">
@@ -80,7 +114,10 @@ export default function Popup({ type, className }: PopupProps) {
             </AlertDialogCancel>
           )}
           <AlertDialogAction asChild>
-            <Button className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 sm:h-10 text-xs sm:text-sm lg:text-base`}>
+            <Button 
+              onClick={handleConfirm} // Trigger confirmation request
+              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 sm:h-10 text-xs sm:text-sm lg:text-base`}
+            >
               {content.buttonLabel}
             </Button>
           </AlertDialogAction>
