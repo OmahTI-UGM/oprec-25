@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import next from "next/types";
 
 // Define public routes that don't require authentication
 const PUBLIC_ROUTES = ["/", "/auth/login", "/auth/register", "/forgot-password"];
@@ -44,6 +45,8 @@ export async function middleware(request: NextRequest) {
         nextResponse.headers.set("x-user-NIM", user.NIM);
         nextResponse.headers.set("x-user-username", user.username || "");
         nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
+        nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
+        nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
         return nextResponse;
       }
     }
@@ -89,6 +92,8 @@ export async function middleware(request: NextRequest) {
       nextResponse.headers.set("x-user-NIM", user.NIM);
       nextResponse.headers.set("x-user-username", user.username || "");
       nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
+      nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
+      nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
       return nextResponse;
     } else if (validationResponse.status === 401 && refreshToken) {
       const refreshResponse = await refreshTokenValidation(
