@@ -4,6 +4,7 @@ import Beranda from "@/modules/beranda";
 import Layout from "@/../app/(dashboard)/layout";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import Dashboard from "@/components/dashboard/dashboard";
 
 export default async function Home() {
     const user = await getCurrentUser();
@@ -11,7 +12,7 @@ export default async function Home() {
     if (user) {
       return (
         <Layout>
-          <div>nigger {user.username}</div>
+          <Dashboard {...user} />
         </Layout>
       );
     }

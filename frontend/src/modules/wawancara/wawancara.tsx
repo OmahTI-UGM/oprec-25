@@ -16,8 +16,6 @@ const Divisi = async () => {
   return (
     <>
       <Title />
-      <hr className={`my-4 border-2 border-custom-gray-dark`} />
-      <Peringatan />
       <WaktuPilihan filteredHima={filteredHima} slugOti={enrolledSlugOti} slugHima={enrolledSlugHima} filteredOti={filteredOti}/>
       <PilihanWaktu wawancaraHimakom={wawancaraHimakom} wawancaraOti={wawancaraOti}/>
     </>

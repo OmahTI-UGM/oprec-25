@@ -19,7 +19,7 @@ const WaktuPilihan = ({
       </div>
       <div className="mt-2 flex flex-col gap-2 xl:flex-row">
         {isEmpty ? (
-          <p>Kamu belum memilih wawancara</p>
+          <p>Kamu belum memilih waktu wawancara, pilih waktu yang tersedia 😁</p>
         ) : (
           <>
             {filteredOti && (
