@@ -6,7 +6,6 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 
 export default async function Home() {
-  try {
     const user = await getCurrentUser();
     
     if (user) {
@@ -24,14 +23,4 @@ export default async function Home() {
         <Footer />
       </>
     );
-  } catch (error) {
-    // Fallback to non-authenticated view if there's an error
-    return (
-      <>
-        <Navbar />
-        <Beranda />
-        <Footer />
-      </>
-    );
-  }
 }
