@@ -43,9 +43,8 @@ async function handleWawancaraSelection(
             return;
         }
         const possibleConflict = (user[tanggalConflict].tanggalId as unknown as IWawancara)?.sesi.filter(sesi => sesi.dipilihOleh.includes(userId)) || [];
-        console.log("konflik:", possibleConflict);
         if(possibleConflict.length > 0) {
-            const hasConflicts = possibleConflict[0].jam.getTime() === jamWawancaraDate.getTime();
+            const hasConflicts = possibleConflict[0]?.jam.getTime() === jamWawancaraDate.getTime();
             if(hasConflicts) {
                 res.status(400).json({message: `Waktu wawancara yang dipilih sudah dipilih untuk ${tanggalConflict}`});
                 return;
