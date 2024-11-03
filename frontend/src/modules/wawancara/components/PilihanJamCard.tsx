@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import JadwalWawancara from "./JadwalWawancara";
 import Popup from "./Popup";
 
-
 interface PilihanWaktuProps {
   variant?: "omahti" | "himakom";
   wawancara: any;
