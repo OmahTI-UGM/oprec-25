@@ -60,9 +60,11 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         })
         setCookies(res, tokens, COOKIE_CONFIG);
         // Save changes
+        user.accessToken = tokens.accessToken;
+        user.refreshToken = tokens.refreshToken;
         await Promise.all([user.save(), divisi.save()]);
 
-        res.status(200).json({ message: "Successfully registered for division" });
+        res.status(200).json({ message: "Successfully registered for division", accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
     } catch (error) {
         const status = error instanceof DivisionSelectionError ? error.statusCode : 500;
         const message = error instanceof Error ? error.message : "Internal server error";
