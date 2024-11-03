@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import PopupDivisiBerhasil from "./PopupDivisiBerhasil";
-
+import Cookies from "js-cookie";
 type PopUpMilihProps = {
   slug: string;
   className?: string;
@@ -41,6 +41,8 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
         if (!res.ok) {
           throw new Error("Failed to send enroll");
         }
+        Cookies.set("accessToken", responseJson.accessToken);
+        Cookies.set("refreshToken", responseJson.refreshToken);
         setShowSuccessModal(true); // Show success modal on success
       } catch (error) {
         console.error(error);
