@@ -3,6 +3,8 @@ import Container from "./Container";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import himakom from "@/logos/himakom.svg";
+import omahti from "@/logos/omahti.svg";
 
 const Footer = () => {
   return (
@@ -15,14 +17,14 @@ const Footer = () => {
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/assets/logo/himakom.png"
+                  src={himakom}
                   alt="Himakom Logo"
                   width={120}
                   height={152}
                   className="h-12 w-auto"
                 />
                 <Image
-                  src="/assets/logo/omahti.png"
+                  src={omahti}
                   alt="OmahTI Logo"
                   width={298}
                   height={113}

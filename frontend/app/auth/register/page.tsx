@@ -1,6 +1,6 @@
 import Link from "next/link";
-import himakom from "@/../public/logos/himakom.svg";
-import omahti from "@/../public/logos/omahti.svg";
+import himakom from "@/logos/himakom.svg";
+import omahti from "@/logos/omahti.svg";
 import Image from "next/image";
 import RegisterForm from "@/modules/auth/RegisterForm";
 

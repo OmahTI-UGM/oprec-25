@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Container from "./Container";
 import Title from "./Title";
-import himakom from "@/../public/logos/himakom.svg";
-import omahti from "@/../public/logos/omahti.svg";
+import himakom from "@/logos/himakom.svg";
+import omahti from "@/logos/omahti.svg";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";

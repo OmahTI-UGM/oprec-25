@@ -1,13 +1,13 @@
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import himakom from "@/../public/logos/himakom.svg";
-import omahti from "@/../public/logos/omahti.svg";
+import himakom from "@/logos/himakom.svg";
+import omahti from "@/logos/omahti.svg";
 import Link from "next/link";
 import Marquee from "@/components/ui/marquee";
 import { House } from "lucide-react";
-import omahtiModel from "@/../public/assets/beranda/hero/omahtiModel.webp";
-import himakomModel from "@/../public/assets/beranda/hero/himakomModel.webp";
+import omahtiModel from "@/assets/beranda/hero/omahtiModel.webp";
+import himakomModel from "@/assets/beranda/hero/himakomModel.webp";
 
 const Hero = () => {
   return (
@@ -53,10 +53,10 @@ const Logos = () => (
 const Background = () => (
   <>
     {/* image */}
-    <div className="absolute inset-0">
+    <div className="absolute inset-0 overflow-hidden">
       <div className="relative h-full w-full">
         <Image
-          className="ml-[-7rem] z-10 object-contain mt-[5rem]"
+          className="-translate-x-[7rem] z-10 object-contain mt-[5rem]"
           src={himakomModel}
           sizes="100%"
           fill
@@ -64,7 +64,7 @@ const Background = () => (
           priority
         />
         <Image
-          className="ml-[7rem] z-10 object-contain mt-[5rem]"
+          className="translate-x-[7rem] z-10 object-contain mt-[5rem]"
           src={omahtiModel}
           sizes="100%"
           fill
