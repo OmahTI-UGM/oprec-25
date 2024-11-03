@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/utils/auth";
 import Navbar from "@/components/Navbar";
 import Beranda from "@/modules/beranda";
-import DashboardLayout from "@/(dashboard)/layout";
+import Layout from "@/../app/(dashboard)/layout";
 import "./globals.css";
 import Footer from "@/components/Footer";
 
@@ -10,9 +10,9 @@ export default async function Home() {
     
     if (user) {
       return (
-        <DashboardLayout>
+        <Layout>
           <div>nigger {user.username}</div>
-        </DashboardLayout>
+        </Layout>
       );
     }
 

@@ -59,12 +59,12 @@ const Footer = () => {
         </div>
 
         {/* Footer Info */}
-        <div className="flex flex-col gap-12">
-          <h2 className="text-base lg:text-xl">
+        <div className="flex flex-col gap-10 *:text-base">
+          <h2>
             Gedung Fakultas MIPA UGM Sekip Utara, Bulaksumur, Sinduadi, Mlati,
             Sleman, DI Yogyakarta
           </h2>
-          <h2 className="text-base lg:text-xl">
+          <h2>
             © MAKOMTI UGM - All Rights Reserved.
           </h2>
         </div>

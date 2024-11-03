@@ -14,12 +14,12 @@ const DashboardNavbar = () => {
   const nav = [
     {
       icon: <Octagon className="h-5 shrink-0" />,
-      href: "/dashboard/divisi",
+      href: "/divisi",
       tag: "Divisi",
     },
     {
       icon: <MessageSquare className="h-5 shrink-0" />,
-      href: "/dashboard/wawancara",
+      href: "/wawancara",
       tag: "Wawancara",
     },
     // {

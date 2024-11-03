@@ -106,7 +106,6 @@ const LoginForm = () => {
           {loading ? (
             <div className="flex items-center justify-center gap-2">
               <LoaderCircle className="animate-spin" size={20} />
-              <span>Authenticating</span>
             </div>
           ) : (
             "Sign in"
