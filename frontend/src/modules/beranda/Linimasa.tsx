@@ -55,9 +55,9 @@ const LinimasaCard = ({
 }) => (
   <div className="flex w-full flex-col justify-between space-y-3 rounded-xl bg-custom-gray-dark p-4" data-gsap="up">
     {/* top part */}
-    <div className="*:font-medium">
-      <h1 className="text-xl">{title}</h1>
-      <h2>{date}</h2>
+    <div>
+      <h1 className="text-xl font-semibold">{title}</h1>
+      <h2 className="font-medium">{date}</h2>
     </div>
 
     {/* bottom part */}

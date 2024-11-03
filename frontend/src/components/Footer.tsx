@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <Container parentClass="relative bg-custom-black">
       <footer className="relative flex w-full flex-col space-y-12">
-        <div className="relative h-[300px] w-full overflow-hidden rounded-lg bg-custom-gray-dark p-8 lg:h-auto">
+        <div className="relative h-[300px] w-full overflow-hidden rounded-xl bg-custom-gray-dark p-8 lg:h-auto">
           {/* Main Content */}
           <div className="relative z-10 flex h-full flex-col justify-between gap-8 lg:flex-row">
             {/* Left Section */}
@@ -31,7 +31,7 @@ const Footer = () => {
                   className="h-12 w-auto"
                 />
               </div>
-              <h1 className="text-2xl font-semibold leading-tight xxs:text-3xl">
+              <h1 className="text-2xl font-semibold leading-tight">
                 Himakom UGM | OmahTI UGM
               </h1>
             </div>
@@ -45,7 +45,7 @@ const Footer = () => {
             >
               <Button
                 variant={`link`}
-                className="text-lg text-custom-silver leading-tight lg:text-xl"
+                className="text-lg leading-tight text-custom-silver"
               >
                 See Us
                 <ArrowRight className="h-5" />
@@ -60,13 +60,11 @@ const Footer = () => {
 
         {/* Footer Info */}
         <div className="flex flex-col gap-10 *:text-base">
-          <h2>
-            Gedung Fakultas MIPA UGM Sekip Utara, Bulaksumur, Sinduadi, Mlati,
-            Sleman, DI Yogyakarta
-          </h2>
-          <h2>
-            © MAKOMTI UGM - All Rights Reserved.
-          </h2>
+          <div>
+            <h2>Gedung Fakultas MIPA UGM Sekip Utara,</h2>
+            <h2>Bulaksumur, Sinduadi, Mlati, Sleman, DI Yogyakarta</h2>
+          </div>
+          <h2>© MAKOMTI UGM - All Rights Reserved.</h2>
         </div>
       </footer>
     </Container>

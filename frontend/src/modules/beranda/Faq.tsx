@@ -19,14 +19,14 @@ const Faq = () => {
 
       {/* images card */}
       <div className="mb-8 grid grid-cols-1 gap-3 lg:grid-cols-2">
-        <ImagesCard variant="himakom" />
         <ImagesCard variant="omahti" />
+        <ImagesCard variant="himakom" />
       </div>
 
       {/* accordion faqs */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-3">
-        <Questions variant="himakom" FAQ={OMAHTI_FAQ} />
-        <Questions variant="omahti" FAQ={HIMAKOM_FAQ} />
+        <Questions variant="omahti" FAQ={OMAHTI_FAQ} />
+        <Questions variant="himakom" FAQ={HIMAKOM_FAQ} />
       </div>
     </Container>
   );
@@ -70,7 +70,7 @@ const Questions = ({
   FAQ: { question: string; answer: string }[];
 }) => {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <div className="w-full rounded-lg bg-custom-gray-dark px-4 py-3 font-semibold">
         Frequently Asked Questions -{" "}
         {variant === "omahti" ? (
@@ -80,7 +80,7 @@ const Questions = ({
         )}
       </div>
 
-      <Accordion type="single" collapsible className="space-y-2">
+      <Accordion type="single" collapsible className="space-y-3">
         {FAQ.map((faq, i) => (
           <AccordionItem 
             key={i} 

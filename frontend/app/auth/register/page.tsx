@@ -7,10 +7,10 @@ import RegisterForm from "@/modules/auth/RegisterForm";
 export default function LoginPage() {
   return (
     <>
-      <div className="relative flex w-full max-w-md flex-col items-center rounded-lg border border-custom-silver/15 bg-custom-black p-4 pt-20">
+      <div className="relative flex w-full max-w-md flex-col gap-4 items-center rounded-lg border border-custom-silver/15 bg-custom-black p-4 pt-20">
         <Logos />
-        <h1 className="mt-4 text-center text-3xl font-semibold text-white">
-          Welcome to OPREC MAKOMTI
+        <h1 className="text-center text-3xl font-semibold text-white">
+          Welcome to Open Recruitment 2024!
         </h1>
 
         {/* form component */}
@@ -31,11 +31,11 @@ const Logos = () => (
 );
 
 const RedirectBox = () => (
-  <div className="mt-8 flex w-full items-center justify-center rounded-sm  bg-custom-gray-dark/50 p-2">
+  <div className="mt-8 flex w-full items-center justify-center rounded-sm bg-custom-gray-dark/50 p-2">
     <span className="font-medium">
       Already have an account?{" "}
       <Link href="/auth/login" className="text-blue-500 hover:underline">
-        Sign In 
+        Sign In
       </Link>
     </span>
   </div>

@@ -35,7 +35,7 @@ export default function GSAPProvider({ children }: GSAPProviderProps) {
         gsapSelectors.forEach((selector, index) => {
           const type = selector.getAttribute("data-gsap");
 
-          console.log("Animating:", selector, "Type:", type);
+          // console.log("Animating:", selector, "Type:", type);
 
           const scrollTriggerConfig = {
             trigger: selector,

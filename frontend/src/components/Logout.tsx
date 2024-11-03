@@ -1,4 +1,5 @@
-import { LogOut as LogOutIcon } from "lucide-react";
+"use client";
+import { LoaderCircle, LogOut as LogOutIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -12,42 +13,62 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Logout({ className }: { className?: string }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogout = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    });
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
 
-    if (!response.ok) {
-      throw new Error('Failed to log out');
+      if (!response.ok) {
+        throw new Error("Failed to log out");
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+    } finally {
+      setLoading(false);
     }
-
-    router.push('/');
-    router.refresh();
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        className={`shrink-0 flex aspect-square lg:aspect-auto items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white hover:bg-custom-gray/90 lg:bg-custom-gray-dark lg:p-2 lg:hover:bg-custom-gray-dark/80 ${className}`}
+        className={`flex aspect-square shrink-0 items-center justify-center gap-4 rounded-sm bg-custom-gray p-2 h-12 text-white hover:bg-custom-gray/90 lg:aspect-auto lg:bg-custom-gray-dark lg:p-2 lg:hover:bg-custom-gray-dark/80 ${className}`}
       >
-        <LogOutIcon className="h-5 lg:h-8" />
+        <LogOutIcon className="h-5" />
         <p className="hidden lg:block">Log Out</p>
       </AlertDialogTrigger>
-      <AlertDialogContent className="scale-90 lg:scale-100 rounded-lg">
+      <AlertDialogContent className="scale-90 rounded-lg lg:scale-100">
         <AlertDialogHeader>
-          <AlertDialogTitle>Konfirmasi</AlertDialogTitle>
+          <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
           <AlertDialogDescription>
-            Apakah kamu yakin ingin keluar?
+            Are you sure you want to log out? You will need to sign in again to
+            access your account.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Batal</AlertDialogCancel>
-          <AlertDialogAction onClick={handleLogout}>Keluar</AlertDialogAction>
+          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+          <Button size={`lg`} disabled={loading} onClick={handleLogout}>
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <LoaderCircle className="animate-spin" size={25} />
+              </div>
+            ) : (
+              "Log Out"
+            )}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

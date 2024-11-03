@@ -40,12 +40,12 @@ const NavbarButtons = ({ className }: { className?: string }) => {
     <div className={`hidden space-x-4 sm:flex ${className}`}>
       <Link href={`auth/login`}>
         <Button variant={`white`} size={`lg`}>
-          Masuk
+          Sign in
         </Button>
       </Link>
-      <Link href={`admin`}>
+      <Link href={`auth/register`}>
         <Button variant={`whiteOutline`} size={`lg`}>
-          Admin
+          Sign up
         </Button>
       </Link>
     </div>

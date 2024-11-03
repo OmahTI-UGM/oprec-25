@@ -14,7 +14,7 @@ const Hero = () => {
     <>
       <Container
         parentClass="overflow-y-hidden"
-        className="flex h-[67vh] xs:h-[32rem] w-full flex-col items-center justify-end gap-4 bg-custom-black sm:h-[75vh]"
+        className="flex h-[67vh] w-full flex-col items-center justify-end gap-4 bg-custom-black xs:h-[32rem] sm:h-[75vh]"
       >
         {/* logo himakom omahti */}
         <Logos />
@@ -45,8 +45,8 @@ const TitleCTA = () => (
 
 const Logos = () => (
   <div className="z-20 flex items-center gap-2">
-    <Image src={himakom} alt="" priority />
-    <Image src={omahti} alt="" priority />
+    <Image src={omahti} alt="OmahTI Logo" priority />
+    <Image src={himakom} alt="Himakom Logo" priority />
   </div>
 );
 
@@ -56,7 +56,7 @@ const Background = () => (
     <div className="absolute inset-0 overflow-hidden">
       <div className="relative h-full w-full">
         <Image
-          className="-translate-x-[7rem] z-10 object-contain mt-[5rem]"
+          className="z-10 mt-[5rem] -translate-x-[7rem] object-contain"
           src={himakomModel}
           sizes="100%"
           fill
@@ -64,7 +64,7 @@ const Background = () => (
           priority
         />
         <Image
-          className="translate-x-[7rem] z-10 object-contain mt-[5rem]"
+          className="z-10 mt-[5rem] translate-x-[7rem] object-contain"
           src={omahtiModel}
           sizes="100%"
           fill
@@ -78,8 +78,8 @@ const Background = () => (
     {/* <div className="absolute bottom-0 z-0 aspect-square h-auto w-full max-w-xl rounded-full bg-custom-gray lg:bottom-[-10rem]" /> */}
 
     {/* gradients */}
-    <div className="absolute bottom-0 left-1/2 right-0 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />
-    <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-blue via-transparent to-transparent" />
+    <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />
+    <div className="absolute bottom-0 left-1/2 right-0 top-0 z-10 bg-gradient-to-t from-custom-blue via-transparent to-transparent" />
   </>
 );
 
@@ -91,14 +91,26 @@ const BenefitsMarquee = () => {
     "Relational Experience",
   ];
   return (
-    <Marquee className="bg-custom-gray-dark">
-      {Benefits.map((benefit, i) => (
-        <div key={i} className="mx-4 flex shrink-0 flex-row items-center gap-2 py-2 font-medium text-custom-silver sm:mx-8 sm:py-4 md:py-8 lg:mx-16 lg:text-lg">
-          <House size={24} className="h-4 lg:h-5" />
-          {benefit}
-        </div>
-      ))}
-    </Marquee>
+    <div className="relative">
+      {/* Left shadow */}
+      <div className="absolute left-0 top-0 z-10 h-full w-28 bg-gradient-to-r from-custom-gray-dark to-transparent" />
+
+      {/* Right shadow */}
+      <div className="absolute right-0 top-0 z-10 h-full w-28 bg-gradient-to-l from-custom-gray-dark to-transparent" />
+
+      {/* Marquee content */}
+      <Marquee className="bg-custom-gray-dark">
+        {Benefits.map((benefit, i) => (
+          <div
+            key={i}
+            className="mx-4 flex shrink-0 flex-row items-center gap-2 py-2 font-medium text-custom-silver sm:mx-8 sm:py-4 md:py-8 lg:mx-16 lg:text-lg"
+          >
+            <House size={24} className="h-4 lg:h-5" />
+            {benefit}
+          </div>
+        ))}
+      </Marquee>
+    </div>
   );
 };
 

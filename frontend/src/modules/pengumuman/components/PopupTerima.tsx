@@ -63,9 +63,9 @@ export default function PopupTerima({ className, category }: PopupTerimaProps) {
         </div>
 
         <div className="text-center mt-6 sm:mt-8 lg:mt-16 px-4">
-          <p className="text-white text-xxs sm:text-xs lg:text-sm mb-1">Kamu berhasil diterima di divisi</p>
-          <h2 className="text-white text-md xs:text-lg sm:text-xl lg:text-2xl font-bold mb-6 lg:mb-12">{category}</h2>
-          <p className="text-white text-xxs sm:text-xs lg:text-sm">Jangan lupa untuk bergabung dengan grup</p>
+          <p className="text-white text-sm sm:text-base mb-1">Kamu berhasil diterima di divisi</p>
+          <h2 className="text-white text-base xs:text-lg sm:text-xl lg:text-2xl font-bold mb-6 lg:mb-12">{category}</h2>
+          <p className="text-white text-sm sm:text-base">Jangan lupa untuk bergabung dengan grup</p>
         </div>
         
         <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-4 sm:px-4">
