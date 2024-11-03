@@ -328,31 +328,31 @@ const wawancaraData = [
         jam: new Date('2021-10-01T08:00:00'),
         dipilihOleh: [],
         slotDivisi: {
-          backend: {
+          backendHima: {
             sisaSlot: 10,
             lokasi: 'Gedung A',
           },
-          frontend: {
+          frontendHima: {
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          uiux: {
+          uiuxHima: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
-          dsai: {
+          dsaiHima: {
             sisaSlot: 6,
             lokasi: 'Gedung D',
           },
-          cp: {
+          cpHima: {
             sisaSlot: 7,
             lokasi: 'Gedung E',
           },
-          mobapps: {
+          mobappsHima: {
             sisaSlot: 6,
             lokasi: 'Gedung F',
           },
-          gamedev: {
+          gamedevHima: {
             sisaSlot: 4,
             lokasi: 'Gedung G',
           },
@@ -362,31 +362,31 @@ const wawancaraData = [
         jam: new Date('2021-10-01T10:00:00'),
         dipilihOleh: [],
         slotDivisi: {
-          backend: {
+          backendHima: {
             sisaSlot: 10,
             lokasi: 'Gedung A',
           },
-          frontend: {
+          frontendHima: {
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          uiux: {
+          uiuxHima: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
-          dsai: {
+          dsaiHima: {
             sisaSlot: 6,
             lokasi: 'Gedung D',
           },
-          cp: {
+          cpHima: {
             sisaSlot: 7,
             lokasi: 'Gedung E',
           },
-          mobapps: {
+          mobappsHima: {
             sisaSlot: 6,
             lokasi: 'Gedung F',
           },
-          gamedev: {
+          gamedevHima: {
             sisaSlot: 4,
             lokasi: 'Gedung G',
           },
