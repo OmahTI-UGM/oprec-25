@@ -42,14 +42,17 @@ async function handleWawancaraSelection(
             res.status(400).json({message: `User atau ${queryFields} gaada`});
             return;
         }
-        const hasConflicts = (user[tanggalConflict].tanggalId as unknown as IWawancara).sesi?.some(sesi => {
-            return sesi.jam.getTime() === jamWawancaraDate.getTime();
-        })
-        if(hasConflicts) {
-            res.status(400).json({message: `Waktu wawancara yang dipilih sudah dipilih untuk ${tanggalConflict}`});
-            return;
+        const possibleConflict = (user[tanggalConflict].tanggalId as unknown as IWawancara)?.sesi.filter(sesi => sesi.dipilihOleh.includes(userId)) || [];
+        console.log("konflik:", possibleConflict);
+        if(possibleConflict.length > 0) {
+            const hasConflicts = possibleConflict[0].jam.getTime() === jamWawancaraDate.getTime();
+            if(hasConflicts) {
+                res.status(400).json({message: `Waktu wawancara yang dipilih sudah dipilih untuk ${tanggalConflict}`});
+                return;
+            }
         }
-        if(user[tanggalFields].tanggalId) {
+        
+        if(user[tanggalFields].tanggalId) { 
             res.status(400).json({message: `User sudah memilih waktu wawancara untuk ${tanggalFields}`});
             return;
         }
@@ -76,7 +79,8 @@ async function handleWawancaraSelection(
         res.status(200).json({ message: "Waktu wawancara berhasil dipilih" });
         return;
     } catch (err) {
-        res.status(500).json({ message: "Internal server error" });
+        console.log(err);
+        res.status(500).json({ message: err });
         return;
     }
 }
