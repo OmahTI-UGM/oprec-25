@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, CalendarDays } from "lucide-react";
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import {
@@ -39,7 +39,7 @@ export default function PopupPengumuman({ className, status, category }: PopupPe
       case 'Mobile Apps':
         return '/assets/logo/MOBAPPS.png';
       default:
-        return '/assets/logo/omahti.png';
+        return '/assets/logo/himakom.png';
     }
   };
 
@@ -81,20 +81,20 @@ export default function PopupPengumuman({ className, status, category }: PopupPe
             </>
           ) : (
             <>
-              <p className="text-white text-xxs sm:text-xs lg:text-sm mb-1">
+              <p className="text-white text-[55%] sm:text-[75%] md:text-[65%] lg:text-[90%]">
                 Kamu berhasil diterima di divisi
               </p>
-              <h2 className="text-white text-md xs:text-lg sm:text-xl lg:text-2xl font-bold mb-6 lg:mb-12">
+              <h2 className="text-white text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12">
                 {category}
               </h2>
-              <p className="text-white text-xxs sm:text-xs lg:text-sm">
+              <p className="text-white text-[55%] sm:text-[75%] md:text-[65%] lg:text-[90%]">
                 Jangan lupa untuk bergabung dengan grup
               </p>
             </>
           )}
         </div>
 
-        <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-4 sm:px-4">
+        <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-2 sm:px-4">
           {status === 'tolak' ? (
             <AlertDialogAction asChild>
               <Button className="w-full h-8 sm:h-10 text-xs sm:text-sm lg:text-base">
