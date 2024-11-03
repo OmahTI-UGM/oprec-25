@@ -1,7 +1,6 @@
 import { Smile } from "lucide-react";
 import PopupPengumuman from "./components/PopupPengumuman";
 
-
 const Pengumuman = () => {
   return (
     <div className="space-y-8">

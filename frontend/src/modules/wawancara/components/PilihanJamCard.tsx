@@ -4,6 +4,7 @@ import JadwalWawancara from "./JadwalWawancara";
 import Popup from "./Popup";
 
 
+
 interface PilihanWaktuProps {
   variant?: "omahti" | "himakom";
   onSelect?: () => void;
@@ -25,7 +26,9 @@ const PilihanWaktuCard = ({ variant = "omahti", onSelect }: PilihanWaktuProps) =
     <div className="flex flex-col items-center bg-custom-gray-dark rounded-lg p-4 w-full"> 
       <div className="flex justify-between items-center w-full mb-4">
         {foo}
+          
         <Popup type="gagal" />
+
       </div>
       <JadwalWawancara category={variant === "himakom" ? "Himakom" : "OmahTI"} />
     </div>
