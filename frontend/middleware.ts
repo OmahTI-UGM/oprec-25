@@ -71,6 +71,7 @@ export async function middleware(request: NextRequest) {
         }
         return response;
       }
+      if(!refreshResponse.ok) return NextResponse.redirect(new URL("/auth/login", request.url));
     }
     // If validation fails, proceed to login
     return NextResponse.redirect(new URL("/auth/login", request.url));
@@ -108,6 +109,7 @@ export async function middleware(request: NextRequest) {
         }
         return response;
       }
+      if(!refreshResponse.ok) return NextResponse.redirect(new URL("/auth/login", request.url));
     }
     // If both validation and refresh fail, redirect to login
     return NextResponse.redirect(new URL("/auth/login", request.url));
