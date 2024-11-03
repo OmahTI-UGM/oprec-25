@@ -90,8 +90,11 @@ export const pilihWaktuWawancaraHima = async (req: IGetRequestWithUser, res: Res
 
 export const getAllWawancara = async (_req: Request, res: Response): Promise<void> => {
     try {
-        const wawancara = await Wawancara.find();
-        res.status(200).json({ wawancara });
+        const [wawancaraHimakom, wawancaraOti] = await Promise.all([
+            Wawancara.find({himakom: true}),
+            Wawancara.find({himakom: false})
+        ]) 
+        res.status(200).json({ wawancaraHimakom, wawancaraOti });
         return;
     } catch (err) {
         res.status(500).json({ message: "Internal server error" });

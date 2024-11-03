@@ -108,7 +108,7 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
          res.status(200).json({message: "Token refreshed"});
          return;
     } catch (err) {
-         res.status(500).json({message: "Auth error"});
+         res.status(401).json({message: "Auth error"});
          return;
     }
 }
