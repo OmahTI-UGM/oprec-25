@@ -6,11 +6,10 @@ interface CardProps {
   title?: string;
 }
 
-const DivisiCard = ({ id = 1, variant = "omahti", title = "UI/UX" }: CardProps) => {
+const DivisiCard = ({ variant = "omahti", title = "UI/UX" }: CardProps) => {
   return (
     <div className="w-full rounded-lg bg-custom-gray-dark p-4">
       <div className="flex gap-2 items-center">
-        <p className="text-base font-medium text-custom-silver">{id}</p>
         <div
           className={`w-fit rounded-sm bg-custom-black px-2 py-1 text-sm font-medium ${variant === "omahti" ? "text-custom-orange" : "text-custom-lavender"}`}
         >

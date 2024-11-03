@@ -24,7 +24,7 @@ const FOOTER_LINKS = [
 const MiniFooter = () => {
   return (
     <footer className="flex w-full flex-col gap-6 border-t border-custom-gray-dark bg-custom-black p-6 px-[10%] text-sm text-custom-gray-light">
-      <p>2024 © OmahiwTI</p>
+      <p>2024 © MAKOMTI</p>
 
       <div className="flex gap-8">
         <div className="flex gap-1">

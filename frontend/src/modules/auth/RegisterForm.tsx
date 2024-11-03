@@ -61,40 +61,56 @@ const RegisterForm = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full max-w-sm flex-col gap-4 rounded-lg p-6"
+        className="flex w-full max-w-sm flex-col gap-4 rounded-lg"
       >
         <div className="space-y-2">
-          <label htmlFor="username">Username</label>
+          <label
+            className={`${errors.username && "text-red-500"}`}
+            htmlFor="username"
+          >
+            Name
+          </label>
           <input
             type="text"
-            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue"
+            className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.username && "border border-red-500"}`}
             {...register("username", { required: true })}
           />
           {errors.username && (
-            <p className="flex items-center gap-1.5 text-sm text-red-500">
-              Username have at least 1 character.
+            <p className="flex gap-1.5 text-sm text-red-500">
+              <Info size={10} className="shrink-0 mt-1" /> Name must have at least 1 character.
             </p>
           )}
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email">Email address</label>
+          <label
+            className={`${errors.email && "text-red-500"}`}
+            htmlFor="email"
+          >
+            Email address
+          </label>
           <input
             type="text"
-            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue"
+            className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border border-red-500"}`}
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
           />
           {errors.email && (
-            <p className="flex items-center gap-1.5 text-sm text-red-500">
-              Invalid email address.
+            <p className="flex gap-1.5 text-sm text-red-500">
+              <Info size={10} className="shrink-0 mt-1" /> Invalid email address.
             </p>
           )}
         </div>
-        <div className="relative1 space-y-2">
-          <label htmlFor="password">Password</label>
+
+        <div className="relative space-y-2">
+          <label
+            className={`${errors.password && "text-red-500"}`}
+            htmlFor="password"
+          >
+            Password
+          </label>
           <input
             type="password"
-            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-[#FF7538] focus:outline-none focus:ring-1 focus:ring-[#FF7538]"
+            className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.password && "border border-red-500"}`}
             {...register("password", {
               required: true,
               pattern:
@@ -102,28 +118,37 @@ const RegisterForm = () => {
             })}
           />
           {errors.password && (
-            <p className="flex items-center gap-1.5 text-sm text-red-500">
-              Password must have at least 8 characters and contain one number.
+            <p className="flex gap-1.5 text-sm text-red-500">
+              <Info size={10} className="shrink-0 mt-1" /> Password must have at least 8 characters and
+              contain one number.
             </p>
           )}
         </div>
+
         <div className="space-y-2">
-          <label htmlFor="NIM">NIM</label>
+          <label className={`${errors.NIM && "text-red-500"}`} htmlFor="NIM">
+            NIM
+          </label>
           <input
             type="text"
-            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue"
+            className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.NIM && "border border-red-500"}`}
             {...register("NIM", {
               required: true,
               pattern: /^\d{2}\/\d{6}\/[A-Z]{2}\/\d{5}$/i,
             })}
           />
           {errors.NIM && (
-            <p className="flex items-center gap-1.5 text-sm text-red-500">
-              Invalid NIM format.
+            <p className="flex gap-1.5 text-sm text-red-500">
+              <Info size={10} className="shrink-0 mt-1" /> Invalid NIM format.
             </p>
           )}
         </div>
-        <Button type="submit" variant={`white`} size={`lg`} className="w-full mt-2 text-base">
+        <Button
+          type="submit"
+          variant={`white`}
+          size={`lg`}
+          className="mt-2 w-full text-base"
+        >
           {loading ? (
             <div className="flex items-center justify-center gap-2">
               <LoaderCircle className="animate-spin" size={20} />
@@ -137,6 +162,7 @@ const RegisterForm = () => {
   );
 };
 
+// toast for error
 const ErrorToast = ({
   message,
   onClick,
@@ -145,7 +171,7 @@ const ErrorToast = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="mb-6 flex items-center justify-between rounded-lg border-2 border-red-800 bg-red-900/30 p-4 font-medium text-custom-silver">
+    <div className="flex w-full max-w-sm  items-center justify-between rounded-lg border-2 p-4 border-red-800 bg-red-900/30 font-medium text-custom-silver">
       <span>{message}</span>
       <X
         size={18}

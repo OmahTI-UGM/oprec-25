@@ -7,9 +7,9 @@ import Image from "next/image";
 export default function LoginPage() {
   return (
     <>
-      <div className="relative bg-custom-black rounded-lg border border-custom-silver/15 p-4 pt-20 flex w-full max-w-md flex-col items-center">
+      <div className="relative gap-4 bg-custom-black rounded-lg border border-custom-silver/15 p-4 pt-20 flex w-full max-w-md flex-col items-center">
         <Logos />
-        <h1 className="mt-4 text-center text-3xl font-semibold text-white">
+        <h1 className="text-center text-3xl font-semibold text-white">
           Welcome back!
         </h1>
 

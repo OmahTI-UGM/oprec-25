@@ -58,7 +58,10 @@ const LoginForm = () => {
     <>
       {error && <ErrorToast message={error} onClick={() => setError(null)} />}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm p-6 rounded-lg flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full max-w-sm flex-col gap-4 rounded-lg"
+      >
         <div className="space-y-2">
           <label
             className={`${errors.email && "text-red-500"}`}
@@ -69,24 +72,31 @@ const LoginForm = () => {
           <input
             type="text"
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-            className={`w-full bg-black/10 rounded-lg border border-white/10  px-4 py-2 text-custom-silver placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border border-red-500"}`}
+            className={`w-full rounded-lg border border-white/10 bg-black/10 px-4 py-2 text-custom-silver placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border border-red-500"}`}
           />
           {errors.email && (
-            <p className="flex items-center gap-1.5 text-sm text-red-500">
-              <Info size={10} /> Invalid email address.
+            <p className="flex gap-1.5 text-sm text-red-500">
+              <Info size={10} className="mt-1 shrink-0" /> Invalid email
+              address.
             </p>
           )}
         </div>
 
         <div className="space-y-2">
-          <div className="flex justify-between items-baseline">
+          <div className="flex items-baseline justify-between">
             <label
               className={`${errors.password && "text-red-500"}`}
               htmlFor="password"
             >
               Password
             </label>
-            <Link href='/auth/register' tabIndex={-1} className="text-sm text-blue-500 hover:underline">Forgot password?</Link>
+            <Link
+              href="/auth/register"
+              tabIndex={-1}
+              className="text-sm text-blue-500 hover:underline"
+            >
+              Forgot password?
+            </Link>
           </div>
           <input
             type="password"
@@ -96,13 +106,18 @@ const LoginForm = () => {
             className={`w-full rounded-lg border border-white/10 bg-black/10 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border border-red-500"}`}
           />
           {errors.password && (
-            <p className="flex items-center gap-1.5 text-sm text-red-500">
-              <Info size={10} /> Invalid password.
+            <p className="flex gap-1.5 text-sm text-red-500">
+              <Info size={10} className="mt-1 shrink-0" /> Invalid password.
             </p>
           )}
         </div>
 
-        <Button type="submit" variant={`white`} size={`lg`} className="w-full mt-2 text-base">
+        <Button
+          type="submit"
+          variant={`white`}
+          size={`lg`}
+          className="mt-2 w-full text-base"
+        >
           {loading ? (
             <div className="flex items-center justify-center gap-2">
               <LoaderCircle className="animate-spin" size={20} />
@@ -125,7 +140,7 @@ const ErrorToast = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="mb-6 flex items-center justify-between rounded-lg border-2 border-red-800 bg-red-900/30 p-4 font-medium text-custom-silver">
+    <div className="flex w-full max-w-sm  items-center justify-between rounded-lg border-2 p-4 border-red-800 bg-red-900/30 font-medium text-custom-silver">
       <span>{message}</span>
       <X
         size={18}

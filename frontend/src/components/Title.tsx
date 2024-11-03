@@ -1,7 +1,7 @@
 import Image from "next/image";
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
 import Link from "next/link";
-import logo from "@/logos/logo.webp";
+import logo from "@/logos/logo.svg";
 
 const Title = () => {
   return (
