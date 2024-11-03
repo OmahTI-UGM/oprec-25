@@ -19,7 +19,7 @@ const Title = () => {
         <Link href={`/`}>
           <h1 className="leading-tight leading text-wrap font-semibold">
             <div className="flex flex-col">
-              <AnimatedGradientText className="border-none bg-transparent p-0 font-semibold outline-none">
+              <AnimatedGradientText className="border-none p-0 font-semibold">
                 <span className="inline animate-gradient bg-gradient-to-r from-custom-peach via-custom-blue to-custom-peach bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
                   Open Recruitment
                 </span>

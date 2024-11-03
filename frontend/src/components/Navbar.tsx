@@ -19,8 +19,8 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed z-50">
-        <Container parentClass="py-4 rounded-b-lg w-screen">
-          <section className="flex w-full items-center justify-between bg-custom-black">
+        <Container parentClass="py-4 w-screen bg-custom-black/90 backdrop-blur-md">
+          <section className="flex w-full items-center justify-between">
             <Title />
             <NavbarButtons />
             <NavbarSidebar className="block sm:hidden" />
@@ -59,9 +59,9 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
       <Sheet>
         <div className="flex items-center justify-center">
           <SheetTrigger asChild>
-            <Menu 
-              size={28} 
-              className="block sm:hidden animate-in fade-in duration-500 transition-transform hover:-rotate-180" 
+            <Menu
+              size={28}
+              className="block transition-transform duration-500 animate-in fade-in hover:-rotate-180 sm:hidden"
             />
           </SheetTrigger>
         </div>
@@ -81,11 +81,10 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
             </SheetClose>
           </div>
 
-
           {/* wrapper for absolute positioning */}
           <div className="relative flex h-full w-full flex-col items-center justify-between px-6 py-[10vh]">
             {/* title omahti dan himakom */}
-            <div className="z-20 w-full animate-in slide-in-from-right duration-300">
+            <div className="z-20 w-full duration-300 animate-in slide-in-from-right">
               <SheetHeader className="text-start">
                 <SheetTitle className="text-base font-semibold text-custom-silver">
                   {/* images himakom omahti */}
@@ -103,9 +102,9 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
             {/* buttons */}
             <div className="z-20 flex w-full flex-col gap-4">
               <Link href="auth/login">
-                <Button 
-                  className="w-full animate-in slide-in-from-right delay-100 duration-700" 
-                  variant="white" 
+                <Button
+                  className="w-full delay-100 duration-700 animate-in slide-in-from-right"
+                  variant="white"
                   size="lg"
                 >
                   Masuk
@@ -113,7 +112,7 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
               </Link>
               <Link href="dashboard/admin">
                 <Button
-                  className="w-full animate-in slide-in-from-right delay-150 duration-700 bg-custom-black hover:bg-custom-black/80"
+                  className="w-full bg-custom-black delay-150 duration-700 animate-in slide-in-from-right hover:bg-custom-black/80"
                   variant="whiteOutline"
                   size="lg"
                 >
@@ -123,10 +122,10 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
             </div>
 
             {/* blue and orange background */}
-            <div className="absolute bottom-1/2 left-0 right-0 top-0 z-0 bg-custom-blue animate-in fade-in duration-500" />
-            <div className="absolute bottom-0 left-0 right-0 top-1/2 z-0 bg-custom-orange animate-in fade-in duration-500" />
+            <div className="absolute bottom-1/2 left-0 right-0 top-0 z-0 bg-custom-blue duration-500 animate-in fade-in" />
+            <div className="absolute bottom-0 left-0 right-0 top-1/2 z-0 bg-custom-orange duration-500 animate-in fade-in" />
             {/* black gradient */}
-            <div className="absolute inset-0 z-10 bg-gradient-to-r from-custom-black via-custom-black/90 to-custom-black/80 animate-in fade-in duration-500" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-r from-custom-black via-custom-black/90 to-custom-black/80 duration-500 animate-in fade-in" />
           </div>
         </SheetContent>
       </Sheet>
