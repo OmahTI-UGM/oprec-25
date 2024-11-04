@@ -37,7 +37,6 @@ export default function Logout({ className }: { className?: string }) {
       router.push("/");
       router.refresh();
     } catch (error) {
-    } finally {
       setLoading(false);
     }
   };
@@ -45,7 +44,7 @@ export default function Logout({ className }: { className?: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        className={`flex aspect-square shrink-0 items-center justify-center gap-4 rounded-sm bg-custom-gray p-2 h-12 text-white hover:bg-custom-gray/90 lg:aspect-auto lg:bg-custom-gray-dark lg:p-2 lg:hover:bg-custom-gray-dark/80 ${className}`}
+        className={`flex aspect-square h-12 shrink-0 items-center justify-center gap-4 rounded-sm bg-custom-gray p-2 text-white hover:bg-custom-gray/90 lg:aspect-auto lg:bg-custom-gray-dark lg:p-2 lg:hover:bg-custom-gray-dark/80 ${className}`}
       >
         <LogOutIcon className="h-5" />
         <p className="hidden lg:block">Log Out</p>
@@ -60,7 +59,12 @@ export default function Logout({ className }: { className?: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
-          <Button variant={`destructive`} size={`lg`} disabled={loading} onClick={handleLogout}>
+          <Button
+            variant={`destructive`}
+            size={`lg`}
+            disabled={loading}
+            onClick={handleLogout}
+          >
             {loading ? (
               <div className="flex items-center justify-center gap-2">
                 <LoaderCircle className="animate-spin" size={25} />

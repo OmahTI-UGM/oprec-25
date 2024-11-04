@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import React from "react";
 
 interface CardProps {
@@ -9,7 +11,7 @@ interface CardProps {
 
 const DivisiCard = ({ id = 1, variant = "omahti", title, slug }: CardProps) => {
   return (
-    <div className="w-full rounded-lg bg-custom-gray-dark p-4">
+    <div className="w-full aspect-[5/4] flex flex-col justify-around gap-4 rounded-lg bg-custom-gray-dark p-4">
       <div className="flex gap-2 items-center">
         <p className="text-base font-medium text-custom-silver">{id}</p>
         <div
@@ -19,7 +21,7 @@ const DivisiCard = ({ id = 1, variant = "omahti", title, slug }: CardProps) => {
         </div>
       </div>
 
-      <div className="mt-4 w-full overflow-hidden">
+      <div className="w-full overflow-hidden">
         <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-4xl font-bold xl:text-5xl">
           {" "}
           {/* bisa juga text-clip (terserah mau pake apa) */}
@@ -27,9 +29,11 @@ const DivisiCard = ({ id = 1, variant = "omahti", title, slug }: CardProps) => {
         </h2>
       </div>
 
-      <a href={`/dashboard/divisi/${slug}`} className="mt-6 w-full rounded-md bg-custom-gray px-4 py-2 font-medium transition-all hover:bg-custom-gray/80">
+      <Link href={`/divisi/${slug}`}>
+        <Button size={`lg`} className="w-full text-[0.9rem]">
         Selengkapnya
-      </a>
+        </Button>
+      </Link>
     </div>
   );
 };

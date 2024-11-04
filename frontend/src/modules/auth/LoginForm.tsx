@@ -50,9 +50,8 @@ const LoginForm = () => {
       router.push("/");
       router.refresh();
     } catch (err: any) {
-      setError(err.message || "Failed to log in");
-    } finally {
       setLoading(false);
+      setError(err.message || "Failed to log in");
     }
   };
 
@@ -107,6 +106,7 @@ const LoginForm = () => {
               {...register("password", {
                 required: true,
               })}
+              autoComplete="off"
               className={`w-full rounded-lg border border-white/10 bg-black/10 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border border-red-500"}`}
             />
             {errors.password && (

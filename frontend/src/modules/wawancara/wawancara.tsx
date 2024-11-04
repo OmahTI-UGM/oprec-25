@@ -13,6 +13,7 @@ const Divisi = async () => {
   const enrolledSlugOti = user?.enrolledSlugOti;
   const {wawancaraHimakom, wawancaraOti} = await getAllWawancara();
   const {filteredHima, filteredOti} = await getPilihanWawancara(accessToken as string);
+  
   return (
     <>
       <Title />

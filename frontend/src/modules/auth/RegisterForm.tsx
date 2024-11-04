@@ -50,10 +50,9 @@ const RegisterForm = () => {
       router.push("/");
       router.refresh();
     } catch (err: any) {
-      setError(err.message || "Failed to register user.");
-    } finally {
       setLoading(false);
-    }
+      setError(err.message || "Failed to register user.");
+    } 
   };
 
   return (
@@ -120,6 +119,7 @@ const RegisterForm = () => {
                 pattern:
                   /^(?=.*[a-z])(?=.*\d)[a-z\d!@#$%^&*()_+[\]{}|\\;',./:<>?`~"-]{8,}$/,
               })}
+              autoComplete="off"
             />
             <span className="absolute right-1 top-1/2 -translate-y-1/2">
               <div

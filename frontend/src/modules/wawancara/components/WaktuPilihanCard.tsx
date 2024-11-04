@@ -1,11 +1,16 @@
 import { MapPin } from "lucide-react";
 
+interface WaktuPilihanCardProps {
+  variant?: 'omahti' | 'himakom';
+  datetime: string;
+  lokasi?: string;
+}
+
 const WaktuPilihanCard = ({
   variant = "omahti",
-  tanggal = "27 November 2024",
-  jam = "19:00",
+  datetime,
   lokasi = "IUP Room",
-}) => {
+}: WaktuPilihanCardProps) => {
   let foo;
   if (variant === "himakom") {
     foo = (
@@ -28,7 +33,7 @@ const WaktuPilihanCard = ({
         {foo}
 
         {/* date on large screens */}
-        <Date tanggal={tanggal} className="hidden sm:block" />
+        <DateIndicator tanggal={datetime} className="hidden sm:block" />
 
         {/* LOCATION AND TIME */}
         <div className="flex gap-1">
@@ -39,17 +44,17 @@ const WaktuPilihanCard = ({
           </div>
 
           {/* time */}
-          <div className="rounded-sm bg-custom-black p-1.5">{jam}</div>
+          <div className="rounded-sm bg-custom-black p-1.5">{datetime}</div>
         </div>
       </div>
 
       {/* DATE on small screens */}
-      <Date tanggal={tanggal} className="block sm:hidden" />
+      <DateIndicator tanggal={datetime} className="block sm:hidden" />
     </div>
   );
 };
 
-const Date = ({
+const DateIndicator = ({
   tanggal,
   className,
 }: {

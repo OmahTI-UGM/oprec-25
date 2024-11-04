@@ -50,7 +50,7 @@ const Page = async ({ params }: DivisiPageProps) => {
               {/* Title and Picture NIGGER */}
               <Title data={divisiData} />
               {/* Status */}
-              <Progress progress={divisiData.progress} params={params.divisi} />
+              <Progress progress={divisiData.dipilihOleh.length} slots={divisiData.slots} params={params.divisi} />
             </div>
 
             {/* Tentang */}
@@ -119,9 +119,11 @@ const About = ({ text }: { text: string }) => {
 
 const Progress = ({
   progress = 5,
+  slots = 10,
   params,
 }: {
   progress?: number;
+  slots?: number;
   params: string;
 }) => {
   return (
@@ -129,7 +131,7 @@ const Progress = ({
       <h3 className="font-semibold">Status</h3>
       <div className="flex justify-between">
         <h4>Pendaftar</h4>
-        <h4>{progress}/10</h4>
+        <h4>{progress}/{slots}</h4>
       </div>
       <PopupUrutan slug={params} />
     </div>
