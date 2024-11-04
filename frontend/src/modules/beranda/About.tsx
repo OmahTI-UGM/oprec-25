@@ -11,13 +11,14 @@ interface AboutProps {
 const About: React.FC = () => {
   return (
     <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">
-      <AboutCard category="OmahTI" />
       <AboutCard category="Himakom" />
+      <AboutCard category="OmahTI" />
     </div>
   );
 };
 
 const AboutCard: React.FC<AboutProps> = ({ category }) => {
+  const href = `/${category.toLowerCase()}`;
   return (
     <div
       data-gsap={`${category === "Himakom" ? "left" : "right"}`}
@@ -44,7 +45,7 @@ const AboutCard: React.FC<AboutProps> = ({ category }) => {
             : "Organisasi Mahasiswa Ahli Teknologi Informasi"}
         </p>
       </div>
-      <Link href={`/`} className="z-20">
+      <Link href={href} className="z-20">
         <button className="absolute bottom-4 right-4 z-20 flex aspect-square items-center justify-center rounded-xl bg-custom-silver p-2 transition-all hover:scale-105 xs:p-4">
           <ArrowRight className="h-4 w-4 text-custom-black xxs:h-6 xxs:w-6" />
         </button>

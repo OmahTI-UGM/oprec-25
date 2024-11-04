@@ -7,7 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import placeholder from "@/placeholder.jpeg";
 import { HIMAKOM_FAQ, OMAHTI_FAQ } from "@/lib/utils";
 import himakomFaq from "@/assets/beranda/faq/omahti.png";
 import omahtiFaq from "@/assets/beranda/faq/omahti.png";
@@ -19,14 +18,14 @@ const Faq = () => {
 
       {/* images card */}
       <div className="mb-8 grid grid-cols-1 gap-3 lg:grid-cols-2">
-        <ImagesCard variant="omahti" />
         <ImagesCard variant="himakom" />
+        <ImagesCard variant="omahti" />
       </div>
 
       {/* accordion faqs */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-3">
-        <Questions variant="omahti" FAQ={OMAHTI_FAQ} />
         <Questions variant="himakom" FAQ={HIMAKOM_FAQ} />
+        <Questions variant="omahti" FAQ={OMAHTI_FAQ} />
       </div>
     </Container>
   );

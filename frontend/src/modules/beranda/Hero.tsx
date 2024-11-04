@@ -45,8 +45,8 @@ const TitleCTA = () => (
 
 const Logos = () => (
   <div className="z-20 flex items-center gap-2">
-    <Image src={omahti} alt="OmahTI Logo" priority />
     <Image src={himakom} alt="Himakom Logo" priority />
+    <Image src={omahti} alt="OmahTI Logo" priority />
   </div>
 );
 
@@ -78,8 +78,8 @@ const Background = () => (
     <div className="absolute bottom-[-4rem] z-0 aspect-square h-auto w-full max-w-xl rounded-full bg-custom-gray lg:bottom-[-10rem]" />
 
     {/* gradients */}
-    <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />
     <div className="absolute bottom-0 left-1/2 right-0 top-0 z-10 bg-gradient-to-t from-custom-blue via-transparent to-transparent" />
+    <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />
   </>
 );
 

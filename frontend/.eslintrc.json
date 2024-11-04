@@ -13,7 +13,8 @@
           ["@components", "./src/components/"],
           ["@helpers", "./src/helpers/"],
           ["@contexts", "./src/contexts/"],
-          ["@assets", "./public/assets/"]
+          ["@assets", "./public/assets/"],
+          ["@/modules", "./src/modules/"]
         ],
         "extensions": [".ts", ".js", ".tsx", ".json"]
       }

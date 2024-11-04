@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import next from "next/types";
 
 // Define public routes that don't require authentication
-const PUBLIC_ROUTES = ["/", "/auth/login", "/auth/register", "/forgot-password"];
+const PUBLIC_ROUTES = ["/", "/himakom", "/omahti", "/auth/login", "/auth/register", "/forgot-password"];
 
 async function validateToken(PUBLIC_API_URL: string, token: string) {
   const response = await fetch(`${PUBLIC_API_URL}/auth/validate`, {
