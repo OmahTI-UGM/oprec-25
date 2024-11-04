@@ -13,45 +13,51 @@ const WaktuPilihanCard = ({
   jam,
   lokasi = "IUP Room",
 }: WaktuPilihanCardProps) => {
-  let variantLabel;
-  if (variant === "himakom") {
-    variantLabel = (
-      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-lavender">
+  
+  const fooClass = `rounded-md bg-custom-black p-2 text-sm sm:text-base`;
+  const foo =
+    variant === "himakom" ? (
+      <div className={`${fooClass} text-custom-blue`}>
         Himakom
       </div>
-    );
-  } else {
-    variantLabel = (
-      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-orange">
+    ) : (
+      <div className={`${fooClass} text-custom-orange`}>
         OmahTI
       </div>
     );
-  }
 
   return (
-    <div className="flex w-full flex-col gap-6 rounded-lg bg-custom-gray-dark p-1.5 text-xs text-custom-silver sm:p-4 sm:text-base">
+    <div className="flex w-full flex-col gap-6 rounded-xl bg-custom-gray-dark p-2 text-xs text-custom-silver sm:p-4 sm:text-base">
       <div className="relative flex w-full items-center justify-between gap-1">
         {/* OMAHTI OR HIMAKOM */}
         {variantLabel}
 
-        {/* Date on large screens */}
-        <DateIndicator tanggal={tanggal} className="hidden sm:block" />
+        {/* date on large screens */}
+        <DateIndicator
+          tanggal={formatDate(tanggal)}
+          className="hidden sm:block"
+        />
 
         {/* LOCATION AND TIME */}
-        <div className="flex gap-1">
-          {/* Location */}
-          <div className="flex items-center gap-0.5 rounded-sm bg-custom-black p-1.5 pr-2.5">
-            <MapPin className="h-4" />
+        <div className="flex gap-1 *:text-sm *:sm:text-base">
+          {/* location */}
+          <div className="flex items-center gap-0.5 rounded-sm bg-custom-black p-2 pr-2.5">
+            <MapPin className="h-3.5 sm:h-4" />
             {lokasi}
           </div>
 
-          {/* Time */}
-          <div className="rounded-sm bg-custom-black p-1.5">{jam}</div>
+          {/* time */}
+          <div className="rounded-sm bg-custom-black p-2">
+            {formatTime(jam)}
+          </div>
         </div>
       </div>
 
-      {/* Date on small screens */}
-      <DateIndicator tanggal={tanggal} className="block sm:hidden" />
+      {/* DATE on small screens */}
+      <DateIndicator
+        tanggal={formatDate(tanggal)}
+        className="block sm:hidden"
+      />
     </div>
   );
 };
@@ -63,5 +69,26 @@ const DateIndicator = ({
   tanggal: string;
   className?: string;
 }) => <h1 className={`text-lg font-semibold ${className}`}>{tanggal}</h1>;
+
+// functions to extract date and time from ISO string
+// ---------------------------------------------------------
+const formatDate = (isoString: string) => {
+  const date = new Date(isoString);
+  return date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+const formatTime = (isoString: string) => {
+  const date = new Date(isoString);
+  return date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+};
+// ---------------------------------------------------------
 
 export default WaktuPilihanCard;

@@ -75,6 +75,8 @@ const DivisiLengkap = ({
                 title={divisiong.judul}
                 logoUrl={Logos[divisiong.slug as keyof typeof Logos]}  // Ensure correct logo is passed
                 slug={divisiong.slug}
+                // full={true}
+                full={divisiong.slot === divisiong.dipilihOleh.length}
               />
             </SwiperSlide>
           ))}
@@ -104,6 +106,7 @@ const DivisiCard = ({
   title?: string;
   logoUrl?: StaticImageData;  // Ensure it's StaticImageData for imported images
   slug?: string;
+  full?: boolean;
 }) => (
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
     <div className="relative aspect-square rounded-sm flex items-center justify-center p-2 h-6">
@@ -112,6 +115,7 @@ const DivisiCard = ({
           <Image
             src={logoUrl}
             alt={title || "Logo"}
+            sizes="100%"
             className="object-contain" // Ensures the image fits inside without distortion
             layout="fill" // Makes the image fill the container while maintaining aspect ratio
           />

@@ -15,7 +15,10 @@ interface ScheduleSlot {
   himakom: boolean;
 }
 
-const PilihanWaktuCard = ({ variant = "omahti", wawancara }: PilihanWaktuProps) => {
+const PilihanWaktuCard = ({
+  variant = "omahti",
+  wawancara,
+}: PilihanWaktuProps) => {
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
   const [popupType, setPopupType] = useState<"gagal" | "berhasil" | "konfirmasi">("gagal");
 
@@ -24,19 +27,24 @@ const PilihanWaktuCard = ({ variant = "omahti", wawancara }: PilihanWaktuProps) 
     setPopupType("konfirmasi");
   };
 
+  const fooClass = `rounded-md bg-custom-black p-2 text-sm sm:text-base`;
   const foo =
     variant === "himakom" ? (
-      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-blue">Himakom</div>
+      <div className={`${fooClass} text-custom-blue`}>
+        Himakom
+      </div>
     ) : (
-      <div className="rounded-md bg-custom-black p-2 text-sm text-custom-orange">OmahTI</div>
+      <div className={`${fooClass} text-custom-orange`}>
+        OmahTI
+      </div>
     );
 
   // Determine if the popup should be clickable
   const isPopupClickable = selectedSlot !== null;
 
   return (
-    <div className="flex flex-col items-center bg-custom-gray-dark rounded-lg p-4 w-full">
-      <div className="flex justify-between items-center w-full mb-4">
+    <div className="flex w-full flex-col items-center rounded-xl bg-custom-gray-dark p-2 sm:p-4">
+      <div className="mb-2 flex w-full items-center justify-between sm:mb-4">
         {foo}
 
         {/* Apply pointer-events based on selectedSlot */}

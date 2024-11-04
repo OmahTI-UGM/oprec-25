@@ -29,7 +29,9 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
     switch (type) {
       case "gagal":
         return {
-          icon: <X className="h-10 sm:h-12 lg:h-16 w-10 sm:w-12 lg:w-16 text-white" />,
+          icon: (
+            <X className="h-10 w-10 text-white sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
+          ),
           title: "Isi Divisi Terlebih Dahulu",
           subtitle: "Sebelum memilih pilihan wawancara",
           headerText: "Akses Wawancara",
@@ -38,7 +40,9 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
         };
       case "berhasil":
         return {
-          icon: <Check className="h-10 sm:h-12 lg:h-16 w-10 sm:w-12 lg:w-16 text-white" />,
+          icon: (
+            <Check className="h-10 w-10 text-white sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
+          ),
           title: "Pilih Jadwal Berhasil",
           subtitle: "Sampai jumpa di hari Wawancara",
           headerText: "Konfirmasi Jadwal",
@@ -47,7 +51,9 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
         };
       case "konfirmasi":
         return {
-          icon: <CalendarDays className="h-10 sm:h-12 lg:h-16 w-10 sm:w-12 lg:w-16 text-white" />,
+          icon: (
+            <CalendarDays className="h-10 w-10 text-white sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
+          ),
           title: "Kamu Sudah Yakin?",
           subtitle: "Pilihan Jadwal Tidak Dapat Dirubah",
           headerText: "Konfirmasi Jadwal",
@@ -66,16 +72,19 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
     const hima = selectedSlot?.himakom ? "hima" : "oti";
     if (type === "konfirmasi" && selectedSlot) {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/wawancara/${hima}/${selectedSlot.id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/wawancara/${hima}/${selectedSlot.id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              jamWawancara: selectedSlot.sesi,
+            }),
+            credentials: "include",
           },
-          body: JSON.stringify({
-            jamWawancara: selectedSlot.sesi,
-          }),
-          credentials: 'include'
-        });
+        );
         const responseJSON = await response.json();
         if (response.ok) {
           console.log("Schedule confirmed successfully.");
@@ -99,13 +108,15 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
     <AlertDialog>
       {showErrorModal && <ErrorPopup open={showErrorModal} onErrorClose={handleErrorClose} errorMessage={errorMessage || ""}/>}
       <AlertDialogTrigger asChild>
-        <Button className="w-20 sm:w-24 lg:w-32 text-sm lg:text-md tracking-wide">Pilih</Button>
+        <Button className="h-auto w-20 p-2 text-sm tracking-wide sm:w-24 sm:text-base lg:w-32">
+          Pilih
+        </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[90vw] xxs:w-[76vw] xs:w-[56vw] sm:w-[48vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto">
-        <div className="h-14 sm:h-20 lg:h-24 bg-custom-black rounded-t-lg" />
+      <AlertDialogContent className="h-auto w-[90vw] rounded-lg bg-custom-gray-dark p-0 xxs:w-[76vw] xs:w-[56vw] sm:w-[48vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw]">
+        <div className="h-14 rounded-t-lg bg-custom-black sm:h-20 lg:h-24" />
 
-        <div className="absolute left-1/2 -translate-x-1/2 top-[25px] sm:top-[35px] lg:top-[40px]">
-          <div className="relative bg-custom-black rounded-full p-3 sm:p-4 lg:p-6 border border-white w-16 sm:w-20 lg:w-28 h-16 sm:h-20 lg:h-28 flex items-center justify-center">
+        <div className="absolute left-1/2 top-[25px] -translate-x-1/2 sm:top-[35px] lg:top-[40px]">
+          <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white bg-custom-black p-3 sm:h-20 sm:w-20 sm:p-4 lg:h-28 lg:w-28 lg:p-6">
             {content.icon}
           </div>
         </div>
@@ -115,18 +126,21 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
           <p className="text-white text-sm mb-4">{content.subtitle}</p>
         </div>
 
-        <div className="flex flex-col-reverse xxs:flex-row lg:flex-row justify-center items-center gap-2 p-4 pt-0 lg:pt-4 sm:px-4">
+        <div className="flex flex-col-reverse items-center justify-center gap-2 p-4 pt-0 xxs:flex-row sm:px-4 lg:flex-row lg:pt-4">
           {content.cancelable && (
             <AlertDialogCancel asChild>
-              <Button variant={"outline"} className="w-full lg:w-1/2 h-8 sm:h-10 lg:h-12 text-sm lg:text-base mt-0">
+              <Button
+                variant={"outline"}
+                className="mt-0 h-8 w-full text-sm sm:h-10 lg:h-12 lg:w-1/2 lg:text-base"
+              >
                 Batal
               </Button>
             </AlertDialogCancel>
           )}
           <AlertDialogAction asChild>
-            <Button 
+            <Button
               onClick={handleConfirm} // Trigger confirmation request
-              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 sm:h-10 lg:h-12 text-sm lg:text-base`}
+              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 text-sm sm:h-10 lg:h-12 lg:text-base`}
             >
               {content.buttonLabel}
             </Button>

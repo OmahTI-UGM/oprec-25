@@ -34,7 +34,7 @@ interface JadwalWawancaraProps {
 
 const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category, wawancara, selectedSlot, onSlotSelect }) => {
   return (
-    <div className="w-full h-auto bg-white p-4 rounded-md">
+    <div className="w-full h-auto bg-custom-silver p-4 rounded-md">
       <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto">
         {wawancara.map((item) => {
           const tanggalDate = new Date(item.tanggal);
@@ -71,8 +71,8 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category, wawancara, 
                     onClick={() => onSlotSelect(item._id, jamDate, item.himakom)}
                     className={`w-full py-2 mb-2 rounded ${
                       selectedSlot?.id === item._id && selectedSlot?.sesi.getTime() === jamDate.getTime()
-                        ? (category === "Himakom" ? 'bg-custom-blue text-white' : 'bg-custom-orange text-white')
-                        : 'bg-gray-200 text-gray-800'
+                        ? (category === "Himakom" ? 'bg-custom-blue text-custom-silver' : 'bg-custom-orange text-custom-silver')
+                        : 'bg-custom-gray-light text-custom-black hover:bg-custom-gray-light/80 transition-colors'
                     }`}
                   >
                     {timeString}

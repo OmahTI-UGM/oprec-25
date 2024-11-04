@@ -11,7 +11,7 @@ interface CardProps {
 
 const DivisiCard = ({ id = 1, variant = "omahti", title, slug }: CardProps) => {
   return (
-    <div className="w-full aspect-[5/4] flex flex-col justify-around gap-4 rounded-lg bg-custom-gray-dark p-4">
+    <div className="w-full min-h-40 flex flex-col justify-between gap-4 rounded-lg bg-custom-gray-dark p-4">
       <div className="flex gap-2 items-center">
         <p className="text-base font-medium text-custom-silver">{id}</p>
         <div

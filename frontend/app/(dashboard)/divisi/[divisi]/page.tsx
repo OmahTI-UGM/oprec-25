@@ -48,7 +48,7 @@ const Page = async ({ params }: DivisiPageProps) => {
             <div className="flex flex-col justify-between space-y-3 md:flex-row md:items-end lg:flex-grow xl:pr-0">
               <Title data={divisiData} slug={params.divisi}/>
               {/* Status */}
-              <Progress progress={divisiData.dipilihOleh.length} slots={divisiData.slots} params={params.divisi} />
+              <Progress progress={divisiData.dipilihOleh.length} slots={divisiData.slot} params={params.divisi} />
             </div>
 
             {/* Tentang */}

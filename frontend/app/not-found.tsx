@@ -1,3 +1,4 @@
+import { Smile } from "lucide-react";
 import Link from "next/link";
 
 const NotFound = () => {
@@ -9,7 +10,7 @@ const NotFound = () => {
           <span>0</span>
           <span className="text-custom-blue">4</span>
         </h1>
-        <h2 className="text-[2vw]">Oops! ada yang salah nih bossssssssssssssssht</h2>
+        <h2 className="text-[2vw] flex gap-[1vw]"><Smile className="w-[2vw] aspect-square" /> Oops! ada yang salah nih bossssssssssssssssht</h2>
       </section>
     </>
   );
