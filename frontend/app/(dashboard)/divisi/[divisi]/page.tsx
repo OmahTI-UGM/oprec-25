@@ -10,7 +10,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
 
-import { getOneDivisi } from "@/utils/fetch";
+import { getOneDivisi, getPenugasanUser } from "@/utils/fetch";
+import { cookies } from "next/headers";
 import PopupDivisiBerhasil from "@/modules/divisi/components/PopupDivisiBerhasil";
 import Penugasan from "@/modules/divisi/slug/components/Penugasan";
 
@@ -21,8 +22,9 @@ type DivisiPageProps = {
 };
 
 const Page = async ({ params }: DivisiPageProps) => {
+  const accessToken = cookies().get("accessToken")?.value;
   const divisiData = await getOneDivisi(params.divisi);
-
+  const {penugasan} = await getPenugasanUser(params.divisi, accessToken as string);
   if (!divisiData) {
     notFound();
   }
@@ -59,7 +61,7 @@ const Page = async ({ params }: DivisiPageProps) => {
           </div>
 
           {/* right side 30% */}
-          <Penugasan data={divisiData} />
+          <Penugasan data={divisiData} existingPenugasan={penugasan}/>
         </Container>
       </section>
     </>

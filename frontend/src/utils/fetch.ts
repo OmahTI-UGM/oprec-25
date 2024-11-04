@@ -39,3 +39,12 @@ export const getPilihanWawancara = async (accessToken: string) => {
 
     return{filteredOti, filteredHima};
 }
+export const getPenugasanUser = async(slug:string, accessToken: string) => {
+    const res = await fetch(`${PUBLIC_API_URL}/divisi/${slug}/penugasan`, {
+        headers: {Cookie: `accessToken=${accessToken};`},
+        credentials: "include",
+    });
+    const penugasan = await res.json();
+
+    return penugasan;
+}
