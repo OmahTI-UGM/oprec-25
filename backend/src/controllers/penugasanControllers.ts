@@ -14,15 +14,15 @@ export const submitPenugasan = async(req: IGetRequestWithUser, res: Response): P
         }
         const { userId } = req.user;
 
-        const [divisi, user, existingPenugasan] = await Promise.all([
+        const [divisi, user] = await Promise.all([
             Divisi.findOne({slug: divisiSlug}),
             User.findById(userId),
-            Penugasan.findOne({disubmitOleh: userId, disubmitDi: divisiSlug})
         ])
         if(!divisi || !user){
             res.status(400).json({message: "Divisi atau user gaada"});
             return;
         }
+        const existingPenugasan = await Penugasan.findOne({disubmitOleh: userId, disubmitDi: divisi.id});
         if(existingPenugasan){
             res.status(400).json({message: "Sudah submit di sini"});
             return;
@@ -32,7 +32,7 @@ export const submitPenugasan = async(req: IGetRequestWithUser, res: Response): P
             link,
             comment,
             disubmitOleh: userId,
-            disubmitDi: divisiSlug
+            disubmitDi: divisi.id
         })
         user.tugas?.push(newPenugasan.id);
         await Promise.all([newPenugasan.save(), user.save()]);
@@ -53,7 +53,6 @@ export const updateTugas = async(req: IGetRequestWithUser, res: Response): Promi
         const{ userId } = req.user;
         const { id: tugasId } = req.params;
         const { link, comment } = req.body;
-
         const tugas = await Penugasan.findById(tugasId);
         if(!tugas){
             res.status(404).json({message: "Tugas gaada"});
@@ -77,12 +76,13 @@ export const updateTugas = async(req: IGetRequestWithUser, res: Response): Promi
 export const existingSubmission = async(req: IGetRequestWithUser, res: Response): Promise<void> => {
     try{
         const{ slug: divisiSlug } = req.params;
+        const divisi = await Divisi.findOne({slug: divisiSlug});
         if(!req.user){
             res.status(401).json({message: "Unauthorized"});
             return;
         }
         const { userId } = req.user;
-        const penugasan = await Penugasan.findOne({disubmitOleh: userId, disubmitDi: divisiSlug});
+        const penugasan = await Penugasan.findOne({disubmitOleh: userId, disubmitDi: divisi?.id});
         if(!penugasan){
             res.status(200).json({message: "Belum submit penugasan", penugasan: null});
             return;

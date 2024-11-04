@@ -36,7 +36,7 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         }
         
         // Validate division availability
-        if (divisi.slot <= 0) {
+        if ((divisi.dipilihOleh?.length || 0) >= divisi.slot) {
             throw new DivisionSelectionError("No slots available");
         }
 
@@ -49,7 +49,6 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
 
         // Update division slots
         divisi.dipilihOleh = [...(divisi.dipilihOleh || []), req.user.userId];
-        divisi.slot -= 1;
         const tokens = generateTokens({
             userId: user.id,
             username: user.username,
