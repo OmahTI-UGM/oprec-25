@@ -314,12 +314,15 @@ export const updateUserDivisionAcceptance = async (req: IGetRequestWithUser, res
         res.status(403).json({ message: "Access Denied: Not an admin" });
         return;
     }
-
     try {
         // Find the user by ID
         const user = await User.findById(userId);
         if (!user) {
             res.status(404).json({ message: "User not found" });
+            return;
+        }
+        if(user.diterimaDi) {
+            res.status(400).json({message: "User sudah diterima di divisi lain"});
             return;
         }
         // Update the user's acceptance status for their division
@@ -329,8 +332,10 @@ export const updateUserDivisionAcceptance = async (req: IGetRequestWithUser, res
         await user.save();
 
         res.status(200).json({ message: "User division acceptance updated successfully", user });
+        return;
     } catch (error) {
         console.error("Error updating user division acceptance:", error);
         res.status(500).json({ message: "Internal server error" });
+        return;
     }
 };
