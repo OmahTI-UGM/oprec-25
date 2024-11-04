@@ -40,6 +40,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         })
         return;
     } catch (err) {
+        console.log(err);
         res.status(500).json({message: "Registration error"});
         return;
     }
@@ -280,32 +281,31 @@ export const getAllUsersAndTheirFilteredTugas = async (req: IGetRequestWithUser,
         // Use the division's `_id` to find users who have chosen this division
         const users = await User.find({
             'divisiPilihan.divisiId': adminDivision._id,
-        }).populate<{ tugas: IPenugasan[] }>("tugas"); // Populate `tugas` as an array or null
-        console.log(users);
+        }).populate<{ tugas: IPenugasan[] }>("tugas").populate("divisiPilihan.divisiId");
         // Filter each user's tugas based on `disubmitDi` matching `adminDivision._id`
         const usersWithFilteredTugas = users.map((user: IUser) => {
             // Set `filteredTugas` to an empty array if `user.tugas` is null or undefined
             const filteredTugas = user.tugas?.filter((tugas: IPenugasan) =>
-                tugas.disubmitDi.toString() === (adminDivision._id as string)
+                tugas.disubmitDi.toString() === (adminDivision._id as string).toString()
             ) || [];
-
+            
             return {
                 ...user.toObject(),
                 adminDivision: adminDivision,
                 tugas: filteredTugas, // Replace tugas with the filtered results or an empty array
             };
         });
-
         res.status(200).json(usersWithFilteredTugas);
+        return;
     } catch (error) {
         console.error("Error fetching and filtering users' tugas by division:", error);
         res.status(500).json({ message: "Internal server error" });
+        return;
     }
 };
 
 export const updateUserDivisionAcceptance = async (req: IGetRequestWithUser, res: Response): Promise<void> => {
     const { userId, acceptDivisionId } = req.body; // Expecting userId and acceptance status in the request body
-
     if (!req.user) {
         res.status(401).json({ message: "Unauthorized" });
         return;
