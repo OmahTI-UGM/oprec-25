@@ -48,3 +48,13 @@ export const getPenugasanUser = async(slug:string, accessToken: string) => {
 
     return penugasan;
 }
+
+export const getAllUsersAndTheirFilteredTugas = async (accessToken: string) => {
+    const res = await fetch(`${PUBLIC_API_URL}/auth/adminonly/admin`, {
+        credentials: "include",
+        headers: {Cookie: `accessToken=${accessToken};`},
+    });
+    const users = await res.json();
+
+    return users;
+}

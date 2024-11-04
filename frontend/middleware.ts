@@ -4,7 +4,7 @@ import next from "next/types";
 
 // Define public routes that don't require authentication
 const PUBLIC_ROUTES = ["/", "/himakom", "/omahti", "/auth/login", "/auth/register", "/forgot-password"];
-
+const ADMIN_ROUTES = ["/admin"];
 async function validateToken(PUBLIC_API_URL: string, token: string) {
   const response = await fetch(`${PUBLIC_API_URL}/auth/validate`, {
     headers: { Cookie: `accessToken=${token};` },
@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   const refreshToken = request.cookies.get("refreshToken")?.value;
   
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
-
+  const isAdminRoute = ADMIN_ROUTES.some(route => pathname.startsWith(route));
   // always allow access to root route
   if (pathname === '/') {
     // If there's an access token, validate it
@@ -76,7 +76,40 @@ export async function middleware(request: NextRequest) {
     // If validation fails, proceed to login
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
+  if (isAdminRoute) {
+    if (!accessToken) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
 
+    const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
+    if (validationResponse.ok) {
+      const { user } = await validationResponse.json();
+      if (!user.isAdmin) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+      const nextResponse = NextResponse.next();
+      // Attach user data to request headers
+      nextResponse.headers.set("x-user-id", user.userId);
+      nextResponse.headers.set("x-user-NIM", user.NIM);
+      nextResponse.headers.set("x-user-username", user.username || "");
+      nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
+      nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
+      nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
+      return nextResponse;
+    } else if (validationResponse.status === 401 && refreshToken) {
+      const refreshResponse = await refreshTokenValidation(PUBLIC_API_URL, refreshToken);
+      if (refreshResponse.ok) {
+        const response = NextResponse.next();
+        const setCookieHeader = refreshResponse.headers.get("set-cookie");
+        if (setCookieHeader) {
+          response.headers.set("set-cookie", setCookieHeader);
+        }
+        return response;
+      }
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
   // Protect other routes
   if (!isPublicRoute && !accessToken) {
     return NextResponse.redirect(new URL("/auth/login", request.url));

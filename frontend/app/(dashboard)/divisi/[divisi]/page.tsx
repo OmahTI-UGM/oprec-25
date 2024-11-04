@@ -10,11 +10,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
 
-import { getOneDivisi, getPenugasanUser } from "@/utils/fetch";
-import { cookies } from "next/headers";
-import PopupDivisiBerhasil from "@/modules/divisi/components/PopupDivisiBerhasil";
 import Penugasan from "@/modules/divisi/slug/components/Penugasan";
 
+import { getOneDivisi, getPenugasanUser } from "@/utils/fetch";
+import { cookies } from "next/headers";
 type DivisiPageProps = {
   params: {
     divisi: string;

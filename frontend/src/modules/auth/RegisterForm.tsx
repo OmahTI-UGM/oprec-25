@@ -147,7 +147,7 @@ const RegisterForm = () => {
             className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.NIM && "border border-red-500"}`}
             {...register("NIM", {
               required: true,
-              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              pattern: /^\d{2}\/\d{6}\/[A-Z]{2}\/\d{5}$/,
             })}
           />
           {errors.NIM && (
