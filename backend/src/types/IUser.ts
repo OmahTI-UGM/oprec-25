@@ -1,4 +1,5 @@
 import mongoose, {Document} from "mongoose"
+import { IPenugasan } from "./IPenugasan"
 export interface IUser extends Document{
     username: string,
     email: string,
@@ -13,7 +14,7 @@ export interface IUser extends Document{
     tanggalPilihanOti?: TanggalPilihan,
     prioritasOti?: mongoose.Types.ObjectId,
     prioritasHima?: mongoose.Types.ObjectId,
-    tugas?: mongoose.Types.ObjectId[],
+    tugas?: IPenugasan[],
     diterimaDi?: mongoose.Types.ObjectId,
     isAdmin: boolean,
     accessToken?: string,

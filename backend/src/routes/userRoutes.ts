@@ -8,7 +8,9 @@ import{
     getWawancara,
     validate,
     requestPasswordReset,
-    resetPassword
+    resetPassword,
+    getAllUsersAndTheirFilteredTugas,
+    updateUserDivisionAcceptance
 } from "@/controllers/userControllers";
 import { authenticateToken } from "@middlewares/auth";
 
@@ -25,4 +27,6 @@ router.get('/refresh', refresh);
 router.get('/divisi', authenticateToken, getDivisi);
 router.get('/wawancara', authenticateToken, getWawancara);
 
+router.post('/adminonly/admin', authenticateToken, updateUserDivisionAcceptance);
+router.get('/adminonly/admin', authenticateToken, getAllUsersAndTheirFilteredTugas);
 export default router;

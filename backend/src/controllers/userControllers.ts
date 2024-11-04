@@ -6,16 +6,19 @@ import { IGetRequestWithUser } from "@/types/getUserRequest";
 import { IWawancara } from "@/types/IWawancara";
 import { randomBytes } from "crypto";
 import { resetEmail } from "@utils/resetEmail";
+import Divisi from "@/models/divisiModels";
+import { IPenugasan } from "@/types/IPenugasan";
+import { IUser } from "@/types/IUser";
 export const register = async (req: Request, res: Response): Promise<void> => {
     try{
-        const {email, username, password, NIM} = req.body;
+        const {email, username, password, NIM, isAdmin=false} = req.body;
         const existingUser = await User.findOne({$or: [ {email}, {username} ]}).lean();
         if (existingUser){ 
             res.status(400).json({message: "User exists"}) 
             return;
         }
 
-        const userData = {email, username, password, NIM, isAdmin: false};
+        const userData = {email, username, password, NIM, isAdmin};
         const user = await User.create(userData);
 
         const tokens = generateTokens({
@@ -256,3 +259,78 @@ export const validate = async (req: IGetRequestWithUser, res: Response) => {
         return; 
     }
 }
+
+export const getAllUsersAndTheirFilteredTugas = async (req: IGetRequestWithUser, res: Response): Promise<void> => {
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
+    if (!req.user.isAdmin) {
+        res.status(403).json({ message: "Access Denied: Not an admin" });
+        return;
+    }
+
+    try {
+        // Find the division associated with the admin's username
+        const adminDivision = await Divisi.findOne({ slug: req.user.username });
+        if (!adminDivision) {
+            res.status(404).json({ message: "Admin's division not found" });
+            return;
+        }
+        // Use the division's `_id` to find users who have chosen this division
+        const users = await User.find({
+            'divisiPilihan.divisiId': adminDivision._id,
+        }).populate<{ tugas: IPenugasan[] }>("tugas"); // Populate `tugas` as an array or null
+        console.log(users);
+        // Filter each user's tugas based on `disubmitDi` matching `adminDivision._id`
+        const usersWithFilteredTugas = users.map((user: IUser) => {
+            // Set `filteredTugas` to an empty array if `user.tugas` is null or undefined
+            const filteredTugas = user.tugas?.filter((tugas: IPenugasan) =>
+                tugas.disubmitDi.toString() === (adminDivision._id as string)
+            ) || [];
+
+            return {
+                ...user.toObject(),
+                adminDivision: adminDivision,
+                tugas: filteredTugas, // Replace tugas with the filtered results or an empty array
+            };
+        });
+
+        res.status(200).json(usersWithFilteredTugas);
+    } catch (error) {
+        console.error("Error fetching and filtering users' tugas by division:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const updateUserDivisionAcceptance = async (req: IGetRequestWithUser, res: Response): Promise<void> => {
+    const { userId, acceptDivisionId } = req.body; // Expecting userId and acceptance status in the request body
+
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
+    if (!req.user.isAdmin) {
+        res.status(403).json({ message: "Access Denied: Not an admin" });
+        return;
+    }
+
+    try {
+        // Find the user by ID
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+        // Update the user's acceptance status for their division
+        user.diterimaDi = acceptDivisionId;
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(200).json({ message: "User division acceptance updated successfully", user });
+    } catch (error) {
+        console.error("Error updating user division acceptance:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
