@@ -10,7 +10,8 @@ import{
     requestPasswordReset,
     resetPassword,
     getAllUsersAndTheirFilteredTugas,
-    updateUserDivisionAcceptance
+    updateUserDivisionAcceptance,
+    getUserDiterimaDimana
 } from "@/controllers/userControllers";
 import { authenticateToken } from "@middlewares/auth";
 
@@ -29,4 +30,5 @@ router.get('/wawancara', authenticateToken, getWawancara);
 
 router.post('/adminonly/admin', authenticateToken, updateUserDivisionAcceptance);
 router.get('/adminonly/admin', authenticateToken, getAllUsersAndTheirFilteredTugas);
+router.get('/user/pengumuman', authenticateToken, getUserDiterimaDimana);
 export default router;

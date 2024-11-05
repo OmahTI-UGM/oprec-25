@@ -344,3 +344,23 @@ export const updateUserDivisionAcceptance = async (req: IGetRequestWithUser, res
         return;
     }
 };
+
+export const getUserDiterimaDimana = async (req: IGetRequestWithUser, res: Response): Promise<void> => {
+    if(!req.user) {
+        res.status(401).json({message: "Unauthorized"});
+        return;
+    }
+    try {
+        const user = await User.findById(req.user.userId).populate("diterimaDi");
+        if(!user) {
+            res.status(404).json({message: "User not found"});
+            return;
+        }
+        const diterimaDi = user.diterimaDi;
+        res.status(200).json({diterimaDi});
+        return;
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error" });
+        return;
+    }
+}

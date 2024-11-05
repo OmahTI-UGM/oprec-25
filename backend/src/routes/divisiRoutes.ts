@@ -17,8 +17,8 @@ router.post('/:slug/choose', authenticateToken, pilihDivisi);
 router.post('/:slug/submit', authenticateToken, submitPenugasan);
 router.put('/:id/update', authenticateToken, updateTugas);
 
-router.get('/', getAllDivisi);
-router.get('/:slug', getOneDivisi);
+router.get('/', authenticateToken, getAllDivisi);
+router.get('/:slug', authenticateToken, getOneDivisi);
 router.get('/:slug/penugasan', authenticateToken, existingSubmission);
 
 export default router;
