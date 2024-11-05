@@ -15,7 +15,7 @@ const Faq = () => {
   return (
     <Container>
       <Header>Empowering Individuals, Building Communities</Header>
-      <div className="w-full lg:flex lg:items-start lg:justify-start gap-8 lg:gap-3` space-y-3 lg:space-y-0">
+      <div className="w-full lg:flex lg:items-start lg:justify-start gap-8 lg:gap-3 space-y-3 lg:space-y-0">
         <div className="flex flex-col gap-3 lg:w-1/2">
           {/* images card */}
           <div className="lg:mb-8 grid grid-cols-1 gap-3">
