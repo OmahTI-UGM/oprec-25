@@ -6,8 +6,8 @@ import omahti from "@/logos/omahti.svg";
 import Link from "next/link";
 import Marquee from "@/components/ui/marquee";
 import { House } from "lucide-react";
-import omahtiModel from "@/assets/beranda/hero/omahtiModel.webp";
-import himakomModel from "@/assets/beranda/hero/himakomModel.webp";
+import omahtiModel from "@/assets/beranda/hero/omahtiModel.png";
+import himakomModel from "@/assets/beranda/hero/himakomModel.png";
 
 const Hero = () => {
   return (
@@ -44,9 +44,9 @@ const TitleCTA = () => (
 );
 
 const Logos = () => (
-  <div className="z-20 flex items-center gap-2">
-    <Image src={himakom} alt="Himakom Logo" priority />
-    <Image src={omahti} alt="OmahTI Logo" priority />
+  <div className="z-20 flex items-center gap-4">
+    <Image src={omahti} alt="OmahTI Logo" className="h-8 w-auto" priority />
+    <Image src={himakom} alt="Himakom Logo" className="h-8 w-auto" priority />
   </div>
 );
 
@@ -54,20 +54,22 @@ const Background = () => (
   <>
     {/* image */}
     <div className="absolute inset-0 overflow-hidden">
-      <div className="relative h-full w-full">
+      <div className="relative h-[600px] w-full">
         <Image
-          className="z-10 mt-[5rem] -translate-x-[7rem] object-contain"
-          src={himakomModel}
-          sizes="100%"
-          fill
+          className="absolute z-10 -right-[2rem] xxs:right-[2.7rem] xs:right-[9rem] top-6 object-contain
+          w-full h-[80vh] min-w-[500px]"
+          src={omahtiModel} 
+          width={500}
+          height={500}
           alt=""
           priority
         />
         <Image
-          className="z-10 mt-[5rem] translate-x-[7rem] object-contain"
-          src={omahtiModel}
-          sizes="100%"
-          fill
+          className="absolute z-10 -left-[2rem] xxs:left-[2.7rem] xs:left-[9rem] top-6 object-contain
+          w-full h-[80vh] min-w-[500px]"
+          src={himakomModel}
+          width={500}
+          height={500}
           alt=""
           priority
         />

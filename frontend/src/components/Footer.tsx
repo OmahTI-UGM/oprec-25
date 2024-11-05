@@ -21,14 +21,14 @@ const Footer = () => {
                   alt="Himakom Logo"
                   width={120}
                   height={152}
-                  className="h-12 w-auto"
+                  className="h-10 w-auto"
                 />
                 <Image
                   src={omahti}
                   alt="OmahTI Logo"
                   width={298}
                   height={113}
-                  className="h-12 w-auto"
+                  className="h-10 w-auto"
                 />
               </div>
               <h1 className="text-2xl font-semibold leading-tight">

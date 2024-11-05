@@ -11,8 +11,8 @@ interface AboutProps {
 const About: React.FC = () => {
   return (
     <div className="flex w-full flex-col gap-3 lg:flex-row lg:gap-4">
-      <AboutCard category="Himakom" />
       <AboutCard category="OmahTI" />
+      <AboutCard category="Himakom" />
     </div>
   );
 };
