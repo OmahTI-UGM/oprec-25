@@ -7,6 +7,7 @@ import { IWawancara } from "@/types/IWawancara";
 import { randomBytes } from "crypto";
 import { resetEmail } from "@utils/resetEmail";
 import Divisi from "@/models/divisiModels";
+import Mahasiswa from "@/models/mahasiswaModels";
 import { IPenugasan } from "@/types/IPenugasan";
 import { IUser } from "@/types/IUser";
 export const register = async (req: Request, res: Response): Promise<void> => {
@@ -17,7 +18,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({message: "User exists"}) 
             return;
         }
-
+        const validNIM = await Mahasiswa.findOne({ NIM }).lean();
+        if(!validNIM){
+            res.status(400).json({message: "KAMU BUKAN MAHASISWA ILMU KOMPUTER AKT 23 ATAU 24"});
+            return;
+        }
         const userData = {email, username, password, NIM, isAdmin};
         const user = await User.create(userData);
 
