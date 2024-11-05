@@ -89,8 +89,8 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
                 <SheetTitle className="text-base font-semibold text-custom-silver">
                   {/* images himakom omahti */}
                   <div className="mb-2 flex gap-2">
-                    <Image src={himakom} alt="" priority />
-                    <Image src={omahti} alt="" priority />
+                    <Image src={himakom} alt="" className="h-8 w-auto" priority />
+                    <Image src={omahti} alt="" className="h-8 w-auto" priority />
                   </div>
                   Open Recruitment
                   <br />

@@ -4,23 +4,25 @@ import { Makomti as MakomtiData } from '@/helpers/DataMakomti'; // Import the da
 import Image from 'next/image';
 import himakomLogo from "@/logos/himakom.svg";
 import omahtiLogo from "@/logos/omahti.svg";
+import omahti from "@/assets/beranda/about/omahti.webp";
+import himakom from "@/assets/beranda/about/himakom.webp";
 
 interface MakomtiProps {
   makomti: string;
 }
 
 const Makomti: React.FC<MakomtiProps> = ({ makomti }) => {
-  // Find the corresponding data object
   const data = MakomtiData.find(item => item.id === makomti);
   const logo = makomti === "himakom" ? himakomLogo : omahtiLogo;
+  const bgImage = makomti === "himakom" ? himakom : omahti;
 
-  // If no data is found, show a default message
   if (!data) {
     return <h1>Data tidak ditemukan untuk {makomti}</h1>;
   }
 
   return (
-    <div>
+    <section className="relative">
+      <Image src={bgImage} alt="" width={0} height={0} className='w-full absolute left-0 top-0 right-0' />
       <Image src={logo} alt={`${data.nama} logo`} width={0} height={0} className='w-auto h-5' />
       <h1>{data.namaLengkap}</h1>
       <p>{data.desc}</p>
@@ -42,7 +44,7 @@ const Makomti: React.FC<MakomtiProps> = ({ makomti }) => {
           <li key={index}>{divisi}</li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 };
 
