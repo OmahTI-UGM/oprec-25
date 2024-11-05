@@ -11,7 +11,7 @@ const Divisi = async () => {
   const user = await getCurrentUser();
   const enrolledSlugHima = user?.enrolledSlugHima;
   const enrolledSlugOti = user?.enrolledSlugOti;
-  const {wawancaraHimakom, wawancaraOti} = await getAllWawancara();
+  const {wawancaraHimakom, wawancaraOti} = await getAllWawancara(accessToken as string);
   const {filteredHima, filteredOti} = await getPilihanWawancara(accessToken as string);
   
   return (

@@ -22,7 +22,7 @@ type DivisiPageProps = {
 
 const Page = async ({ params }: DivisiPageProps) => {
   const accessToken = cookies().get("accessToken")?.value;
-  const divisiData = await getOneDivisi(params.divisi);
+  const divisiData = await getOneDivisi(params.divisi, accessToken as string);
   const {penugasan} = await getPenugasanUser(params.divisi, accessToken as string);
   if (!divisiData) {
     notFound();

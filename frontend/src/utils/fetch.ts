@@ -1,6 +1,9 @@
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
-export const getAllDivisi = async () => {
-    const res = await fetch(`${PUBLIC_API_URL}/divisi`);
+export const getAllDivisi = async (accessToken: string) => {
+    const res = await fetch(`${PUBLIC_API_URL}/divisi`, {
+        headers: {Cookie: `accessToken=${accessToken};`},
+        credentials: "include"
+    });
     const {semuaDivisi} = await res.json();
 
     const himakomDivisi = semuaDivisi.filter((divisi: any) => divisi.himakom === true);
@@ -8,14 +11,20 @@ export const getAllDivisi = async () => {
     return {himakomDivisi, otiDivisi};
 }
 
-export const getOneDivisi = async (slug: string) => {
-    const res = await fetch(`${PUBLIC_API_URL}/divisi/${slug}`);
+export const getOneDivisi = async (slug: string, accessToken: string) => {
+    const res = await fetch(`${PUBLIC_API_URL}/divisi/${slug}`, {
+        headers: {Cookie: `accessToken=${accessToken};`},
+        credentials: "include"
+    });
     const {satuDivisi} = await res.json();
 
     return satuDivisi;
 }
-export const getAllWawancara = async () => {
-    const res = await fetch(`${PUBLIC_API_URL}/wawancara`);
+export const getAllWawancara = async (accessToken: string) => {
+    const res = await fetch(`${PUBLIC_API_URL}/wawancara`, {
+        headers: {Cookie: `accessToken=${accessToken};`},
+        credentials: "include"
+    });
     const wawancara = await res.json();
 
     return wawancara;

@@ -13,11 +13,8 @@ import { cookies } from "next/headers";
 
 const Divisi = async () => {
   const accessToken = cookies().get("accessToken")?.value;
-  const user = getCurrentUser();
-  const divisi = await getAllDivisi();
+  const divisi = await getAllDivisi(accessToken as string);
   const pilihanDivisi  = await getEnrolledDivisi(accessToken as string);
-  const wawancara = await getAllWawancara();
-  const {filteredOti: wawancaraPilihanOti, filteredHima: wawancaraPilihanHima} = await getPilihanWawancara(accessToken as string);
   return (
     <>
       <Title />
