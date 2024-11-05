@@ -15,17 +15,33 @@ const Faq = () => {
   return (
     <Container>
       <Header>Empowering Individuals, Building Communities</Header>
+      <div className="w-full lg:flex lg:items-start lg:justify-start gap-8 lg:gap-3` space-y-3 lg:space-y-0">
+        <div className="flex flex-col gap-3 lg:w-1/2">
+          {/* images card */}
+          <div className="lg:mb-8 grid grid-cols-1 gap-3">
+            <ImagesCard variant="omahti" />
+            {/* <ImagesCard variant="himakom" /> */}
+          </div>
 
-      {/* images card */}
-      <div className="mb-8 grid grid-cols-1 gap-3 lg:grid-cols-2">
-        <ImagesCard variant="himakom" />
-        <ImagesCard variant="omahti" />
-      </div>
+          {/* accordion faqs */}
+          <div className="grid grid-cols-1 gap-8 lg:gap-3">
+            <Questions variant="omahti" FAQ={OMAHTI_FAQ} />
+            {/* <Questions variant="himakom" FAQ={HIMAKOM_FAQ} /> */}
+          </div>
+        </div>
 
-      {/* accordion faqs */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-3">
-        <Questions variant="himakom" FAQ={HIMAKOM_FAQ} />
-        <Questions variant="omahti" FAQ={OMAHTI_FAQ} />
+        <div className="flex flex-col gap-3 lg:w-1/2">
+          <div className="lg:mb-8 grid grid-cols-1 gap-3">
+            {/* <ImagesCard variant="omahti" /> */}
+            <ImagesCard variant="himakom" />
+          </div>
+
+          {/* accordion faqs */}
+          <div className="grid grid-cols-1 gap-8 lg:gap-3">
+            {/* <Questions variant="omahti" FAQ={OMAHTI_FAQ} /> */}
+            <Questions variant="himakom" FAQ={HIMAKOM_FAQ} />
+          </div>
+        </div>
       </div>
     </Container>
   );

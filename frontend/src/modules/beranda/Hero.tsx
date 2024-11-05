@@ -6,8 +6,8 @@ import omahti from "@/logos/omahti.svg";
 import Link from "next/link";
 import Marquee from "@/components/ui/marquee";
 import { House } from "lucide-react";
-import omahtiModel from "@/assets/beranda/hero/omahtiModel.webp";
-import himakomModel from "@/assets/beranda/hero/himakomModel.webp";
+import omahtiModel from "@/assets/beranda/hero/omahtiModel.png";
+import himakomModel from "@/assets/beranda/hero/himakomModel.png";
 
 const Hero = () => {
   return (
@@ -45,8 +45,8 @@ const TitleCTA = () => (
 
 const Logos = () => (
   <div className="z-20 flex items-center gap-4">
-    <Image src={himakom} alt="Himakom Logo" className="h-8 w-auto" priority />
     <Image src={omahti} alt="OmahTI Logo" className="h-8 w-auto" priority />
+    <Image src={himakom} alt="Himakom Logo" className="h-8 w-auto" priority />
   </div>
 );
 
@@ -56,18 +56,18 @@ const Background = () => (
     <div className="absolute inset-0 overflow-hidden">
       <div className="relative h-[600px] w-full">
         <Image
-          className="absolute z-10 -right-6 xxs:right-[15vw] xs:right-28 bottom-0 top-[2rem] xxs:top-[7.5rem] sm:top-[5.7rem] object-contain
+          className="absolute z-10 -right-[2rem] xxs:right-[2.7rem] xs:right-[9rem] top-6 object-contain
           w-full h-[80vh] min-w-[500px]"
-          src={himakomModel}
+          src={omahtiModel} 
           width={500}
           height={500}
           alt=""
           priority
         />
         <Image
-          className="absolute z-10 -left-6 xxs:left-[15vw] right-0 xs:left-28 bottom-0 top-[1.2rem] xxs:top-[6.4rem] sm:top-[4rem] object-contain
+          className="absolute z-10 -left-[2rem] xxs:left-[2.7rem] xs:left-[9rem] top-6 object-contain
           w-full h-[80vh] min-w-[500px]"
-          src={omahtiModel} 
+          src={himakomModel}
           width={500}
           height={500}
           alt=""
@@ -80,8 +80,8 @@ const Background = () => (
     <div className="absolute bottom-[-4rem] z-0 aspect-square h-auto w-full max-w-xl rounded-full bg-custom-gray lg:bottom-[-10rem]" />
 
     {/* gradients */}
-    <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-blue via-transparent to-transparent" />
-    <div className="absolute bottom-0 left-1/2 right-0 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />
+    <div className="absolute bottom-0 left-1/2 right-0 top-0 z-10 bg-gradient-to-t from-custom-blue via-transparent to-transparent" />
+    <div className="absolute bottom-0 left-0 right-1/2 top-0 z-10 bg-gradient-to-t from-custom-orange via-transparent to-transparent" />
   </>
 );
 

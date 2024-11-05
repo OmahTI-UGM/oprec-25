@@ -6,7 +6,7 @@ export const Makomti = [
     desc: "Ini deskripsi dari himpunan mahasiswa ilmu komputer lroem ispum dolor almet sit. Ini deskripsi dari himpunan mahasiswa ilmu komputer lroem ispum dolor almet sit. Ini deskripsi dari himpunan mahasiswa ilmu komputer lroem ispum dolor almet sit. Ini deskripsi dari himpunan mahasiswa ilmu komputer lroem ispum dolor almet sit. Ini deskripsi dari himpunan mahasiswa ilmu komputer lroem ispum dolor almet sit",
     manfaat: ["sehat", "walafiat", "bertemu mirs", "bertemu mirs", "bertemu mirs", "bertemu mirs"],
     kegiatan: ["galeri 1", "walafiat", "bertemu mirs"],
-    divisi: ["Treasurer", "Secretary", "IC", "HR", "Skill Dev", "S&F" ,"PR", "Media"]
+    divisi: ["Treasurer", "Secretary", "IPC", "HR", "Skill Dev", "S&F" ,"PR", "Media"]
 
   },
   {
