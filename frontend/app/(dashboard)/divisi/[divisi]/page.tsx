@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import Container from "@/components/Container";
 import PopupUrutan from "@/modules/divisi/components/PopupUrutan";
-
+import { Logos } from "@/utils/types";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -47,7 +47,7 @@ const Page = async ({ params }: DivisiPageProps) => {
 
             <div className="flex flex-col justify-between space-y-3 md:flex-row md:items-end lg:flex-grow xl:pr-0">
               {/* Title and Picture NIGGER */}
-              <Title data={divisiData} />
+              <Title data={divisiData} slug={params.divisi}/>
               {/* Status */}
               <Progress progress={divisiData.dipilihOleh.length} slots={divisiData.slots} params={params.divisi} />
             </div>
@@ -69,7 +69,7 @@ const Page = async ({ params }: DivisiPageProps) => {
 
 const Title = ({
   data,
-  imgSrc = "",
+  slug,
 }: {
   data: {
     himakom: boolean;
@@ -77,7 +77,7 @@ const Title = ({
     judulPanjang: string;
     logoUrl: string;
   };
-  imgSrc?: string;
+  slug: string
 }) => {
   return (
     <div className="flex items-end gap-4">
@@ -85,7 +85,7 @@ const Title = ({
         alt="Logo"
         className="w-[8rem]"
         src={
-          data.logoUrl ??
+          Logos[slug as keyof typeof Logos] ??
           "https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg?w=826&t=st=1729060915~exp=1729061515~hmac=dc911f470a5362d31529331c2e5ba014647fd3219c2e050b0d34e03a59d6002e"
         }
         // {divisiData.logoUrl}

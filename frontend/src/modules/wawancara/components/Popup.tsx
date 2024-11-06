@@ -77,6 +77,7 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
           console.log("Schedule confirmed successfully.");
           // Handle successful confirmation here (e.g., show success popup)
         } else {
+          
           console.error("Failed to confirm schedule.");
         }
       } catch (error) {

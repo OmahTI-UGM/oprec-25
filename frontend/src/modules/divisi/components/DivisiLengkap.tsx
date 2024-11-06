@@ -1,6 +1,6 @@
 "use client";
 // next
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 // swiper stuff
@@ -15,7 +15,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/mousewheel";
-
+import { Logos } from "@/utils/types";
 const DivisiLengkap = ({
   variant = "omahti",
   divisi,
@@ -72,7 +72,7 @@ const DivisiLengkap = ({
             <SwiperSlide key={divisiong.id}>
               <DivisiCard
                 title={divisiong.judul}
-                logoUrl={divisiong.logoUrl}
+                logoUrl={Logos[divisiong.slug as keyof typeof Logos]}
                 slug={divisiong.slug}
               />
             </SwiperSlide>
@@ -101,16 +101,16 @@ const DivisiCard = ({
   logoUrl,
 }: {
   title?: string;
-  logoUrl?: string;
+  logoUrl?: StaticImageData;
   slug?: string;
 }) => (
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
-    <div className="aspect-square h-8 rounded-sm bg-white">
+    <div className="bg-custom-gray-dark p-4 rounded-sm flex items-center gap-2 h-8 w-8">
       {logoUrl && (
         <Image
           src={logoUrl}
           alt={title}
-          className="h-full w-full object-cover"
+          className="h-6 w-auto"
         />
       )}
     </div>

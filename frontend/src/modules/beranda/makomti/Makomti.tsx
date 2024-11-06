@@ -138,7 +138,7 @@ const Makomti: React.FC<MakomtiProps> = ({ makomti }) => {
               >
                 <div>
                   <Image
-                    src={logos[divisi]}
+                    src={logos[divisi as keyof typeof logos]}
                     alt=''
                     width={24}
                     height={24}

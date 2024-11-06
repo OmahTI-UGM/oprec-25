@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import PopupDivisiBerhasil from "./PopupDivisiBerhasil";
 import Cookies from "js-cookie";
+import ErrorPopup from "@/components/ErrorPopup";
 type PopUpMilihProps = {
   slug: string;
   className?: string;
@@ -20,7 +21,8 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
   const priorityNumbers = [1, 2, 3, 4];
   const [clickedButtons, setClickedButtons] = useState<number | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>("");
   const handleButtonClick = (number: number) => {
     setClickedButtons(number);
   };
@@ -37,13 +39,14 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
           credentials: "include",
         });
         const responseJson = await res.json();
-        console.log(responseJson);
         if (!res.ok) {
-          throw new Error("Failed to send enroll");
+          setErrorMessage(responseJson.message);
+          setShowErrorModal(true);
+        } else {
+          Cookies.set("accessToken", responseJson.accessToken);
+          Cookies.set("refreshToken", responseJson.refreshToken);
+          setShowSuccessModal(true); // Show success modal on success
         }
-        Cookies.set("accessToken", responseJson.accessToken);
-        Cookies.set("refreshToken", responseJson.refreshToken);
-        setShowSuccessModal(true); // Show success modal on success
       } catch (error) {
         console.error(error);
       }
@@ -53,7 +56,9 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
   const handleClose = () => {
     setShowSuccessModal(false);
   }
-
+  const handleErrorClose = () => {
+    setShowErrorModal(false);
+  }
   return (
     <>
       <AlertDialog>
@@ -113,6 +118,7 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
 
       {/* Success Modal */}
       {showSuccessModal && <PopupDivisiBerhasil open={showSuccessModal} onClose={handleClose}/>}
+      {showErrorModal && <ErrorPopup errorMessage={errorMessage || ""} open={showErrorModal} onErrorClose={handleErrorClose}/>}
     </>
   );
 }
