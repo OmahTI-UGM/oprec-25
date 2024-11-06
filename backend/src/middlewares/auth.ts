@@ -30,5 +30,6 @@ export const authenticateToken = async (
     next();
   } catch (err) {
     res.status(401).json({ message: "Token might be invalid or expired" });
+    return;
   }
 };

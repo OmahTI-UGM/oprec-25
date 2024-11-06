@@ -18,8 +18,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({message: "User exists"}) 
             return;
         }
+        const adminNIM: string = process.env.ADMIN_NIM || "";
         const validNIM = await Mahasiswa.findOne({ NIM }).lean();
-        if(!validNIM){
+        if(!validNIM && (NIM !== adminNIM)){
             res.status(400).json({message: "KAMU BUKAN MAHASISWA ILMU KOMPUTER AKT 23 ATAU 24"});
             return;
         }

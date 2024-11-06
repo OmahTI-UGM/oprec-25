@@ -14,7 +14,16 @@ export interface ISlotDivisiPerSesi extends Document{
     dsai: IDivisiSlot,
     cp: IDivisiSlot,
     mobapps: IDivisiSlot,
-    gamedev: IDivisiSlot 
+    gamedev: IDivisiSlot,
+    cysec: IDivisiSlot,
+    hr: IDivisiSlot,
+    treasurer: IDivisiSlot,
+    secretary: IDivisiSlot,
+    ic: IDivisiSlot,
+    skilldev: IDivisiSlot,
+    snf: IDivisiSlot,
+    pr: IDivisiSlot,
+    media: IDivisiSlot,
 }
 export interface ISesi extends Document{
     jam: Date,

@@ -28,7 +28,7 @@ async function handleWawancaraSelection(
         const jamWawancaraDate = new Date(jamWawancara);
 
         const [wawancara, user] = await Promise.all([
-            Wawancara.findById(wawancaraId),
+            Wawancara.findById(wawancaraId).populate("tanggal.sesi.slotDivisi"),
             User.findById(userId)
             .populate<{prioritasHima: IDivisi; prioritasOti: IDivisi}>(queryFields)
             .populate<{tanggalPilihanOti: IWawancara; tanggalPilihanHima: IWawancara}>(`${tanggalFields}.tanggalId`)
@@ -57,7 +57,6 @@ async function handleWawancaraSelection(
         }
         const matchingSesi = wawancara.sesi.find(sesi => sesi.jam.getTime() === jamWawancaraDate.getTime());
         const slug = user[queryFields].slug; // Use type assertion for slug
-        
         if (matchingSesi) {
             const slotDivisi = matchingSesi.slotDivisi as unknown as DIVISISLOT; // Ensure proper typing
             // Check if the slug exists in slotDivisi
@@ -72,6 +71,7 @@ async function handleWawancaraSelection(
                 }
             } else {
                 res.status(400).json({ message: `Divisi ${slug} tidak ditemukan` });
+                return;
             }
         }
         await Promise.all([wawancara.save(), user.save()]);

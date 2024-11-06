@@ -1,10 +1,12 @@
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import Divisi from './models/divisiModels'; // Adjust the path to your Divisi model
 import Wawancara from './models/wawancaraModels';
+dotenv.config();
 const seedDivisi = async () => {
   try {
     // Connect to MongoDB (replace the URI with your actual connection string)
-    await mongoose.connect('mongodb://localhost:27017/oprec25', {serverSelectionTimeoutMS: 20000});
+    await mongoose.connect(`${process.env.MONGODB_URI}`, {serverSelectionTimeoutMS: 20000});
     console.log("connected");
 
     // Array of division data to be inserted
@@ -164,11 +166,33 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Backendhima',
-        judulPanjang: 'Backendhima Development',
+        judul: 'Cysec',
+        judulPanjang: 'Cyber Security',
+        logoDivisi: 'gamedev_logo.png',
+        slot: 4,
+        slug: 'cysec',
+        proker: [
+          {
+            url: 'https://example.com/gamedevhima_proker',
+            filename: 'gamedevhima_proker.pdf',
+            deskripsiProker: 'Game Development division project description',
+          },
+        ],
+        deskripsi: 'Develops games for multiple platforms.',
+        dipilihOleh: [],
+        himakom: false,
+        penugasan: {
+          deskripsiPenugasan: 'Create a game prototype.',
+          toolsPenugasan: 'Unity, Unreal Engine',
+          linkPenugasan: 'https://example.com/gamedevhima_task',
+        },
+      },
+      {
+        judul: 'Treasurer',
+        judulPanjang: 'Basically Bendahara',
         logoDivisi: 'backendhima_logo.png',
         slot: 10,
-        slug: 'backendhima',
+        slug: 'treasurer',
         proker: [
           {
             url: 'https://example.com/backendhima_proker',
@@ -186,11 +210,11 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Frontendhima',
-        judulPanjang: 'Frontendhima Development',
+        judul: 'Secretary',
+        judulPanjang: 'Penulis',
         logoDivisi: 'frontendhima_logo.png',
         slot: 8,
-        slug: 'frontendhima',
+        slug: 'secretary',
         proker: [
           {
             url: 'https://example.com/frontendhima_proker',
@@ -208,11 +232,11 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'UI/UX',
-        judulPanjang: 'UI/UX Design',
+        judul: 'HR',
+        judulPanjang: 'Human Resources PSDM COK',
         logoDivisi: 'uiux_logo.png',
         slot: 5,
-        slug: 'uiuxhima',
+        slug: 'hr',
         proker: [
           {
             url: 'https://example.com/uiuxhima_proker',
@@ -230,11 +254,11 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Data Science & AI',
-        judulPanjang: 'Data Science and Artificial Intelligence',
+        judul: 'IC',
+        judulPanjang: 'Internal Control',
         logoDivisi: 'dsaihima_logo.png',
         slot: 6,
-        slug: 'dsaihima',
+        slug: 'ic',
         proker: [
           {
             url: 'https://example.com/dsaihima_proker',
@@ -252,11 +276,11 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Competitive Programming',
-        judulPanjang: 'Competitive Programming',
+        judul: 'S&F',
+        judulPanjang: 'Sponsorship & Fundraising',
         logoDivisi: 'cp_logo.png',
         slot: 7,
-        slug: 'cphima',
+        slug: 'snf',
         proker: [
           {
             url: 'https://example.com/cphima_proker',
@@ -274,11 +298,11 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Mobile Apps',
-        judulPanjang: 'Mobile Application Development',
+        judul: 'Skilldev',
+        judulPanjang: 'Skill Development',
         logoDivisi: 'mobapps_logo.png',
         slot: 6,
-        slug: 'mobappshima',
+        slug: 'skilldev',
         proker: [
           {
             url: 'https://example.com/mobappshima_proker',
@@ -296,11 +320,33 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'Game Development',
-        judulPanjang: 'Game Development',
+        judul: 'Media',
+        judulPanjang: 'PDD COK DDD',
         logoDivisi: 'gamedev_logo.png',
         slot: 4,
-        slug: 'gamedevhima',
+        slug: 'media',
+        proker: [
+          {
+            url: 'https://example.com/gamedevhima_proker',
+            filename: 'gamedevhima_proker.pdf',
+            deskripsiProker: 'Game Development division project description',
+          },
+        ],
+        deskripsi: 'Develops games for multiple platforms.',
+        dipilihOleh: [],
+        himakom: true,
+        penugasan: {
+          deskripsiPenugasan: 'Create a game prototype.',
+          toolsPenugasan: 'Unity, Unreal Engine',
+          linkPenugasan: 'https://example.com/gamedevhima_task',
+        },
+      },
+      {
+        judul: 'PR',
+        judulPanjang: 'Public Relations',
+        logoDivisi: 'gamedev_logo.png',
+        slot: 4,
+        slug: 'pr',
         proker: [
           {
             url: 'https://example.com/gamedevhima_proker',
@@ -328,31 +374,441 @@ const wawancaraData = [
         jam: new Date('2021-10-01T08:00:00'),
         dipilihOleh: [],
         slotDivisi: {
-          backendHima: {
+          treasurer: {
             sisaSlot: 10,
             lokasi: 'Gedung A',
           },
-          frontendHima: {
+          hr: {
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          uiuxHima: {
+          ic: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
-          dsaiHima: {
+          pr: {
             sisaSlot: 6,
             lokasi: 'Gedung D',
           },
-          cpHima: {
+          skilldev: {
             sisaSlot: 7,
             lokasi: 'Gedung E',
           },
-          mobappsHima: {
+          snf: {
             sisaSlot: 6,
             lokasi: 'Gedung F',
           },
-          gamedevHima: {
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-02'),
+    himakom: true,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-03'),
+    himakom: true,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-04'),
+    himakom: true,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-05'),
+    himakom: true,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          treasurer: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          hr: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          ic: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          pr: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          skilldev: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          snf: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          secretary: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+          media:{
+            sisaSlot: 5,
+            lokasi: 'Gedung H',
+          }
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-01'),
+    himakom: false,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
             sisaSlot: 4,
             lokasi: 'Gedung G',
           },
@@ -362,31 +818,31 @@ const wawancaraData = [
         jam: new Date('2021-10-01T10:00:00'),
         dipilihOleh: [],
         slotDivisi: {
-          backendHima: {
+          backend: {
             sisaSlot: 10,
             lokasi: 'Gedung A',
           },
-          frontendHima: {
+          frontend: {
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          uiuxHima: {
+          uiux: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
-          dsaiHima: {
+          dsai: {
             sisaSlot: 6,
             lokasi: 'Gedung D',
           },
-          cpHima: {
+          cp: {
             sisaSlot: 7,
             lokasi: 'Gedung E',
           },
-          mobappsHima: {
+          mobapps: {
             sisaSlot: 6,
             lokasi: 'Gedung F',
           },
-          gamedevHima: {
+          gamedev: {
             sisaSlot: 4,
             lokasi: 'Gedung G',
           },
@@ -395,7 +851,229 @@ const wawancaraData = [
     ],
   },
   {
-    tanggal: new Date('2021-10-01'),
+    tanggal: new Date('2021-10-02'),
+    himakom: false,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+        },
+      },
+      {
+        jam: new Date('2021-10-01T10:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-03'),
+    himakom: false,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+        },
+      },
+      {
+        jam: new Date('2021-10-01T10:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-04'),
+    himakom: false,
+    sesi: [
+      {
+        jam: new Date('2021-10-01T08:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+        },
+      },
+      {
+        jam: new Date('2021-10-01T10:00:00'),
+        dipilihOleh: [],
+        slotDivisi: {
+          backend: {
+            sisaSlot: 10,
+            lokasi: 'Gedung A',
+          },
+          frontend: {
+            sisaSlot: 8,
+            lokasi: 'Gedung B',
+          },
+          uiux: {
+            sisaSlot: 5,
+            lokasi: 'Gedung C',
+          },
+          dsai: {
+            sisaSlot: 6,
+            lokasi: 'Gedung D',
+          },
+          cp: {
+            sisaSlot: 7,
+            lokasi: 'Gedung E',
+          },
+          mobapps: {
+            sisaSlot: 6,
+            lokasi: 'Gedung F',
+          },
+          gamedev: {
+            sisaSlot: 4,
+            lokasi: 'Gedung G',
+          },
+        },
+      },
+    ],
+  },
+  {
+    tanggal: new Date('2021-10-05'),
     himakom: false,
     sesi: [
       {

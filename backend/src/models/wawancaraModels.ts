@@ -29,7 +29,43 @@ const slotDivisiPerSesiSchema: Schema<ISlotDivisiPerSesi> = new Schema({
     gamedev: {
         sisaSlot: Number,
         lokasi: String
-    }
+    },
+    cysec: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    hr: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    media: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    pr: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    ic: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    snf: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    secretary: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    treasurer: {
+        sisaSlot: Number,
+        lokasi: String
+    },
+    skilldev: {
+        sisaSlot: Number,
+        lokasi: String
+    },
 })
 const sesiSchema: Schema<ISesi> = new Schema({
     jam: Date,
