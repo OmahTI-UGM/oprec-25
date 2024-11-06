@@ -46,7 +46,6 @@ const Page = async ({ params }: DivisiPageProps) => {
             </ButtonLink>
 
             <div className="flex flex-col justify-between space-y-3 md:flex-row md:items-end lg:flex-grow xl:pr-0">
-              {/* Title and Picture NIGGER */}
               <Title data={divisiData} slug={params.divisi}/>
               {/* Status */}
               <Progress progress={divisiData.dipilihOleh.length} slots={divisiData.slots} params={params.divisi} />
@@ -89,8 +88,8 @@ const Title = ({
           "https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg?w=826&t=st=1729060915~exp=1729061515~hmac=dc911f470a5362d31529331c2e5ba014647fd3219c2e050b0d34e03a59d6002e"
         }
         // {divisiData.logoUrl}
-        height={64}
-        width={64}
+        height={0}
+        width={0}
       />
       <div className="flex flex-col">
         <h1

@@ -16,6 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/mousewheel";
 import { Logos } from "@/utils/types";
+
 const DivisiLengkap = ({
   variant = "omahti",
   divisi,
@@ -72,7 +73,7 @@ const DivisiLengkap = ({
             <SwiperSlide key={divisiong.id}>
               <DivisiCard
                 title={divisiong.judul}
-                logoUrl={Logos[divisiong.slug as keyof typeof Logos]}
+                logoUrl={Logos[divisiong.slug as keyof typeof Logos]}  // Ensure correct logo is passed
                 slug={divisiong.slug}
               />
             </SwiperSlide>
@@ -97,22 +98,25 @@ const DivisiLengkap = ({
 
 const DivisiCard = ({
   slug,
-  title = "PSHT",
+  title,
   logoUrl,
 }: {
   title?: string;
-  logoUrl?: StaticImageData;
+  logoUrl?: StaticImageData;  // Ensure it's StaticImageData for imported images
   slug?: string;
 }) => (
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
-    <div className="bg-custom-gray-dark p-4 rounded-sm flex items-center gap-2 h-8 w-8">
-      {logoUrl && (
-        <Image
-          src={logoUrl}
-          alt={title}
-          className="h-6 w-auto"
-        />
-      )}
+    <div className="relative aspect-square rounded-sm flex items-center justify-center p-2 h-6">
+      <div className="">
+        {logoUrl && (
+          <Image
+            src={logoUrl}
+            alt={title || "Logo"}
+            className="object-contain" // Ensures the image fits inside without distortion
+            layout="fill" // Makes the image fill the container while maintaining aspect ratio
+          />
+        )}
+      </div>
     </div>
     <h3 className="truncate">{title}</h3>
     <Link href={`/divisi/${slug}`}>
@@ -125,6 +129,7 @@ const DivisiCard = ({
     </Link>
   </div>
 );
+
 
 const Keterangan = () => (
   <div className="inline-flex items-center gap-1 rounded-sm bg-custom-black px-1.5 text-xs">
