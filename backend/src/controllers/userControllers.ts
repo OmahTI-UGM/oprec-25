@@ -209,15 +209,16 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
         const resetToken = randomBytes(20).toString('hex');
         const resetTokenExpires = Date.now() + 3600000;
 
+        const resetUrl = `${req.protocol}://${process.env.FRONTEND_URL}/forgot-password/${resetToken}`;
+        await resetEmail(user.email, resetUrl);
+
         await User.updateOne({ _id: user._id }, {
             resetToken,
             resetTokenExpiration: resetTokenExpires
         });
 
-        const resetUrl = `${req.protocol}://${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-        await resetEmail(user.email, resetUrl);
-
         res.status(200).json({ message: 'Password reset email sent' });
+        return;
     } catch (error) {
         res.status(500).json({ message: 'Error sending password reset email' });
         return;

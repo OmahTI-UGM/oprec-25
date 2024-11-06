@@ -1,16 +1,18 @@
+import dotenv from "dotenv";
 import { createTransport } from 'nodemailer';
+dotenv.config();
 const transporter = createTransport({
     host: 'smtp-relay.brevo.com',
     port: 587,
     secure: false,
     auth: {
-        user: process.env.BREVO_SMTP_USER,
-        pass: process.env.BREVO_SMTP_PASS
+        user: process.env.BREVO_SMTP_USER || "",
+        pass: process.env.BREVO_SMTP_PASS || "",
     }
 })
 export const resetEmail = async(email: string, resetUrl: string) => {
     const mailOptions = {
-        from: '"OmahTI Learning Center 2024 Password Reset" <noreply-password-reset-olc2024@omahti.web.id>',
+        from: '"OPREC MAKOMTI 2025" <noreply-password-reset-oprec2025@omahti.web.id>',
         to: email,
         subject: 'Password Reset Request',
         html: `

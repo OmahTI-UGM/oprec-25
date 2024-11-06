@@ -15,10 +15,12 @@ export const authenticateToken = async (
       res.status(401).json({ message: "No access token found" });
       return;
     }
-
     // Verify the token to get the payload
     const decoded = verifyToken(accessToken, JWT_CONFIG.ACCESS_TOKEN_SECRET);
-
+    if(!decoded) {
+      res.status(401).json({ message: "Token might be invalid or expired" });
+      return;
+    }
     // Find the user by ID from the token payload
     const user = await User.findById(decoded.userId);
     if (!user || user.accessToken !== accessToken) {

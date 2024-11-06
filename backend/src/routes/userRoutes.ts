@@ -20,7 +20,7 @@ const router = Router();
 router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', authenticateToken, logout);
-router.post('/reqest-password-reset', requestPasswordReset);
+router.post('/request-password-reset', requestPasswordReset);
 router.post('/reset-password', resetPassword);
 
 router.get('/validate', authenticateToken, validate);
