@@ -10,11 +10,13 @@ import {
   getAllWawancara,
 } from "@/utils/fetch";
 import { cookies } from "next/headers";
+import Avatar from "@/components/Avatar";
 
 const Divisi = async () => {
   const accessToken = cookies().get("accessToken")?.value;
   const divisi = await getAllDivisi(accessToken as string);
   const pilihanDivisi  = await getEnrolledDivisi(accessToken as string);
+
   return (
     <>
       <Title />

@@ -109,7 +109,7 @@ export async function middleware(request: NextRequest) {
     if (validationResponse.ok) {
       const { user } = await validationResponse.json();
       if (!user.isAdmin) {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/divisi", request.url));
       }
       const nextResponse = NextResponse.next();
       // Attach user data to request headers

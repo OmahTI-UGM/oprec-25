@@ -25,8 +25,8 @@ export default function LoginPage() {
 
 const Logos = () => (
   <div className="z-20 flex items-center gap-2">
-    <Image src={himakom} alt="Logo Himakom" />
-    <Image src={omahti} alt="Logo OmahTI" />
+    <Image src={himakom} alt="Logo Himakom" className="h-8 w-auto" />
+    <Image src={omahti} alt="Logo OmahTI" className="h-8 w-auto" />
   </div>
 );
 

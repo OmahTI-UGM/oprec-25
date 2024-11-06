@@ -34,7 +34,13 @@ const LoginForm = () => {
 
       if (!response.ok) throw new Error("Incorrect email or password.");
 
-      router.push("/");
+      const user = await response.json();
+
+      if (user.isAdmin) {
+        router.push("/admin");
+      } else {
+        router.push("/divisi");
+      }
       router.refresh();
     } catch (err: any) {
       setLoading(false);

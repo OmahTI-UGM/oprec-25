@@ -59,8 +59,8 @@ const Background = () => (
           className="absolute z-10 -right-[2rem] xxs:right-[2.7rem] xs:right-[9rem] top-6 object-contain
           w-full h-[80vh] min-w-[500px]"
           src={omahtiModel} 
-          width={500}
-          height={500}
+          width={503}
+          height={906}
           alt=""
           priority
         />
