@@ -26,13 +26,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     async function fetchUser() {
       const currentUser = await getCurrentUser();
       if (currentUser) {
+        // Ensure isAdmin is a boolean
         currentUser.isAdmin = currentUser.isAdmin === "true" || currentUser.isAdmin === true;
+  
+        // Type-checking: Make sure currentUser matches the User interface
+        const userData: User = {
+          id: currentUser.id,
+          NIM: currentUser.NIM,
+          username: currentUser.username,
+          isAdmin: currentUser.isAdmin,
+          enrolledSlugOti: currentUser.enrolledSlugOti,
+          enrolledSlugHima: currentUser.enrolledSlugHima,
+        };
+  
+        setUser(userData); // Now `setUser` accepts the correct type
+      } else {
+        setUser(null); // If no user, set state to null
       }
-      setUser(currentUser);
     }
-
+  
     fetchUser();
   }, []);
+  
+  
 
   if (isDivisiPage) {
     return <>{children}</>;
@@ -43,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Avatar in absolute position */}
       {user && (
         <div className="absolute top-6 right-6 z-10">
-          <Avatar username={user.username} />
+          <Avatar username={user.username} id={""} NIM={""} isAdmin={""} enrolledSlugOti={""} enrolledSlugHima={""} />
         </div>
       )}
 

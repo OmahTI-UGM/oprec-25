@@ -29,7 +29,7 @@ export default function ErrorPopup({
 
         {/* Content Section */}
         <div className="text-center mt-8 sm:mt-10 lg:mt-12 px-6">
-          <h2 className="text-white text-xl lg:text-2xl font-bold mb-4">There's an error</h2>
+          <h2 className="text-white text-xl lg:text-2xl font-bold mb-4">There&apos;s an error</h2>
           {/* Conditionally render the error message if it's passed */}
           {errorMessage ? (
             <p className="text-custom-red text-sm lg:text-base mt-4 mb-6">{errorMessage}</p> // Red color for error message

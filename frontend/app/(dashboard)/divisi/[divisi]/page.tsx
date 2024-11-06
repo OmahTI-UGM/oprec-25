@@ -31,7 +31,7 @@ const Page = async ({ params }: DivisiPageProps) => {
   return (
     <>
       <section
-        className={`relative bg-transparent ${divisiData.himakom === true ? "bg-gradient-to-b from-custom-blue to-custom-black to-30%" : "via-cus bg-gradient-to-b from-custom-orange to-custom-black to-30%"}`}
+        className={`relative min-h-screen bg-transparent ${divisiData.himakom === true ? "bg-gradient-to-b from-custom-blue to-custom-black to-30%" : "via-cus bg-gradient-to-b from-custom-orange to-custom-black to-30%"}`}
       >
         <Container
           className="flex flex-col gap-4 xl:flex-row"
