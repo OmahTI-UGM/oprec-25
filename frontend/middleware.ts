@@ -48,6 +48,23 @@ export async function middleware(request: NextRequest) {
         nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
         nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
         return nextResponse;
+      } else if (validationResponse.status === 401 && refreshToken) {
+        const refreshResponse = await refreshTokenValidation(
+          PUBLIC_API_URL,
+          refreshToken,
+        );
+        if (refreshResponse.ok) {
+          const response = NextResponse.next();
+          const setCookieHeader = refreshResponse.headers.get("set-cookie");
+          if (setCookieHeader) {
+            response.headers.set("set-cookie", setCookieHeader);
+          }
+          return response;
+        }
+        if(!refreshResponse.ok){
+          request.cookies.delete("accessToken");
+          request.cookies.delete("refreshToken");
+        }
       }
     }
     return NextResponse.next();
@@ -71,7 +88,10 @@ export async function middleware(request: NextRequest) {
         }
         return response;
       }
-      if(!refreshResponse.ok) return NextResponse.redirect(new URL("/auth/login", request.url));
+      if(!refreshResponse.ok) {
+        request.cookies.delete("accessToken");
+        request.cookies.delete("refreshToken");
+      };
     }
     // If validation fails, proceed to login
     return NextResponse.redirect(new URL("/auth/login", request.url));

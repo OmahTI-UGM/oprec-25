@@ -19,7 +19,6 @@ const PilihanWaktuCard = ({ variant = "omahti", wawancara }: PilihanWaktuProps) 
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
   const [popupType, setPopupType] = useState<"gagal" | "berhasil" | "konfirmasi">("gagal");
   const handleSlotSelect = (id: string, sesi: Date, himakom: boolean) => {
-    console.log(id, sesi, himakom);
     setSelectedSlot({ id, sesi, himakom });
     setPopupType("konfirmasi");
   };

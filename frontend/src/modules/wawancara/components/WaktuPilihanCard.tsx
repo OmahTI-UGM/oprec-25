@@ -2,24 +2,26 @@ import { MapPin } from "lucide-react";
 
 interface WaktuPilihanCardProps {
   variant?: 'omahti' | 'himakom';
-  datetime: string;
+  tanggal: string;
+  jam: string;
   lokasi?: string;
 }
 
 const WaktuPilihanCard = ({
   variant = "omahti",
-  datetime,
+  tanggal,
+  jam,
   lokasi = "IUP Room",
 }: WaktuPilihanCardProps) => {
-  let foo;
+  let variantLabel;
   if (variant === "himakom") {
-    foo = (
+    variantLabel = (
       <div className="rounded-md bg-custom-black p-2 text-sm text-custom-lavender">
         Himakom
       </div>
     );
   } else {
-    foo = (
+    variantLabel = (
       <div className="rounded-md bg-custom-black p-2 text-sm text-custom-orange">
         OmahTI
       </div>
@@ -30,26 +32,26 @@ const WaktuPilihanCard = ({
     <div className="flex w-full flex-col gap-6 rounded-lg bg-custom-gray-dark p-1.5 text-xs text-custom-silver sm:p-4 sm:text-base">
       <div className="relative flex w-full items-center justify-between gap-1">
         {/* OMAHTI OR HIMAKOM */}
-        {foo}
+        {variantLabel}
 
-        {/* date on large screens */}
-        <DateIndicator tanggal={datetime} className="hidden sm:block" />
+        {/* Date on large screens */}
+        <DateIndicator tanggal={tanggal} className="hidden sm:block" />
 
         {/* LOCATION AND TIME */}
         <div className="flex gap-1">
-          {/* location */}
+          {/* Location */}
           <div className="flex items-center gap-0.5 rounded-sm bg-custom-black p-1.5 pr-2.5">
             <MapPin className="h-4" />
             {lokasi}
           </div>
 
-          {/* time */}
-          <div className="rounded-sm bg-custom-black p-1.5">{datetime}</div>
+          {/* Time */}
+          <div className="rounded-sm bg-custom-black p-1.5">{jam}</div>
         </div>
       </div>
 
-      {/* DATE on small screens */}
-      <DateIndicator tanggal={datetime} className="block sm:hidden" />
+      {/* Date on small screens */}
+      <DateIndicator tanggal={tanggal} className="block sm:hidden" />
     </div>
   );
 };

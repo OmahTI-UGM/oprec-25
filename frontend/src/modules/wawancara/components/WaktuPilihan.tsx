@@ -8,7 +8,15 @@ const WaktuPilihan = ({
   slugHima,
 }: any) => {
   const isEmpty = !filteredHima && !filteredOti;
+  const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "2-digit" });
+  };
 
+  const formatTime = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+  };
   return (
     <div className="my-8">
       <div className="flex flex-col gap-4 lg:flex-row-reverse lg:items-center lg:text-sm">
@@ -25,16 +33,16 @@ const WaktuPilihan = ({
             {filteredOti && (
               <Card
                 variant="omahti"
-                tanggal={filteredOti.tanggal}
-                jam={filteredOti.sesi[0].jam}
+                tanggal={formatDate(filteredOti.tanggal)}
+                jam={formatTime(filteredOti.sesi[0].jam)}
                 lokasi={filteredOti.sesi[0].slotDivisi[slugOti]?.lokasi}
               />
             )}
             {filteredHima && (
               <Card
                 variant="himakom"
-                tanggal={filteredHima.tanggal}
-                jam={filteredHima.sesi[0].jam}
+                tanggal={formatDate(filteredHima.tanggal)}
+                jam={formatTime(filteredHima.sesi[0].jam)}
                 lokasi={filteredHima.sesi[0].slotDivisi[slugHima]?.lokasi}
               />
             )}
