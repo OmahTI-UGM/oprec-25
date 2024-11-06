@@ -64,10 +64,12 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         await Promise.all([user.save(), divisi.save()]);
 
         res.status(200).json({ message: "Successfully registered for division", accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
+        return;
     } catch (error) {
         const status = error instanceof DivisionSelectionError ? error.statusCode : 500;
         const message = error instanceof Error ? error.message : "Internal server error";
         res.status(status).json({ message });
+        return;
     }
 };
 

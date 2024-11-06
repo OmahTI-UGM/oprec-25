@@ -152,7 +152,7 @@ export const getWawancara = async(req: IGetRequestWithUser, res: Response): Prom
             .populate<{ tanggalPilihanHima: IWawancara }>("tanggalPilihanHima.tanggalId");
 
         if (!user) {
-            res.status(400).json({ message: "User gaada" });
+            res.status(404).json({ message: "User gaada" });
             return;
         }
         // Filter `sesi` array in `tanggalPilihanOti` and `tanggalPilihanHima` based on `userId`
@@ -182,7 +182,7 @@ export const getDivisi = async(req: IGetRequestWithUser, res: Response): Promise
         const user = await User.findById(userId)
             .populate("divisiPilihan.divisiId");
         if(!user) {
-            res.status(400).json({message: "User gaada"});
+            res.status(404).json({message: "User gaada"});
             return;
         }
         const sortedUser = user.divisiPilihan?.sort((a, b) => {
@@ -202,7 +202,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
         const user = await User.findOne({ email });
 
         if (!user){
-            res.status(400).json({message: "No user with that email exists"});
+            res.status(404).json({message: "No user with that email exists"});
             return;
         }
 
@@ -238,6 +238,8 @@ export const resetPassword = async (req: Request, res: Response) => {
             res.status(400).json({ message: 'Invalid or expired token' });
             return;
         }
+        res.clearCookie('accessToken');
+        res.clearCookie('refreshToken');
         user.accessToken = undefined;
         user.refreshToken = undefined;
         user.password = newPassword; // Hash password before saving

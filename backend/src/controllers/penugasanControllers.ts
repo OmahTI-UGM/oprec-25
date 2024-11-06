@@ -24,7 +24,7 @@ export const submitPenugasan = async(req: IGetRequestWithUser, res: Response): P
         }
         const existingPenugasan = await Penugasan.findOne({disubmitOleh: userId, disubmitDi: divisi.id});
         if(existingPenugasan){
-            res.status(400).json({message: "Sudah submit di sini"});
+            res.status(400).json({message: "Kamu sudah submit tugas di sini"});
             return;
         }
 
