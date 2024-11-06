@@ -287,7 +287,7 @@ export const getAllUsersAndTheirFilteredTugas = async (req: IGetRequestWithUser,
         // Use the division's `_id` to find users who have chosen this division
         const users = await User.find({
             'divisiPilihan.divisiId': adminDivision._id,
-        }).populate<{ tugas: IPenugasan[] }>("tugas").populate("divisiPilihan.divisiId");
+        }).populate<{ tugas: IPenugasan[] }>("tugas").populate("divisiPilihan.divisiId").populate("diterimaDi");
         // Filter each user's tugas based on `disubmitDi` matching `adminDivision._id`
         const usersWithFilteredTugas = users.map((user: IUser) => {
             // Set `filteredTugas` to an empty array if `user.tugas` is null or undefined
