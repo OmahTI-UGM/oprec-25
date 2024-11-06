@@ -42,7 +42,8 @@ const RegisterForm = () => {
           credentials: "include",
         },
       );
-
+        const responseJSON = await response.json();
+        console.log(responseJSON);
       if (!response.ok) {
         throw new Error("Incorrect email or password.");
       }
@@ -117,7 +118,7 @@ const RegisterForm = () => {
               {...register("password", {
                 required: true,
                 pattern:
-                  /^(?=.*[a-z])(?=.*\d)[a-z\d!@#$%^&*()_+[\]{}|\\;',./:<>?`~"-]{8,}$/,
+                  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+[\]{}|\\;',./:<>?`~"-]{8,}$/,
               })}
               autoComplete="off"
             />

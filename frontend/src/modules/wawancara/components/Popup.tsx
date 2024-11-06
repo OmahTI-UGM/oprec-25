@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { X, Check, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,6 +8,7 @@ import {
   AlertDialogContent,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import ErrorPopup from "@/components/ErrorPopup";
 interface ScheduleSlot {
   id: string;
   sesi: Date;
@@ -20,6 +22,9 @@ interface PopupProps {
 }
 
 export default function Popup({ type, className, selectedSlot }: PopupProps) {
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>("");
+
   const getContent = () => {
     switch (type) {
       case "gagal":
@@ -72,22 +77,27 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
           credentials: 'include'
         });
         const responseJSON = await response.json();
-        console.log(responseJSON);
         if (response.ok) {
           console.log("Schedule confirmed successfully.");
           // Handle successful confirmation here (e.g., show success popup)
         } else {
-          
+          setErrorMessage(responseJSON.message);
+          setShowErrorModal(true);
           console.error("Failed to confirm schedule.");
         }
       } catch (error) {
-        console.error("Error confirming schedule:", error);
+        console.error("Error confirming schedule:");
       }
     }
   };
 
+  const handleErrorClose = () => {
+    setShowErrorModal(false);
+  }
+
   return (
     <AlertDialog>
+      {showErrorModal && <ErrorPopup open={showErrorModal} onErrorClose={handleErrorClose} errorMessage={errorMessage || ""}/>}
       <AlertDialogTrigger asChild>
         <Button className="w-20 sm:w-24 lg:w-32 text-sm lg:text-md tracking-wide">Pilih</Button>
       </AlertDialogTrigger>
@@ -99,7 +109,6 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
             {content.icon}
           </div>
         </div>
-
         <div className="text-center mt-6 sm:mt-8 lg:mt-16 px-4">
           <p className="text-white text-sm mb-0 sm:mb-1 lg:mb-2">{content.headerText}</p>
           <h2 className="text-white text-xl lg:text-2xl font-bold mb-0 sm:mb-1 lg:mb-2">{content.title}</h2>
