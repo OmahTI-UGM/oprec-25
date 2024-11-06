@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import next from "next/types";
 
 // Define public routes that don't require authentication
-const PUBLIC_ROUTES = ["/", "/himakom", "/omahti", "/auth/login", "/auth/register", "/forgot-password"];
+const PUBLIC_ROUTES = ["/himakom", "/omahti", "/auth/login", "/auth/register", "/forgot-password"];
 const ADMIN_ROUTES = ["/admin"];
 async function validateToken(PUBLIC_API_URL: string, token: string) {
   const response = await fetch(`${PUBLIC_API_URL}/auth/validate`, {
@@ -29,8 +28,7 @@ export async function middleware(request: NextRequest) {
   const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
   const accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
-  
-  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+  const isPublicRoute = PUBLIC_ROUTES.some(route => pathname.startsWith(route));
   const isAdminRoute = ADMIN_ROUTES.some(route => pathname.startsWith(route));
   // always allow access to root route
   if (pathname === '/') {
@@ -62,8 +60,11 @@ export async function middleware(request: NextRequest) {
           return response;
         }
         if(!refreshResponse.ok){
-          request.cookies.delete("accessToken");
-          request.cookies.delete("refreshToken");
+          const response = NextResponse.redirect(new URL("/auth/login", request.url));
+        // Delete accessToken and refreshToken cookies
+          response.cookies.set("refreshToken", "", { maxAge: -1 });
+          response.cookies.set("accessToken", "", { maxAge: -1 });
+          return response;
         }
       }
     }
@@ -89,8 +90,11 @@ export async function middleware(request: NextRequest) {
         return response;
       }
       if(!refreshResponse.ok) {
-        request.cookies.delete("accessToken");
-        request.cookies.delete("refreshToken");
+        const response = NextResponse.redirect(new URL("/auth/login", request.url));
+        // Delete accessToken and refreshToken cookies
+        response.cookies.set("refreshToken", "", { maxAge: -1 });
+        response.cookies.set("accessToken", "", { maxAge: -1 });
+        return response;
       };
     }
     // If validation fails, proceed to login
@@ -162,7 +166,11 @@ export async function middleware(request: NextRequest) {
         }
         return response;
       }
-      if(!refreshResponse.ok) return NextResponse.redirect(new URL("/auth/login", request.url));
+      if(!refreshResponse.ok){
+        const response =  NextResponse.redirect(new URL("/auth/login", request.url));
+        response.cookies.set("refreshToken", "", { maxAge: -1 });
+        response.cookies.set("accessToken", "", { maxAge: -1 });
+      } 
     }
     // If both validation and refresh fail, redirect to login
     return NextResponse.redirect(new URL("/auth/login", request.url));
