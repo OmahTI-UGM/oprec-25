@@ -75,6 +75,7 @@ const RegisterForm = () => {
             type="text"
             className={`w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.username && "border border-red-500"}`}
             {...register("username", { required: true })}
+            autoFocus
           />
           {errors.username && (
             <p className="flex gap-1.5 text-sm text-red-500">
@@ -162,6 +163,7 @@ const RegisterForm = () => {
           variant={`white`}
           size={`lg`}
           className="mt-2 w-full text-base"
+          disabled={loading}
         >
           {loading ? (
             <div className="flex items-center justify-center gap-2">

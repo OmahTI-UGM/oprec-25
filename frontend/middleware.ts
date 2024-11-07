@@ -4,6 +4,7 @@ import { NextRequest } from "next/server";
 // Define public routes that don't require authentication
 const PUBLIC_ROUTES = ["/himakom", "/omahti", "/auth/login", "/auth/register", "/forgot-password"];
 const ADMIN_ROUTES = ["/admin"];
+
 async function validateToken(PUBLIC_API_URL: string, token: string) {
   const response = await fetch(`${PUBLIC_API_URL}/auth/validate`, {
     headers: { Cookie: `accessToken=${token};` },

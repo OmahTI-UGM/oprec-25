@@ -29,6 +29,7 @@ export const getAllWawancara = async (accessToken: string) => {
 
     return wawancara;
 }
+
 export const getEnrolledDivisi = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/auth/divisi`, {
         headers: {Cookie: `accessToken=${accessToken};`},

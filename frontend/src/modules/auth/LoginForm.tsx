@@ -84,7 +84,8 @@ const LoginForm = () => {
           <input
             type="text"
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-            className={`w-full rounded-lg border border-white/10 bg-black/10 px-4 py-2 text-custom-silver placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border-red-500"}`}
+            className={`w-full rounded-lg border border-white/10 bg-black/10 px-4 py-2 text-custom-silver placeholder-custom-gray-light focus:border-custom-blue focus:outline-none focus:ring-1 focus:ring-custom-blue ${errors.email && "border border-red-500"}`}
+            autoFocus
           />
           {errors.email && (
             <p className="flex gap-1.5 text-sm text-red-500">
@@ -133,7 +134,13 @@ const LoginForm = () => {
           </div>
         </div>
 
-        <Button type="submit" variant="white" size="lg" className="mt-2 w-full text-base">
+        <Button
+          type="submit"
+          variant={`white`}
+          size={`lg`}
+          className="mt-2 w-full text-base"
+          disabled={loading}
+        >
           {loading ? (
             <div className="flex items-center justify-center gap-2">
               <LoaderCircle className="animate-spin" size={20} />

@@ -1,9 +1,14 @@
-import React from 'react';
+// next and react modules
+import Cookies from "js-cookie";
+import React, { use } from "react";
+
+// fetch
+import { getPilihanWawancara } from "@/utils/fetch";
 
 interface ScheduleSlot {
   id: string; // ID of the tanggal item
   sesi: Date; // Date object of the session's jam time
-  himakom: boolean
+  himakom: boolean;
 }
 
 interface JadwalWawancaraProps {
@@ -32,10 +37,18 @@ interface JadwalWawancaraProps {
   onSlotSelect: (id: string, sesi: Date, himakom: boolean) => void;
 }
 
-const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category, wawancara, selectedSlot, onSlotSelect }) => {
+const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
+  category,
+  wawancara,
+  selectedSlot,
+  onSlotSelect,
+}) => {
+  const accessToken = Cookies.get("accessToken");
+  const pilihanWawancara = use(getPilihanWawancara(accessToken as string));
+
   return (
-    <div className="w-full h-auto bg-custom-silver p-4 rounded-md">
-      <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-x-auto">
+    <div className="h-auto w-full rounded-md bg-custom-silver p-4">
+      <div className="grid grid-cols-1 gap-4 overflow-x-auto xxs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {wawancara.map((item) => {
           const tanggalDate = new Date(item.tanggal);
 
@@ -44,15 +57,24 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category, wawancara, 
             return null;
           }
 
-          const day = tanggalDate.toLocaleDateString("id-ID", { weekday: "long" });
-          const date = tanggalDate.toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+          const day = tanggalDate.toLocaleDateString("id-ID", {
+            weekday: "long",
+          });
+          const date = tanggalDate.toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+          });
 
           return (
             <div key={item._id}>
-              <h3 className={`text-center text-base font-semibold mb-2 ${category === "Himakom" ? 'text-custom-blue' : 'text-custom-orange'}`}>
+              <h3
+                className={`mb-2 text-center text-base font-semibold ${category === "Himakom" ? "text-custom-blue" : "text-custom-orange"}`}
+              >
                 {day}
               </h3>
-              <h3 className={`text-center text-xl font-semibold mb-2 ${category === "Himakom" ? 'text-custom-blue' : 'text-custom-orange'}`}>
+              <h3
+                className={`mb-2 text-center text-xl font-semibold ${category === "Himakom" ? "text-custom-blue" : "text-custom-orange"}`}
+              >
                 {date}
               </h3>
               {item.sesi.map((session) => {
@@ -63,17 +85,31 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({ category, wawancara, 
                   return null;
                 }
 
-                const timeString = jamDate.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+                const timeString = jamDate.toLocaleTimeString("id-ID", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
 
                 return (
                   <button
                     key={session._id}
-                    onClick={() => onSlotSelect(item._id, jamDate, item.himakom)}
-                    className={`w-full py-2 mb-2 rounded ${
-                      selectedSlot?.id === item._id && selectedSlot?.sesi.getTime() === jamDate.getTime()
-                        ? (category === "Himakom" ? 'bg-custom-blue text-custom-silver' : 'bg-custom-orange text-custom-silver')
-                        : 'bg-custom-gray-light text-custom-black hover:bg-custom-gray-light/80 transition-colors'
+                    onClick={() =>
+                      onSlotSelect(item._id, jamDate, item.himakom)
+                    }
+                    className={`mb-2 w-full rounded py-2 ${
+                      selectedSlot?.id === item._id &&
+                      selectedSlot?.sesi.getTime() === jamDate.getTime()
+                        ? category === "Himakom"
+                          ? "bg-custom-blue text-custom-silver"
+                          : "bg-custom-orange text-custom-silver"
+                        : "bg-custom-gray-light text-custom-black transition-colors hover:bg-custom-gray-light/80"
                     }`}
+                    disabled={
+                      item.himakom
+                        ? pilihanWawancara.filteredHima && `true`
+                        : pilihanWawancara.filteredOti && `true`
+                    }
+                    // disabled={item.himakom ? pilihanWawancara.filteredHima.includes(item._id) : pilihanWawancara.filteredOti.includes(item._id)}
                   >
                     {timeString}
                   </button>

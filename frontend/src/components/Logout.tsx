@@ -57,7 +57,7 @@ export default function Logout({ className }: { className?: string }) {
             access your account.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="*:text-[0.9rem]">
           <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
           <Button
             variant={`destructive`}
