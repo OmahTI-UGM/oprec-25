@@ -30,7 +30,7 @@ const WaktuPilihanCard = ({
     <div className="flex w-full flex-col gap-6 rounded-xl bg-custom-gray-dark p-2 text-xs text-custom-silver sm:p-4 sm:text-base">
       <div className="relative flex w-full items-center justify-between gap-1">
         {/* OMAHTI OR HIMAKOM */}
-        {variantLabel}
+        {variant}
 
         {/* date on large screens */}
         <DateIndicator
