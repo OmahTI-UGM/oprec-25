@@ -91,7 +91,7 @@ export async function middleware(request: NextRequest) {
         return response;
       }
       if(!refreshResponse.ok) {
-        const response = NextResponse.redirect(new URL("/auth/login", request.url));
+        const response = NextResponse.next();
         // Delete accessToken and refreshToken cookies
         response.cookies.set("refreshToken", "", { maxAge: -1 });
         response.cookies.set("accessToken", "", { maxAge: -1 });
@@ -99,7 +99,10 @@ export async function middleware(request: NextRequest) {
       };
     }
     // If validation fails, proceed to login
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    const response = NextResponse.next();
+    response.cookies.set("refreshToken", "", { maxAge: -1 });
+    response.cookies.set("accessToken", "", { maxAge: -1 });
+    return response;
   }
   if (isAdminRoute) {
     if (!accessToken) {
