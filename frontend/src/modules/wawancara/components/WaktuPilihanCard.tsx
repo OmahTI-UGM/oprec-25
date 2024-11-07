@@ -1,7 +1,7 @@
 import { MapPin } from "lucide-react";
 
 interface WaktuPilihanCardProps {
-  variant?: 'omahti' | 'himakom';
+  variant?: "omahti" | "himakom";
   tanggal: string;
   jam: string;
   lokasi?: string;
@@ -13,28 +13,19 @@ const WaktuPilihanCard = ({
   jam,
   lokasi = "IUP Room",
 }: WaktuPilihanCardProps) => {
-  
-  const fooClass = `rounded-md bg-custom-black p-2 text-sm sm:text-base`;
-  const foo =
-    variant === "himakom" ? (
-      <div className={`${fooClass} text-custom-blue`}>
-        Himakom
-      </div>
-    ) : (
-      <div className={`${fooClass} text-custom-orange`}>
-        OmahTI
-      </div>
-    );
-
   return (
     <div className="flex w-full flex-col gap-6 rounded-xl bg-custom-gray-dark p-2 text-xs text-custom-silver sm:p-4 sm:text-base">
       <div className="relative flex w-full items-center justify-between gap-1">
         {/* OMAHTI OR HIMAKOM */}
-        {variant}
+        <div
+          className={`rounded-md bg-custom-black p-2 text-sm sm:text-base ${variant === "himakom" ? `text-custom-blue` : `text-custom-orange`}`}
+        >
+          {variant === "himakom" ? `Himakom` : `OmahTI`}
+        </div>
 
         {/* date on large screens */}
         <DateIndicator
-          tanggal={formatDate(tanggal)}
+          tanggal={tanggal}
           className="hidden sm:block"
         />
 
@@ -48,14 +39,14 @@ const WaktuPilihanCard = ({
 
           {/* time */}
           <div className="rounded-sm bg-custom-black p-2">
-            {formatTime(jam)}
+            {jam}
           </div>
         </div>
       </div>
 
       {/* DATE on small screens */}
       <DateIndicator
-        tanggal={formatDate(tanggal)}
+        tanggal={tanggal}
         className="block sm:hidden"
       />
     </div>
@@ -70,25 +61,5 @@ const DateIndicator = ({
   className?: string;
 }) => <h1 className={`text-lg font-semibold ${className}`}>{tanggal}</h1>;
 
-// functions to extract date and time from ISO string
-// ---------------------------------------------------------
-const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
-  return date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-};
-
-const formatTime = (isoString: string) => {
-  const date = new Date(isoString);
-  return date.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-};
-// ---------------------------------------------------------
 
 export default WaktuPilihanCard;

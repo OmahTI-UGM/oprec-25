@@ -18,10 +18,16 @@ interface ScheduleSlot {
 interface PopupProps {
   type: "gagal" | "berhasil" | "konfirmasi";
   className?: string;
+  disabled?: boolean;
   selectedSlot: ScheduleSlot | null; // Pass selected slot information
 }
 
-export default function Popup({ type, className, selectedSlot }: PopupProps) {
+export default function Popup({
+  type,
+  disabled,
+  className,
+  selectedSlot,
+}: PopupProps) {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>("");
 
@@ -102,15 +108,23 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
 
   const handleErrorClose = () => {
     setShowErrorModal(false);
-  }
+  };
 
   return (
     <AlertDialog>
-      {showErrorModal && <ErrorPopup open={showErrorModal} onErrorClose={handleErrorClose} errorMessage={errorMessage || ""}/>}
-      <AlertDialogTrigger asChild>
-        <Button className="h-auto w-20 p-2 text-sm tracking-wide sm:w-24 sm:text-base lg:w-32">
-          Pilih
-        </Button>
+      {showErrorModal && (
+        <ErrorPopup
+          open={showErrorModal}
+          onErrorClose={handleErrorClose}
+          errorMessage={errorMessage || ""}
+        />
+      )}
+      <AlertDialogTrigger disabled={disabled} asChild>
+        {disabled || (
+          <Button className="h-auto w-20 p-2 text-sm tracking-wide sm:w-24 sm:text-base lg:w-32">
+            Pilih
+          </Button>
+        )}
       </AlertDialogTrigger>
       <AlertDialogContent className="h-auto w-[90vw] rounded-lg bg-custom-gray-dark p-0 xxs:w-[76vw] xs:w-[56vw] sm:w-[48vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw]">
         <div className="h-14 rounded-t-lg bg-custom-black sm:h-20 lg:h-24" />
@@ -120,18 +134,23 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
             {content.icon}
           </div>
         </div>
-        <div className="text-center mt-6 sm:mt-8 lg:mt-16 px-4">
-          <p className="text-white text-sm mb-0 sm:mb-1 lg:mb-2">{content.headerText}</p>
-          <h2 className="text-white text-xl lg:text-2xl font-bold mb-0 sm:mb-1 lg:mb-2">{content.title}</h2>
-          <p className="text-white text-sm mb-4">{content.subtitle}</p>
+        <div className="mt-6 px-4 text-center sm:mt-8 lg:mt-16">
+          <p className="mb-0 text-[0.9rem] text-white sm:mb-1 lg:mb-2">
+            {content.headerText}
+          </p>
+          <h2 className="mb-0 text-xl font-bold text-white sm:mb-1 lg:mb-2 lg:text-2xl">
+            {content.title}
+          </h2>
+          <p className="mb-4 text-[0.9rem] text-white">{content.subtitle}</p>
         </div>
 
-        <div className="flex flex-col-reverse items-center justify-center gap-2 p-4 pt-0 xxs:flex-row sm:px-4 lg:flex-row lg:pt-4">
+        <div className="flex flex-col-reverse items-center justify-center gap-2 p-4 pt-0 *:text-[0.9rem] xxs:flex-row sm:px-4 lg:flex-row lg:pt-4">
           {content.cancelable && (
             <AlertDialogCancel asChild>
               <Button
                 variant={"outline"}
-                className="mt-0 h-8 w-full text-sm sm:h-10 lg:h-12 lg:w-1/2 lg:text-base"
+                size={`lg`}
+                className="mt-0 w-full lg:w-1/2"
               >
                 Batal
               </Button>
@@ -140,7 +159,8 @@ export default function Popup({ type, className, selectedSlot }: PopupProps) {
           <AlertDialogAction asChild>
             <Button
               onClick={handleConfirm} // Trigger confirmation request
-              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""} h-8 text-sm sm:h-10 lg:h-12 lg:text-base`}
+              size={`lg`}
+              className={`w-full ${content.cancelable ? "lg:w-1/2" : ""}`}
             >
               {content.buttonLabel}
             </Button>

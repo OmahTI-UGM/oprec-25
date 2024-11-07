@@ -126,7 +126,6 @@ const Penugasan = ({
         <>
           <input
               type="text"
-              placeholder="Ketik Link"
               value={link} // Bind the input value to state
               onChange={(e) => setLink(e.target.value)} // Update state on input change
               className="focus:border-none w-full appearance-none rounded-sm bg-[#535362] p-2 text-left focus:outline-none focus:ring-2 focus:ring-custom-blue"

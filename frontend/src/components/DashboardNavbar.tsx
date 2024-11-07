@@ -15,9 +15,9 @@ interface DashboardNavbarProps {
   user: User | null;
 }
 
-const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ user }) => {
+const DashboardNavbar: React.FC<DashboardNavbarProps> = () => {
   const pathname = usePathname();
-  const isAdmin = user?.isAdmin;
+  const isAdmin = false;
 
   const nav = isAdmin
     ? [

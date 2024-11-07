@@ -7,19 +7,11 @@ import Title from "./Title";
 import { CircleHelp, MailWarning, MessageSquare, Octagon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-interface User {
-  isAdmin: boolean;
-}
-
-interface DashboardSidebarProps {
-  user: User | null;
-}
-
 const waktuPengumuman = new Date("2024-11-06T20:50:00"); // nnti diganti disini aja
 
-const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
+const DashboardSidebar = () => {
   const pathname = usePathname();
-  const isAdmin = user?.isAdmin;
+  const isThisMonkeyAnAdmin = false;
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
   useEffect(() => {
@@ -32,7 +24,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
 
   const currentDate = new Date();
 
-  const NAV_LINKS = isAdmin
+  const NAV_LINKS = isThisMonkeyAnAdmin
     ? [
         {
           icon: <Octagon className="h-5 shrink-0" />,

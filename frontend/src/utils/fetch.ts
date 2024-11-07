@@ -1,14 +1,15 @@
 const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+
 export const getAllDivisi = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi`, {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include"
     });
-    const {semuaDivisi} = await res.json();
+    const { semuaDivisi } = await res.json();
 
     const himakomDivisi = semuaDivisi.filter((divisi: any) => divisi.himakom === true);
     const otiDivisi = semuaDivisi.filter((divisi: any) => divisi.himakom === false);
-    return {himakomDivisi, otiDivisi};
+    return { himakomDivisi, otiDivisi };
 }
 
 export const getOneDivisi = async (slug: string, accessToken: string) => {
@@ -16,10 +17,11 @@ export const getOneDivisi = async (slug: string, accessToken: string) => {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include"
     });
-    const {satuDivisi} = await res.json();
+    const { satuDivisi } = await res.json();
 
     return satuDivisi;
 }
+
 export const getAllWawancara = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/wawancara`, {
         headers: {Cookie: `accessToken=${accessToken};`},
@@ -35,7 +37,7 @@ export const getEnrolledDivisi = async (accessToken: string) => {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include",
     });
-    const {divisiPilihan} = await res.json();
+    const { divisiPilihan } = await res.json();
 
     return divisiPilihan;
 }
@@ -45,10 +47,11 @@ export const getPilihanWawancara = async (accessToken: string) => {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include",
     });
-    const {filteredOti, filteredHima} = await res.json();
+    const { filteredOti, filteredHima } = await res.json();
 
-    return{filteredOti, filteredHima};
+    return { filteredOti, filteredHima };
 }
+
 export const getPenugasanUser = async(slug:string, accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi/${slug}/penugasan`, {
         headers: {Cookie: `accessToken=${accessToken};`},

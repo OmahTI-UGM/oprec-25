@@ -1,19 +1,25 @@
+// next
 import { notFound } from "next/navigation";
-import ButtonLink from "@/components/ui/ButtonLink";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
-import Container from "@/components/Container";
-import PopupUrutan from "@/modules/divisi/components/PopupUrutan";
-import { Logos } from "@/utils/types";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
 
+// components
+import ProjectsSwiper from "@/modules/divisi/components/ProjectSwiper";
 import Penugasan from "@/modules/divisi/slug/components/Penugasan";
+import Container from "@/components/Container";
+import PopupUrutan from "@/modules/divisi/components/PopupUrutan";
+import ButtonLink from "@/components/ui/ButtonLink";
+
+// utils
+import { Logos } from "@/utils/types";
 
 import { getOneDivisi, getPenugasanUser } from "@/utils/fetch";
 import { cookies } from "next/headers";
+import { hasEnrolledInClass, hasMaxEnrollment } from "@/utils/auth";
 type DivisiPageProps = {
   params: {
     divisi: string;
@@ -24,6 +30,7 @@ const Page = async ({ params }: DivisiPageProps) => {
   const accessToken = cookies().get("accessToken")?.value;
   const divisiData = await getOneDivisi(params.divisi, accessToken as string);
   const {penugasan} = await getPenugasanUser(params.divisi, accessToken as string);
+
   if (!divisiData) {
     notFound();
   }
@@ -115,7 +122,7 @@ const About = ({ text }: { text: string }) => {
   );
 };
 
-const Progress = ({
+const Progress = async ({
   progress = 5,
   slots = 10,
   params,
@@ -124,14 +131,20 @@ const Progress = ({
   slots?: number;
   params: string;
 }) => {
+  // check if user has enrolled to this division or not
+  const hasEnrolledHere: boolean = await hasEnrolledInClass(params);
+  const hasReachedMax: boolean = await hasMaxEnrollment();
+
   return (
     <div className="flex h-auto w-full flex-col justify-between gap-2 rounded-lg bg-custom-gray-dark p-3 md:w-64">
       <h3 className="font-semibold">Status</h3>
+
       <div className="flex justify-between">
         <h4>Pendaftar</h4>
         <h4>{progress}/{slots}</h4>
       </div>
-      <PopupUrutan slug={params} />
+
+      <PopupUrutan hasEnrolled={hasEnrolledHere} hasMax={hasReachedMax} params={params} />
     </div>
   );
 };

@@ -107,6 +107,7 @@ const LoginForm = () => {
             <button
               type="button"
               onClick={handlePasswordReset}
+              tabIndex={-1}
               className="text-sm text-blue-500 hover:underline"
             >
               Forgot password?

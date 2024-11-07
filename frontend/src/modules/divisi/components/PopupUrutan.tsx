@@ -13,11 +13,13 @@ import PopupDivisiBerhasil from "./PopupDivisiBerhasil";
 import Cookies from "js-cookie";
 import ErrorPopup from "@/components/ErrorPopup";
 type PopUpMilihProps = {
-  slug: string;
+  params: string;
+  hasEnrolled: boolean;
+  hasMax: boolean;
   className?: string;
 };
 
-export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
+export default function PopupUrutan({ className, hasEnrolled, hasMax, params }: PopUpMilihProps) {
   const priorityNumbers = [1, 2, 3, 4];
   const [clickedButtons, setClickedButtons] = useState<number | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -28,9 +30,9 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
   };
 
   const handleSubmit = async () => {
-    if (clickedButtons !== null) {
+    if (clickedButtons !== null && !hasMax) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/divisi/${slug}/choose`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/divisi/${params}/choose`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,11 +61,12 @@ export default function PopupUrutan({ className, slug }: PopUpMilihProps) {
   const handleErrorClose = () => {
     setShowErrorModal(false);
   }
+
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button className="w-full text-sm lg:text-md tracking-wide">Pilih Divisi</Button>
+        <AlertDialogTrigger disabled={hasEnrolled} asChild>
+          <Button className="w-full text-sm lg:text-md tracking-wide">{hasMax ? `Batas pilihan divisi tercapai` : hasEnrolled ? `Divisi terpilih` : `Pilih divisi`}</Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[90vw] xxs:w-[75vw] xs:w-[55vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto scale-[80%] sm:scale-[75%] lg:scale-[72%] xl:scale-[90%]">
           <div className="h-14 sm:h-20 lg:h-24 bg-custom-black rounded-t-lg" />

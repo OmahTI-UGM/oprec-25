@@ -1,9 +1,8 @@
-import Peringatan from "./components/peringatan";
 import WaktuPilihan from "./components/WaktuPilihan";
 import PilihanWaktu from "./components/PilihanJam";
 
-import {getPilihanWawancara, getAllWawancara} from "@/utils/fetch";
-import {getCurrentUser} from "@/utils/auth";
+import { getPilihanWawancara, getAllWawancara } from "@/utils/fetch";
+import { getCurrentUser } from "@/utils/auth";
 import { cookies } from "next/headers";
 
 const Divisi = async () => {
@@ -11,14 +10,14 @@ const Divisi = async () => {
   const user = await getCurrentUser();
   const enrolledSlugHima = user?.enrolledSlugHima;
   const enrolledSlugOti = user?.enrolledSlugOti;
-  const {wawancaraHimakom, wawancaraOti} = await getAllWawancara(accessToken as string);
-  const {filteredHima, filteredOti} = await getPilihanWawancara(accessToken as string);
+  const { wawancaraHimakom, wawancaraOti } = await getAllWawancara(accessToken as string);
+  const { filteredHima, filteredOti } = await getPilihanWawancara(accessToken as string);
   
   return (
     <>
       <Title />
       <WaktuPilihan filteredHima={filteredHima} slugOti={enrolledSlugOti} slugHima={enrolledSlugHima} filteredOti={filteredOti}/>
-      <PilihanWaktu wawancaraHimakom={wawancaraHimakom} wawancaraOti={wawancaraOti}/>
+      <PilihanWaktu wawancaraHimakom={wawancaraHimakom} wawancaraOti={wawancaraOti} pilihanHimakom={filteredHima} pilihanOti={filteredOti} />
     </>
   );
 }

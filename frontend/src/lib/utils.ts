@@ -6,6 +6,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// MAX ENROLLMENT
+export const MAX_ENROLLMENTS = 4;
+
 
 // LINIMASA / RECRUITMENT TIMELINE
 // --------------------------------------------------------------------

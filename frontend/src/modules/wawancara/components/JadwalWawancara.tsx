@@ -1,9 +1,8 @@
 // next and react modules
-import Cookies from "js-cookie";
-import React, { use } from "react";
 
 // fetch
-import { getPilihanWawancara } from "@/utils/fetch";
+import { hasEnrolled } from "@/utils/auth";
+import { useEffect, useState } from "react";
 
 interface ScheduleSlot {
   id: string; // ID of the tanggal item
@@ -12,7 +11,8 @@ interface ScheduleSlot {
 }
 
 interface JadwalWawancaraProps {
-  category: "Himakom" | "OmahTI";
+  variant: "himakom" | "omahti";
+  disabled?: boolean;
   wawancara: {
     himakom: boolean;
     _id: string; // ID for the tanggal item
@@ -38,16 +38,28 @@ interface JadwalWawancaraProps {
 }
 
 const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
-  category,
+  variant,
   wawancara,
+  disabled = false,
   selectedSlot,
   onSlotSelect,
 }) => {
-  const accessToken = Cookies.get("accessToken");
-  const pilihanWawancara = use(getPilihanWawancara(accessToken as string));
+  const [loading, setLoading] = useState(true);
+  const [enrolledHimakom, setEnrolledHimakom] = useState<any | null>(null);
+  const [enrolledOmahti, setEnrolledOmahti] = useState<any | null>(null);
+
+  useEffect(() => {
+    const checkEnrollment = async () => {
+      const { hasHimakom, hasOmahti } = await hasEnrolled();
+      setEnrolledHimakom(hasHimakom);
+      setEnrolledOmahti(hasOmahti);
+      setLoading(false);
+    };
+    checkEnrollment();
+  }, []);
 
   return (
-    <div className="h-auto w-full rounded-md bg-custom-silver p-4">
+    <div className="relative h-auto w-full rounded-md bg-custom-silver p-4">
       <div className="grid grid-cols-1 gap-4 overflow-x-auto xxs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {wawancara.map((item) => {
           const tanggalDate = new Date(item.tanggal);
@@ -68,12 +80,12 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
           return (
             <div key={item._id}>
               <h3
-                className={`mb-2 text-center text-base font-semibold ${category === "Himakom" ? "text-custom-blue" : "text-custom-orange"}`}
+                className={`mb-2 text-center text-base font-semibold ${variant === "himakom" ? "text-custom-blue" : "text-custom-orange"}`}
               >
                 {day}
               </h3>
               <h3
-                className={`mb-2 text-center text-xl font-semibold ${category === "Himakom" ? "text-custom-blue" : "text-custom-orange"}`}
+                className={`mb-2 text-center text-xl font-semibold ${variant === "himakom" ? "text-custom-blue" : "text-custom-orange"}`}
               >
                 {date}
               </h3>
@@ -99,17 +111,12 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
                     className={`mb-2 w-full rounded py-2 ${
                       selectedSlot?.id === item._id &&
                       selectedSlot?.sesi.getTime() === jamDate.getTime()
-                        ? category === "Himakom"
+                        ? variant === "himakom"
                           ? "bg-custom-blue text-custom-silver"
                           : "bg-custom-orange text-custom-silver"
                         : "bg-custom-gray-light text-custom-black transition-colors hover:bg-custom-gray-light/80"
                     }`}
-                    disabled={
-                      item.himakom
-                        ? pilihanWawancara.filteredHima && `true`
-                        : pilihanWawancara.filteredOti && `true`
-                    }
-                    // disabled={item.himakom ? pilihanWawancara.filteredHima.includes(item._id) : pilihanWawancara.filteredOti.includes(item._id)}
+                    disabled={disabled}
                   >
                     {timeString}
                   </button>
@@ -119,6 +126,20 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
           );
         })}
       </div>
+
+      {/* overlay if user hasn't picked a division */}
+      {((variant === "himakom" && !enrolledHimakom) ||
+        (variant === "omahti" && !enrolledOmahti)) && (
+        <div className="absolute inset-0 grid place-items-center transition-all bg-custom-black/80 backdrop-blur-sm">
+          <h1
+            className={`transition-opacity duration-300 ${
+              loading ? "opacity-0" : "opacity-100"
+            } text-custom-silver`}
+          >
+            Isi divisi pilihanmu sebelum memilih jadwal wawancara.
+          </h1>
+        </div>
+      )}
     </div>
   );
 };
