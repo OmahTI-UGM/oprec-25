@@ -1,19 +1,19 @@
-import BE from "../../public/assets/logo/putih/be.png";
-import CP from "../../public/assets/logo/putih/cp.png";
-import CySec from "../../public/assets/logo/putih/cysec.png";
-import DSAI from "../../public/assets/logo/putih/dsai.png";
-import FE from "../../public/assets/logo/putih/fe.png";
-import GameDev from "../../public/assets/logo/putih/game dev.png";
-import MobApps from "../../public/assets/logo/putih/mob apps.png";
-import UIUX from "../../public/assets/logo/putih/uiux.png";
-import HR from "../../public/assets/logo/himakom/hr.png";
-import IPC from "../../public/assets/logo/himakom/ipc.png";
-import Media from "../../public/assets/logo/himakom/media.png";
-import PR from "../../public/assets/logo/himakom/pr.png";
-import SF from "../../public/assets/logo/himakom/s&f.png";
-import Secretary from "../../public/assets/logo/himakom/secretary.png";
-import SD from "../../public/assets/logo/himakom/skillDev.png";
-import Treasurer from "../../public/assets/logo/himakom/treasurer.png";
+import BE from "@/assets/logo/putih/BE.png";
+import CP from "@/assets/logo/putih/CP.png";
+import CySec from "@/assets/logo/putih/CySec.png";
+import DSAI from "@/assets/logo/putih/DSAI.png";
+import FE from "@/assets/logo/putih/FE.png";
+import GameDev from "@/assets/logo/putih/Game Dev.png";
+import MobApps from "@/assets/logo/putih/Mob Apps.png";
+import UIUX from "@/assets/logo/putih/UIUX.png";
+import HR from "@/assets/logo/himakom/hr.png";
+import IPC from "@/assets/logo/himakom/ipc.png";
+import Media from "@/assets/logo/himakom/media.png";
+import PR from "@/assets/logo/himakom/pr.png";
+import SF from "@/assets/logo/himakom/s&f.png";
+import Secretary from "@/assets/logo/himakom/secretary.png";
+import SD from "@/assets/logo/himakom/skillDev.png";
+import Treasurer from "@/assets/logo/himakom/treasurer.png";
 
 export const Logos = {
   "backend": BE,
