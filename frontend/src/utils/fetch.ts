@@ -7,8 +7,8 @@ export const getAllDivisi = async (accessToken: string) => {
     });
     const { semuaDivisi } = await res.json();
 
-    const himakomDivisi = semuaDivisi.filter((divisi: any) => divisi.himakom === true);
-    const otiDivisi = semuaDivisi.filter((divisi: any) => divisi.himakom === false);
+    const himakomDivisi = semuaDivisi?.filter((divisi: any) => divisi.himakom === true);
+    const otiDivisi = semuaDivisi?.filter((divisi: any) => divisi.himakom === false);
     return { himakomDivisi, otiDivisi };
 }
 
