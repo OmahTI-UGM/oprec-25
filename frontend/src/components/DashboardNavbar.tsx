@@ -12,7 +12,7 @@ interface User {
 }
 
 interface DashboardNavbarProps {
-  user: User | null;
+
 }
 
 const DashboardNavbar: React.FC<DashboardNavbarProps> = () => {
