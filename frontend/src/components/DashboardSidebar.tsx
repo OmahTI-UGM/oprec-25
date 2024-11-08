@@ -1,30 +1,15 @@
-"use client";
-
+'use client'
 import Logout from "./Logout";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Title from "./Title";
 import { CircleHelp, MailWarning, MessageSquare, Octagon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-const waktuPengumuman = new Date("2024-11-06T20:50:00"); // nnti diganti disini aja
 
-const DashboardSidebar = () => {
+const DashboardSidebar = ({ admin = false }: { admin?: boolean }) => {
   const pathname = usePathname();
-  const isThisMonkeyAnAdmin = false;
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const currentDate = new Date();
-
-  const NAV_LINKS = isThisMonkeyAnAdmin
+  const NAV_LINKS = admin
     ? [
         {
           icon: <Octagon className="h-5 shrink-0" />,
@@ -46,16 +31,12 @@ const DashboardSidebar = () => {
           tag: "Wawancara",
           newTab: false,
         },
-        ...(currentDate >= waktuPengumuman
-          ? [
-              {
-                icon: <MailWarning className="h-5 shrink-0" />,
-                href: "/pengumuman",
-                tag: "Pengumuman",
-                newTab: false,
-              },
-            ]
-          : []),
+        {
+          icon: <MailWarning className="h-5 shrink-0" />,
+          href: "/pengumuman",
+          tag: "Pengumuman",
+          newTab: false,
+        },
         {
           icon: <CircleHelp className="h-5 shrink-0" />,
           href: "https://wa.me/628157929797",
@@ -76,11 +57,19 @@ const DashboardSidebar = () => {
 };
 
 interface SidebarButtonsProps {
-  NAV_LINKS: { icon: JSX.Element; href: string; tag: string; newTab: boolean }[];
+  NAV_LINKS: {
+    icon: JSX.Element;
+    href: string;
+    tag: string;
+    newTab: boolean;
+  }[];
   pathname: string | null;
 }
 
-const SidebarButtons: React.FC<SidebarButtonsProps> = ({ NAV_LINKS, pathname }) => (
+const SidebarButtons: React.FC<SidebarButtonsProps> = ({
+  NAV_LINKS,
+  pathname,
+}) => (
   <div className="flex flex-col gap-[2vh]">
     {NAV_LINKS.map((navItem, index) => (
       <div

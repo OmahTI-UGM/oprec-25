@@ -43,9 +43,8 @@ const RegisterForm = () => {
         },
       );
         const responseJSON = await response.json();
-        console.log(responseJSON);
       if (!response.ok) {
-        throw new Error("Incorrect email or password.");
+        throw new Error(responseJSON.message);
       }
 
       router.push("/");

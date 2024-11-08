@@ -117,7 +117,7 @@ const DivisiCard = ({
             alt={title || "Logo"}
             sizes="100%"
             className="object-contain" // Ensures the image fits inside without distortion
-            layout="fill" // Makes the image fill the container while maintaining aspect ratio
+            fill
           />
         )}
       </div>

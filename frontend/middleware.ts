@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 // Define public routes that don't require authentication
-const PUBLIC_ROUTES = ["/himakom", "/omahti", "/auth/login", "/auth/register", "/forgot-password"];
+const PUBLIC_ROUTES = [
+  "/himakom",
+  "/omahti",
+  "/auth/login",
+  "/auth/register",
+  "/forgot-password",
+];
 const ADMIN_ROUTES = ["/admin"];
 
 async function validateToken(PUBLIC_API_URL: string, token: string) {
@@ -29,13 +35,18 @@ export async function middleware(request: NextRequest) {
   const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
   const accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
-  const isPublicRoute = PUBLIC_ROUTES.some(route => pathname.startsWith(route));
-  const isAdminRoute = ADMIN_ROUTES.some(route => pathname.startsWith(route));
+  const isPublicRoute = PUBLIC_ROUTES.some((route) =>
+    pathname.startsWith(route),
+  );
+  const isAdminRoute = ADMIN_ROUTES.some((route) => pathname.startsWith(route));
   // always allow access to root route
-  if (pathname === '/') {
+  if (pathname === "/") {
     // If there's an access token, validate it
     if (accessToken) {
-      const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
+      const validationResponse = await validateToken(
+        PUBLIC_API_URL,
+        accessToken,
+      );
       if (validationResponse.ok) {
         const { user } = await validationResponse.json();
         const nextResponse = NextResponse.next();
@@ -44,8 +55,15 @@ export async function middleware(request: NextRequest) {
         nextResponse.headers.set("x-user-NIM", user.NIM);
         nextResponse.headers.set("x-user-username", user.username || "");
         nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
-        nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
-        nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
+        nextResponse.headers.set(
+          "x-user-enrolledSlugHima",
+          user.enrolledSlugHima || "",
+        );
+        nextResponse.headers.set(
+          "x-user-enrolledSlugOti",
+          user.enrolledSlugOti || "",
+        );
+        nextResponse.headers.set("x-url", pathname);
         return nextResponse;
       } else if (validationResponse.status === 401 && refreshToken) {
         const refreshResponse = await refreshTokenValidation(
@@ -60,9 +78,11 @@ export async function middleware(request: NextRequest) {
           }
           return response;
         }
-        if(!refreshResponse.ok){
-          const response = NextResponse.redirect(new URL("/auth/login", request.url));
-        // Delete accessToken and refreshToken cookies
+        if (!refreshResponse.ok) {
+          const response = NextResponse.redirect(
+            new URL("/auth/login", request.url),
+          );
+          // Delete accessToken and refreshToken cookies
           response.cookies.set("refreshToken", "", { maxAge: -1 });
           response.cookies.set("accessToken", "", { maxAge: -1 });
           return response;
@@ -96,7 +116,7 @@ export async function middleware(request: NextRequest) {
         response.cookies.set("refreshToken", "", { maxAge: -1 });
         response.cookies.set("accessToken", "", { maxAge: -1 });
         return response;
-      };
+      }
     }
     // If validation fails, proceed to login
     const response = NextResponse.next();
@@ -121,11 +141,21 @@ export async function middleware(request: NextRequest) {
       nextResponse.headers.set("x-user-NIM", user.NIM);
       nextResponse.headers.set("x-user-username", user.username || "");
       nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
-      nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
-      nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
+      nextResponse.headers.set(
+        "x-user-enrolledSlugHima",
+        user.enrolledSlugHima || "",
+      );
+      nextResponse.headers.set(
+        "x-user-enrolledSlugOti",
+        user.enrolledSlugOti || "",
+      );
+      nextResponse.headers.set("x-url", pathname);
       return nextResponse;
     } else if (validationResponse.status === 401 && refreshToken) {
-      const refreshResponse = await refreshTokenValidation(PUBLIC_API_URL, refreshToken);
+      const refreshResponse = await refreshTokenValidation(
+        PUBLIC_API_URL,
+        refreshToken,
+      );
       if (refreshResponse.ok) {
         const response = NextResponse.redirect(request.url);
         const setCookieHeader = refreshResponse.headers.get("set-cookie");
@@ -154,8 +184,15 @@ export async function middleware(request: NextRequest) {
       nextResponse.headers.set("x-user-NIM", user.NIM);
       nextResponse.headers.set("x-user-username", user.username || "");
       nextResponse.headers.set("x-user-isAdmin", user.isAdmin || false);
-      nextResponse.headers.set("x-user-enrolledSlugHima", user.enrolledSlugHima || "");
-      nextResponse.headers.set("x-user-enrolledSlugOti", user.enrolledSlugOti || "");
+      nextResponse.headers.set(
+        "x-user-enrolledSlugHima",
+        user.enrolledSlugHima || "",
+      );
+      nextResponse.headers.set(
+        "x-user-enrolledSlugOti",
+        user.enrolledSlugOti || "",
+      );
+      nextResponse.headers.set("x-url", pathname);
       return nextResponse;
     } else if (validationResponse.status === 401 && refreshToken) {
       const refreshResponse = await refreshTokenValidation(
@@ -170,11 +207,13 @@ export async function middleware(request: NextRequest) {
         }
         return response;
       }
-      if(!refreshResponse.ok){
-        const response =  NextResponse.redirect(new URL("/auth/login", request.url));
+      if (!refreshResponse.ok) {
+        const response = NextResponse.redirect(
+          new URL("/auth/login", request.url),
+        );
         response.cookies.set("refreshToken", "", { maxAge: -1 });
         response.cookies.set("accessToken", "", { maxAge: -1 });
-      } 
+      }
     }
     // If both validation and refresh fail, redirect to login
     return NextResponse.redirect(new URL("/auth/login", request.url));

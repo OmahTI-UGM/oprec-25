@@ -1,6 +1,7 @@
 // next
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { cookies } from "next/headers";
 import { ArrowLeft } from "lucide-react";
 
 // Import Swiper styles
@@ -16,10 +17,9 @@ import ButtonLink from "@/components/ui/ButtonLink";
 
 // utils
 import { Logos } from "@/utils/types";
-
 import { getOneDivisi, getPenugasanUser } from "@/utils/fetch";
-import { cookies } from "next/headers";
-import { hasEnrolledInClass, hasMaxEnrollment } from "@/utils/auth";
+import { getEnrollmentPriorities, hasEnrolledInClass, hasMaxEnrollment } from "@/utils/auth";
+
 type DivisiPageProps = {
   params: {
     divisi: string;
@@ -29,7 +29,7 @@ type DivisiPageProps = {
 const Page = async ({ params }: DivisiPageProps) => {
   const accessToken = cookies().get("accessToken")?.value;
   const divisiData = await getOneDivisi(params.divisi, accessToken as string);
-  const {penugasan} = await getPenugasanUser(params.divisi, accessToken as string);
+  const { penugasan } = await getPenugasanUser(params.divisi, accessToken as string);
 
   if (!divisiData) {
     notFound();
@@ -134,6 +134,8 @@ const Progress = async ({
   // check if user has enrolled to this division or not
   const hasEnrolledHere: boolean = await hasEnrolledInClass(params);
   const hasReachedMax: boolean = await hasMaxEnrollment();
+  // get the priorities that the user has taken
+  const { prioritiesTaken } = await getEnrollmentPriorities();
 
   return (
     <div className="flex h-auto w-full flex-col justify-between gap-2 rounded-lg bg-custom-gray-dark p-3 md:w-64">
@@ -144,7 +146,7 @@ const Progress = async ({
         <h4>{progress}/{slots}</h4>
       </div>
 
-      <PopupUrutan hasEnrolled={hasEnrolledHere} hasMax={hasReachedMax} params={params} />
+      <PopupUrutan hasEnrolled={hasEnrolledHere} prioritiesTaken={prioritiesTaken} hasMax={hasReachedMax} params={params} />
     </div>
   );
 };

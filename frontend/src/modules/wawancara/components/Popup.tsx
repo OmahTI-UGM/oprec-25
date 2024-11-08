@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Check, CalendarDays } from "lucide-react";
+import { X, Check, CalendarDays, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -9,6 +9,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import ErrorPopup from "@/components/ErrorPopup";
+import { useRouter } from "next/navigation";
 interface ScheduleSlot {
   id: string;
   sesi: Date;
@@ -28,7 +29,9 @@ export default function Popup({
   className,
   selectedSlot,
 }: PopupProps) {
+  const router = useRouter();
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>("");
 
   const getContent = () => {
@@ -38,9 +41,9 @@ export default function Popup({
           icon: (
             <X className="h-10 w-10 text-white sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
           ),
-          title: "Isi Divisi Terlebih Dahulu",
+          title: "Isi Waktu Terlebih Dahulu",
           subtitle: "Sebelum memilih pilihan wawancara",
-          headerText: "Akses Wawancara",
+          headerText: "Akses wawancara",
           buttonLabel: "Selesai",
           cancelable: false,
         };
@@ -78,6 +81,7 @@ export default function Popup({
     const hima = selectedSlot?.himakom ? "hima" : "oti";
     if (type === "konfirmasi" && selectedSlot) {
       try {
+        setLoading(true);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/wawancara/${hima}/${selectedSlot.id}`,
           {
@@ -93,14 +97,16 @@ export default function Popup({
         );
         const responseJSON = await response.json();
         if (response.ok) {
-          console.log("Schedule confirmed successfully.");
           // Handle successful confirmation here (e.g., show success popup)
+          router.refresh;
         } else {
+          setLoading(false);
           setErrorMessage(responseJSON.message);
           setShowErrorModal(true);
           console.error("Failed to confirm schedule.");
         }
       } catch (error) {
+        setLoading(false);
         console.error("Error confirming schedule:");
       }
     }
@@ -150,6 +156,7 @@ export default function Popup({
               <Button
                 variant={"outline"}
                 size={`lg`}
+                disabled={loading}
                 className="mt-0 w-full lg:w-1/2"
               >
                 Batal
@@ -160,9 +167,16 @@ export default function Popup({
             <Button
               onClick={handleConfirm} // Trigger confirmation request
               size={`lg`}
+              disabled={loading}
               className={`w-full ${content.cancelable ? "lg:w-1/2" : ""}`}
             >
-              {content.buttonLabel}
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <LoaderCircle className="animate-spin" size={20} />
+                </div>
+              ) : (
+                content.buttonLabel
+              )}
             </Button>
           </AlertDialogAction>
         </div>

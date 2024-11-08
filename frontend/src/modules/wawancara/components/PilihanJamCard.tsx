@@ -21,7 +21,15 @@ const PilihanWaktuCard = ({
   wawancara,
   pilihan,
 }: PilihanWaktuProps) => {
-  const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(
+    pilihan && pilihan.sesi && pilihan.sesi.length > 0
+      ? {
+          id: pilihan.sesi[0]._id, 
+          sesi: new Date(pilihan.sesi[0].jam), 
+          himakom: variant === 'himakom',
+        }
+      : null
+  );
   const [popupType, setPopupType] = useState<
     "gagal" | "berhasil" | "konfirmasi"
   >("gagal");

@@ -19,6 +19,12 @@ export async function getCurrentUser() {
   };
 }
 
+export async function getUrl() {
+  const headersList = headers();
+  
+  return headersList.get('x-url') || '';
+}
+
 interface enrolledDivisionsProps {
   divisiId: DivisiProps;
   urutanPrioritas: number;
@@ -35,6 +41,7 @@ export const hasEnrolledInClass = async (slug: string) => {
     (division) => division.divisiId.slug,
   );
 
+  // returns a boolean
   return enrolledSlugs.includes(slug);
 };
 
@@ -44,6 +51,7 @@ export const hasMaxEnrollment = async () => {
     accessToken as string,
   );
 
+  // returns a boolean
   return enrolledDivisions.length >= 4;
 };
 
@@ -60,8 +68,26 @@ export const hasEnrolled = async () => {
     (division) => !division.divisiId.himakom
   );
 
-  console.log(hasOmahti);
-
+  // returns an object containing booleans
   return { hasHimakom, hasOmahti };
+};
 
+export const getEnrollmentPriorities = async () => {
+  const accessToken = cookies().get("accessToken")?.value;
+  const enrolledDivisions: enrolledDivisionsProps[] = await getEnrolledDivisi(
+    accessToken as string,
+  );
+
+  const prioritiesTaken = enrolledDivisions.map(
+    (division) => division.urutanPrioritas
+  );
+
+  const divisionsByPriority = enrolledDivisions.map(division => ({
+    priority: division.urutanPrioritas,
+    name: division.divisiId.judul,
+    slug: division.divisiId.slug,
+    himakom: division.divisiId.himakom
+  })).sort((a, b) => a.priority - b.priority);
+
+  return { prioritiesTaken, divisionsByPriority };
 };

@@ -1,35 +1,30 @@
 import DashboardSidebar from "@/components/DashboardSidebar";
 import DashboardNavbar from "@/components/DashboardNavbar";
 import Container from "@/components/Container";
-import { getCurrentUser } from "@/utils/auth";
-import { headers } from "next/headers";
-import { User } from "@/utils/definitions";
 
 import Avatar from "@/components/Avatar"; // Assuming Avatar is in this path
+import { getCurrentUser } from "@/utils/auth";
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
-  const headersList = headers();
-  const domain = headersList.get('host') || '';
-  const pathname = headersList.get('referrer') || '';
-  const isDivisiPage = pathname.includes('/divisi/');
-
-  if (isDivisiPage) {
-    return <>{children}</>;
-  }
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const user = await getCurrentUser();
+  const isAdmin = user?.isAdmin === "true" ? true : false;
 
   return (
-    <div className="flex flex-col lg:flex-row relative">
-      {/* Avatar in absolute position */}
-        <div className="absolute top-6 right-6 z-10">
-          <Avatar />
-        </div>
+    <div className="relative flex flex-col lg:flex-row">
+      <DashboardSidebar admin={isAdmin} />
 
-      <DashboardSidebar />
       <div className="flex-grow">
-        <DashboardNavbar />
+        <DashboardNavbar admin={isAdmin} />
         <Container
           parentClass={`pt-0 w-screen lg:w-[80vw] lg:pt-8 min-h-screen`}
+          className="relative"
         >
+          {/* avatar component */}
+          <Avatar />
           {children}
         </Container>
       </div>

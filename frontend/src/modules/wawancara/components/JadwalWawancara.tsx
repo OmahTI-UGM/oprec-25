@@ -78,7 +78,7 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
           });
 
           return (
-            <div key={item._id}>
+            <div key={item._id} className={`${disabled && 'opacity-80'}`}>
               <h3
                 className={`mb-2 text-center text-base font-semibold ${variant === "himakom" ? "text-custom-blue" : "text-custom-orange"}`}
               >
@@ -106,16 +106,16 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
                   <button
                     key={session._id}
                     onClick={() =>
-                      onSlotSelect(item._id, jamDate, item.himakom)
+                      onSlotSelect(session._id, jamDate, item.himakom)
                     }
                     className={`mb-2 w-full rounded py-2 ${
-                      selectedSlot?.id === item._id &&
+                      selectedSlot?.id === session._id &&
                       selectedSlot?.sesi.getTime() === jamDate.getTime()
                         ? variant === "himakom"
                           ? "bg-custom-blue text-custom-silver"
-                          : "bg-custom-orange text-custom-silver"
+                          : `bg-custom-orange text-custom-silver hover:bg-custom-orange/80 ${disabled && 'hover:bg-custom-orange'}`
                         : "bg-custom-gray-light text-custom-black transition-colors hover:bg-custom-gray-light/80"
-                    }`}
+                    } ${disabled && "opacity-80 hover:bg-custom-gray-light"}`}
                     disabled={disabled}
                   >
                     {timeString}
@@ -130,9 +130,9 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
       {/* overlay if user hasn't picked a division */}
       {((variant === "himakom" && !enrolledHimakom) ||
         (variant === "omahti" && !enrolledOmahti)) && (
-        <div className="absolute inset-0 grid place-items-center transition-all bg-custom-black/80 backdrop-blur-sm">
+        <div className="absolute inset-0 grid place-items-center bg-custom-black/80 p-4 backdrop-blur-sm transition-all">
           <h1
-            className={`transition-opacity duration-300 ${
+            className={`text-center transition-opacity duration-300 ${
               loading ? "opacity-0" : "opacity-100"
             } text-custom-silver`}
           >
