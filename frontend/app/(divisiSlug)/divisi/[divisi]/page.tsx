@@ -160,7 +160,7 @@ const Progress = async ({
       <div className="flex justify-between">
         <h4>Pendaftar</h4>
         <h4>
-          {progress}/{slots}
+          {progress}/Wawancara Penuh
         </h4>
       </div>
 
