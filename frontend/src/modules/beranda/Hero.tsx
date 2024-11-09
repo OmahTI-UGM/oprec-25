@@ -6,8 +6,8 @@ import omahti from "@/logos/omahti.svg";
 import Link from "next/link";
 import Marquee from "@/components/ui/marquee";
 import { House } from "lucide-react";
-import omahtiModel from "@/assets/beranda/hero/omahtiModel.png";
-import himakomModel from "@/assets/beranda/hero/himakomModel.png";
+import omahtiModel from "@/assets/beranda/hero/omahtiModel.webp";
+import himakomModel from "@/assets/beranda/hero/himakomModel.webp";
 
 const Hero = () => {
   return (
@@ -66,10 +66,10 @@ const Background = () => (
         />
         <Image
           className="absolute z-10 -left-[2rem] xxs:left-[2.7rem] xs:left-[9rem] top-6 object-contain
-          w-full h-[80vh] min-w-[500px]"
+          w-full h-[80vh] min-w-[500px] p-8"
           src={himakomModel}
           width={500}
-          height={500}
+          height={906}
           alt=""
           priority
         />
@@ -77,7 +77,7 @@ const Background = () => (
     </div>
 
     {/* circle in the background */}
-    <div className="absolute bottom-[-4rem] z-0 aspect-square h-auto w-full max-w-xl rounded-full bg-custom-gray lg:bottom-[-10rem]" />
+    <div className="absolute bottom-[-4rem] z-0 aspect-square h-auto w-full max-w-2xl rounded-full bg-custom-gray lg:bottom-[-10rem]" />
 
     {/* gradients */}
     <div className="absolute bottom-0 left-1/2 right-0 top-0 z-10 bg-gradient-to-t from-custom-blue via-transparent to-transparent" />

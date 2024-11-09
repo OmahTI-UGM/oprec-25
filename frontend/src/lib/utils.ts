@@ -42,30 +42,38 @@ export const LINIMASA_DETAIL = [
 // --------------------------------------------------------------------
 export const OMAHTI_FAQ = [
   {
-    question: "Apa itu OmahTI?",
-    answer: "Sample answer",
+    question: "Siapa saja yang bisa mendaftar ke OMAHTI?",
+    answer: "Mahasiswa dari jurusan ilmu komputer yang tertarik di bidang Teknologi Informasi dipersilakan untuk mendaftar.",
   },
   {
-    question: "Siapa CEO OmahTI?",
-    answer: "Puff Daddy",
+    question: "Apa saja kegiatan yang dilakukan di OMAHTI?",
+    answer: "OMAHTI menyelenggarakan kegiatan berdasarkan 4 pilar, pelatihan, perlombaan, penelitian, dan projek.",
   },
   {
-    question: "Siapa yang ada di dunia ini yang cita-citanya menjadi orang yang kaya raya sehingga tidak perlu pusing memikirkan esok hari?",
-    answer: "saya bang",
+    question: "Apakah perlu pengalaman khusus untuk bergabung?",
+    answer: "Tidak, semua level pengalaman diterima, baik yang masih belajar maupun yang sudah berpengalaman di bidang TI. Namun, terdapat penugasan sesuai divisi yang dipilih.",
+  },
+  {
+    question: "Bagaimana proses seleksi di OMAHTI?",
+    answer: "Proses seleksi melibatkan proses penugasan dan wawancara di pilihan yang lebih diprioritaskan",
   },
 ];
 export const HIMAKOM_FAQ = [
   {
-    question: "Apa itu Himakom?",
-    answer: "Sample answer",
+    question: "Apa saja syarat untuk bergabung dengan HIMAKOM?",
+    answer: "Syarat utama adalah mahasiswa aktif jurusan Ilmu Komputer yang bersemangat dalam mengembangkan potensi di bidang teknologi.",
   },
   {
-    question: "Siapa Himakom Biji?",
-    answer: "Muhammad Ilham Rajo Sikumbang",
+    question: "Apakah harus sudah mahir dalam coding untuk mendaftar?",
+    answer: "Tidak, HIMAKOM membuka kesempatan bagi semua level kemampuan. Baik pemula maupun yang sudah berpengalaman dapat bergabung!",
   },
   {
-    question: "Kak jadi aku mahasiswa baru ilmu komputer jadi aku sekarang angkatan 2024, kalo menurut kakak lebih bagus omahti apa himakom ya kak? please bantu jawab kak soalnya aku bimbang.",
-    answer: "retoris",
+    question: "Bagaimana proses seleksi anggota HIMAKOM?",
+    answer: "Proses seleksi melibatkan tahap pemilihan divisi, penugasan sesuai divisi, dan wawancara.",
+  },
+  {
+    question: "Apakah HIMAKOM hanya untuk mahasiswa Ilmu Komputer?",
+    answer: "Ya, HIMAKOM dikhususkan untuk mahasiswa Ilmu Komputer. Namun, dalam beberapa kegiatan, kami membuka kolaborasi dengan jurusan lain.",
   },
 ];
 // --------------------------------------------------------------------

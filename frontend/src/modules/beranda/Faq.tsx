@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { HIMAKOM_FAQ, OMAHTI_FAQ } from "@/lib/utils";
 import himakomFaq from "@/assets/beranda/faq/omahti.png";
-import omahtiFaq from "@/assets/beranda/faq/omahti.png";
+import omahtiFaq from "@/assets/beranda/faq/faq-oti.webp";
 
 const Faq = () => {
   return (

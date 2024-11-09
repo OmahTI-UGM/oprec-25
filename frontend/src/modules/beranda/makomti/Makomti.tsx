@@ -91,9 +91,10 @@ const Makomti: React.FC<MakomtiProps> = ({ makomti }) => {
             <Image
               src={logo}
               alt={`${data.nama} Logo`}
-              width={142}
-              height={142}
+              width={568}
+              height={568}
               className="rounded-full border border-white aspect-square w-20 xl:w-[10rem]"
+              priority
             />
             <div className='xl:text-center'>
               <h1 className="text-2xl font-bold">{data.nama}</h1>
@@ -143,6 +144,7 @@ const Makomti: React.FC<MakomtiProps> = ({ makomti }) => {
                     width={24}
                     height={24}
                     className='h-6 w-auto'
+                    priority
                   />
                 </div>
                 <span>{divisi}</span>
@@ -156,51 +158,3 @@ const Makomti: React.FC<MakomtiProps> = ({ makomti }) => {
 };
 
 export default Makomti;
-
-
-
-
-{/* <section className="relative">
-<Image 
-  src={bgImage} 
-  alt="" 
-  width={0} 
-  height={0} 
-  className='w-full absolute inset-0 left-0 top-0 right-0 z-[-1]' 
-/>
-<div className='relative z-10'>
-  <div className='w-80vw bg-custom-black relative z-10'>
-    <Image 
-      src={logo} 
-      alt={`${data.nama} logo`} 
-      width={100}  // sesuaikan dengan ukuran asli logo
-      height={20}  // sesuaikan dengan ukuran asli logo  
-      sizes="100vw"
-      className='h-5 w-auto mt-[10rem]'
-    />
-  </div>
-
-
-  
-  <h1>{data.namaLengkap}</h1>
-  <p>{data.desc}</p>
-  <h2>Manfaat:</h2>
-  <ul>
-    {Array.from(data.manfaat).map((manfaat, index) => (
-      <li key={index}>{manfaat}</li>
-    ))}
-  </ul>
-  <h2>Kegiatan:</h2>
-  <ul>
-    {Array.from(data.kegiatan).map((kegiatan, index) => (
-      <li key={index}>{kegiatan}</li>
-    ))}
-  </ul>
-  <h2>Divisi:</h2>
-  <ul>
-    {Array.from(data.divisi).map((divisi, index) => (
-      <li key={index}>{divisi}</li>
-    ))}
-  </ul>
-</div>
-</section> */}

@@ -2,7 +2,7 @@ import Header from "@/modules/beranda/components/Header";
 import Container from "@/components/Container";
 import Image from "next/image";
 import { LINIMASA_DETAIL } from "@/lib/utils";
-import timelineImage from "@/assets/beranda/timeline/tipis.jpeg";
+import timelineImage from "@/assets/beranda/timeline/timeline.webp";
 
 const Linimasa = () => {
   return (
