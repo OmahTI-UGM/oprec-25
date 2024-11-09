@@ -37,11 +37,11 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         
         // Validate division availability
         if ((divisi.dipilihOleh?.length || 0) >= divisi.slot) {
-            throw new DivisionSelectionError("No slots available");
+            throw new DivisionSelectionError("Slot sudah habis");
         }
 
         if (divisi.dipilihOleh?.includes(req.user.userId)) {
-            throw new DivisionSelectionError("User already registered for this division");
+            throw new DivisionSelectionError("User sudah terdaftar di divisi ini");
         }
 
         // Handle division selection
@@ -63,7 +63,7 @@ export const pilihDivisi = async (req: IGetRequestWithUser, res: Response): Prom
         user.refreshToken = tokens.refreshToken;
         await Promise.all([user.save(), divisi.save()]);
 
-        res.status(200).json({ message: "Successfully registered for division", accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
+        res.status(200).json({ message: "Berhasil mendaftar ke divisi ini", accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
         return;
     } catch (error) {
         const status = error instanceof DivisionSelectionError ? error.statusCode : 500;
@@ -86,21 +86,21 @@ async function handleDivisionSelection(
     user.divisiPilihan = user.divisiPilihan || [];
 
     if (isHimakom) {
-        if(user.tanggalPilihanHima?.tanggalId){throw new DivisionSelectionError("User already registered for an interview in HIMA division");}
+        if(user.tanggalPilihanHima?.tanggalId){throw new DivisionSelectionError("User sudah memilih wawancara OTI, sudah tidak bisa memilih divisi lain");}
         user.divisiPilihanHima = user.divisiPilihanHima || [];
     } else {
-        if(user.tanggalPilihanOti?.tanggalId){throw new DivisionSelectionError("User already registered for an interview in OTI division");}
+        if(user.tanggalPilihanOti?.tanggalId){throw new DivisionSelectionError("User sudah memilih wawancara Himakom, sudah tidak bisa memilih divisi lain");}
         user.divisiPilihanOti = user.divisiPilihanOti || [];
     }
 
     // Check division limit
     if ((divisionArray?.length || 0) >= MAX_DIVISIONS_PER_TYPE) {
-        throw new DivisionSelectionError(`Maximum ${MAX_DIVISIONS_PER_TYPE} divisions of this type allowed`);
+        throw new DivisionSelectionError(`Maximal ${MAX_DIVISIONS_PER_TYPE} divisi OTI atau Himakom yang diperbolehkan`);
     }
 
     const existingPriority = user.divisiPilihan.find((d: any) => d.urutanPrioritas === urutanPrioritas);
     if(existingPriority){
-        throw new DivisionSelectionError("Priority already exists");
+        throw new DivisionSelectionError("Prioritas sudah dipilih");
     }
     // Find existing selection
     const foundDivisi = user.divisiPilihan.find((d: any) => 
