@@ -6,6 +6,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import ErrorPopup from "@/components/ErrorPopup";
@@ -17,7 +18,7 @@ interface ScheduleSlot {
 }
 
 interface PopupProps {
-  type: "gagal" | "berhasil" | "konfirmasi";
+  type: "gagal" | "berhasil" | "berhasilTugas" | "konfirmasi";
   className?: string;
   disabled?: boolean;
   selectedSlot: ScheduleSlot | null; // Pass selected slot information
@@ -140,14 +141,12 @@ export default function Popup({
             {content.icon}
           </div>
         </div>
-        <div className="mt-6 px-4 text-center sm:mt-8 lg:mt-16">
-          <p className="mb-0 text-[0.9rem] text-white sm:mb-1 lg:mb-2">
+        <div className="mt-8 lg:mt-12 px-4 text-center">
+          <p className="text-[0.9rem] text-custom-silver">
             {content.headerText}
           </p>
-          <h2 className="mb-0 text-xl font-bold text-white sm:mb-1 lg:mb-2 lg:text-2xl">
-            {content.title}
-          </h2>
-          <p className="mb-4 text-[0.9rem] text-white">{content.subtitle}</p>
+          <AlertDialogTitle className={`text-xl text-custom-silver mt-3 mb-2`}>{content.title}</AlertDialogTitle>
+          <p className="mb-4 text-[0.9rem] text-custom-silver">{content.subtitle}</p>
         </div>
 
         <div className="flex flex-col-reverse items-center justify-center gap-2 p-4 pt-0 *:text-[0.9rem] xxs:flex-row sm:px-4 lg:flex-row lg:pt-4">

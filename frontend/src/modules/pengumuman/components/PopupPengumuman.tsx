@@ -6,6 +6,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
@@ -69,21 +70,25 @@ export default function PopupPengumuman({
           </div>
         </div>
 
-        <div className="mt-6 px-4 text-center *: *:text-custom-silver sm:mt-8 lg:mt-16">
+        <div className="mt-8 px-4 text-center lg:mt-12">
           {status === "tolak" ? (
             <>
-              <p className="mb-10 sm:mb-12 lg:mb-14 text-[0.9rem]">
+              <p className="mb-10 text-[0.9rem] sm:mb-12 lg:mb-14">
                 Maaf kamu belum diterima dalam <br /> periode rekruitmen ini
               </p>
-              <p className="text-[0.9rem]">Jangan menyerah dan tetap semangat!</p>
+              <p className="text-[0.9rem]">
+                Jangan menyerah dan tetap semangat!
+              </p>
             </>
           ) : (
             <>
               <p className="text-[0.9rem]">Kamu berhasil diterima di divisi</p>
-              <h2 className="mb-6 text-2xl font-bold sm:mb-8 md:mb-10 lg:mb-12">
+              <AlertDialogTitle className="mb-8 mt-3 text-xl sm:text-2xl">
                 {category}
-              </h2>
-              <p className="text-[0.9rem]">Jangan lupa untuk bergabung dengan grup</p>
+              </AlertDialogTitle>
+              <p className="text-[0.9rem]">
+                Jangan lupa untuk bergabung dengan grup
+              </p>
             </>
           )}
         </div>
@@ -107,7 +112,9 @@ export default function PopupPengumuman({
                 </Button>
               </AlertDialogCancel>
               <AlertDialogAction asChild>
-                <Button size={`lg`} className="w-full text-[0.9rem] lg:w-1/2">Grup</Button>
+                <Button size={`lg`} className="w-full text-[0.9rem] lg:w-1/2">
+                  Grup
+                </Button>
               </AlertDialogAction>
             </>
           )}

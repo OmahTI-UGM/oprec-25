@@ -21,7 +21,7 @@ const Navbar = () => {
       <nav className="fixed z-50">
         <Container parentClass="py-4 w-screen bg-custom-black/90 backdrop-blur-md">
           <section className="flex w-full items-center justify-between">
-            <Title />
+            <Title link />
             <NavbarButtons />
             <NavbarSidebar className="block sm:hidden" />
           </section>

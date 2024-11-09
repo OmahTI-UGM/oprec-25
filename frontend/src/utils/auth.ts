@@ -89,5 +89,7 @@ export const getEnrollmentPriorities = async () => {
     himakom: division.divisiId.himakom
   })).sort((a, b) => a.priority - b.priority);
 
+  // prioritiesTaken returns a list of numbers e.g. [1, 3, 4]
+  // divisionsByPriority returns a list of objects ordered by priority 
   return { prioritiesTaken, divisionsByPriority };
 };

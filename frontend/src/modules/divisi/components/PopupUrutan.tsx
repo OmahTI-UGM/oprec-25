@@ -7,6 +7,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import PopupDivisiBerhasil from "./PopupDivisiBerhasil";
@@ -19,16 +20,22 @@ type PopUpMilihProps = {
   hasMax: boolean;
   params: string;
   prioritiesTaken: number[];
+  enrolledDivisionsSorted?: {
+    priority: number;
+    name: string;
+    slug: string;
+    himakom: boolean;
+  }[];
 };
 
-export default function PopupUrutan({
+const PopupUrutan = ({
   className,
   hasEnrolled,
   hasMax,
   params,
   prioritiesTaken,
-}: PopUpMilihProps) {
-
+  enrolledDivisionsSorted,
+}: PopUpMilihProps) => {
   const router = useRouter();
   const priorityNumbers = [1, 2, 3, 4];
   const [clickedButtons, setClickedButtons] = useState<number | null>(null);
@@ -99,18 +106,16 @@ export default function PopupUrutan({
 
           <div className="absolute left-1/2 top-[25px] -translate-x-1/2 sm:top-[35px] lg:top-[40px]">
             <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white bg-custom-black p-3 sm:h-20 sm:w-20 sm:p-4 lg:h-28 lg:w-28 lg:p-6">
-              <SquareCheck className="h-10 w-10 text-white sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
+              <SquareCheck className="h-10 w-10 text-custom-silver sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
             </div>
           </div>
 
-          <div className="mt-6 px-4 text-center sm:mt-8 lg:mt-16">
-            <p className="mb-0 text-[0.9rem] text-white sm:mb-1 lg:mb-2">
-              Konfirmasi jadwal
-            </p>
-            <h2 className="mb-0 text-xl font-bold text-white sm:mb-1 lg:mb-2 lg:text-2xl">
+          <div className="mt-8 px-4 text-center *:text-custom-silver lg:mt-12">
+            <p className="text-[0.9rem]">Konfirmasi jadwal</p>
+            <AlertDialogTitle className="my-1.5 text-2xl">
               Kamu Sudah Yakin?
-            </h2>
-            <p className="mb-2 text-[0.9rem] text-white">
+            </AlertDialogTitle>
+            <p className="mb-2 text-[0.9rem]">
               Pilihan jadwal tidak dapat diubah
             </p>
           </div>
@@ -124,12 +129,17 @@ export default function PopupUrutan({
                   variant="outline"
                   onClick={() => handleButtonClick(number)}
                   disabled={prioritiesTaken.includes(number)}
-                  className={`h-12 w-full text-base font-medium sm:h-14 lg:h-16 ${
-                    clickedButtons === number
-                      && "bg-custom-gray text-custom-silver hover:bg-custom-gray/80 hover:text-custom-silver"
+                  className={`h-12 w-full text-base font-medium text-custom-silver hover:text-custom-silver sm:h-14 lg:h-16 ${
+                    clickedButtons === number &&
+                    "bg-custom-gray text-custom-silver hover:bg-custom-gray/80 hover:text-custom-silver"
                   } ${
-                    prioritiesTaken.includes(number) 
-                      && "cursor-not-allowed" 
+                    prioritiesTaken.includes(number) && "cursor-not-allowed"
+                  } ${
+                    prioritiesTaken.includes(number) && enrolledDivisionsSorted?.find(div => div.priority === number)?.himakom
+                    ? "border-custom-blue"
+                    : prioritiesTaken.includes(number)
+                    ? "border-custom-orange"
+                    : ""
                   }`}
                 >
                   {number}
@@ -149,7 +159,11 @@ export default function PopupUrutan({
               </Button>
             </AlertDialogCancel>
             <AlertDialogAction className="w-full xxs:w-1/2" asChild>
-              <Button onClick={handleSubmit} size={`lg`} className="text-[0.9rem]">
+              <Button
+                onClick={handleSubmit}
+                size={`lg`}
+                className="text-[0.9rem]"
+              >
                 Pilih
               </Button>
             </AlertDialogAction>
@@ -170,4 +184,6 @@ export default function PopupUrutan({
       )}
     </>
   );
-}
+};
+
+export default PopupUrutan;

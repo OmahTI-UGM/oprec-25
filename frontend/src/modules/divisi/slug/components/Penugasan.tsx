@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, LoaderCircle } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
 
 interface PenugasanData {
   deskripsiPenugasan: string;
@@ -12,53 +14,75 @@ interface PenugasanData {
 
 const Penugasan = ({
   data,
-  existingPenugasan
+  existingPenugasan,
+  hasEnrolled,
 }: {
   data: {
     himakom: boolean;
     slug: string;
     penugasan: PenugasanData;
-  }, 
+  };
   existingPenugasan: any; // Adjust type as necessary
+  hasEnrolled: boolean;
 }) => {
-  // State to hold the input value for link submission
-  const [link, setLink] = useState("");
-  const [existingLink, setExistingLink] = useState(existingPenugasan?.link);
-  // Function to handle submission of the new link
-  const handlePengumpulan = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/divisi/${data.slug}/submit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ link, comment:" " }), // Use the link from state
-        credentials: "include",
-      });
+  const [loading, setLoading] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { toast } = useToast();
 
-      // Optionally handle the response
+  const handlePengumpulan = async (formData: any) => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/divisi/${data.slug}/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ link: formData.link, comment: " " }),
+          credentials: "include",
+        },
+      );
+
+      toast({
+        title: `Tugas berhasil di-submit`,
+        description: `Sampai jumpa di hari Wawancara! 😁`,
+      });
+      setLoading(false);
+
       if (!res.ok) {
+        setLoading(false);
         throw new Error("Failed to submit the link");
       }
-
-      // Reset the input field after successful submission
-      setLink("");
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   };
 
-  // Function to handle updating penugasanData
-  const handleUpdatePenugasan = async () => {
+  const handleUpdatePenugasan = async (formData: any) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/divisi/${existingPenugasan._id}/update`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/divisi/${existingPenugasan._id}/update`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ link: formData.existingLink, comment: " " }),
+          credentials: "include",
         },
-        body: JSON.stringify({link: existingLink, comment:" "}), // Send the penugasanData for updating
-        credentials: "include",
+      );
+
+      toast({
+        title: `Tugas berhasil di-update`,
+        description: `Sampai jumpa di hari Wawancara! 😁`,
       });
+
       if (!res.ok) {
         throw new Error("Failed to update penugasan data");
       }
@@ -75,7 +99,6 @@ const Penugasan = ({
         Penugasan
       </h1>
 
-      {/* Nanti penugasan pake react markdown */}
       <div className="mt-2 space-y-3">
         <div className="flex flex-col gap-1">
           <h1 className="font-semibold">Brief Penugasan</h1>
@@ -90,7 +113,7 @@ const Penugasan = ({
             {data.penugasan.toolsPenugasan}
           </div>
         </div>
-        
+
         <div className="flex flex-col gap-1">
           <h1 className="font-semibold">Keperluan</h1>
           <Link
@@ -104,39 +127,76 @@ const Penugasan = ({
           </Link>
         </div>
 
-        <div className="space-y-1">
-          <h1 className="font-semibold">Pengumpulan</h1>
-          <h2 className="text-[0.9rem]">
-            Pengumpulan berupa link Google Drive / GitHub
-          </h2>
-          {existingPenugasan ? (
-            <>
-            <input
-              type="text"
-              placeholder="Update Tugas"
-              value={existingLink} // Bind the input value to state
-              onChange={(e) => setExistingLink(e.target.value)} // Update state on input change
-              className="focus:border-none w-full appearance-none rounded-sm bg-[#535362] p-2 text-left focus:outline-none focus:ring-2 focus:ring-custom-blue"
-            />
-            <Button size={`lg`} className="w-full text-base" onClick={handleUpdatePenugasan}>
-              Update Penugasan Data
-            </Button>
-          </>
-        ):
-        <>
-          <input
-              type="text"
-              value={link} // Bind the input value to state
-              onChange={(e) => setLink(e.target.value)} // Update state on input change
-              className="focus:border-none w-full appearance-none rounded-sm bg-[#535362] p-2 text-left focus:outline-none focus:ring-2 focus:ring-custom-blue"
-            />
-          <Button size={`lg`} className="w-full text-base" onClick={handlePengumpulan}>
-              Submit
-          </Button>
-        </>
-        }
-          
-        </div>
+        {hasEnrolled && (
+          <form
+            onSubmit={
+              existingPenugasan
+                ? handleSubmit(handleUpdatePenugasan)
+                : handleSubmit(handlePengumpulan)
+            }
+            className="space-y-1"
+          >
+            <h1 className="font-semibold">Pengumpulan</h1>
+            <h2 className="text-[0.9rem]">
+              Pengumpulan berupa link Google Drive/GitHub
+            </h2>
+            {existingPenugasan ? (
+              <>
+                <input
+                  type="text"
+                  placeholder={existingPenugasan.link}
+                  {...register("existingLink", {
+                    required: "Link is required.",
+                    validate: (value) =>
+                      !/\s/.test(value) || "Link cannot contain spaces.",
+                  })}
+                  className="w-full appearance-none rounded-sm bg-[#535362] p-2 text-left focus:border-none focus:outline-none focus:ring-2 focus:ring-custom-blue"
+                />
+                {errors.existingLink && (
+                  <p className="text-sm text-red-500">
+                    {errors.existingLink.message && typeof errors.existingLink.message === 'string' && errors.existingLink.message}
+                  </p>
+                )}
+                <Button size="lg" className="w-full text-base" type="submit">
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <LoaderCircle className="animate-spin" size={20} />
+                    </div>
+                  ) : (
+                    `Update`
+                  )}
+                </Button>
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  placeholder="https://github.com/..."
+                  {...register("link", {
+                    required: "Link is required.",
+                    validate: (value) =>
+                      !/\s/.test(value) || "Link cannot contain spaces.",
+                  })}
+                  className="w-full appearance-none rounded-sm bg-[#535362] p-2 text-left focus:border-none focus:outline-none focus:ring-2 focus:ring-custom-blue"
+                />
+                {errors.link && (
+                  <p className="text-sm text-red-500">
+                    {errors.link.message && typeof errors.link.message === 'string' && errors.link.message}
+                  </p>
+                )}
+                <Button size="lg" className="w-full text-base" type="submit">
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <LoaderCircle className="animate-spin" size={20} />
+                    </div>
+                  ) : (
+                    `Submit`
+                  )}
+                </Button>
+              </>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );

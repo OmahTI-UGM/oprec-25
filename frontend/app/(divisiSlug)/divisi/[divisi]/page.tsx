@@ -18,7 +18,11 @@ import ButtonLink from "@/components/ui/ButtonLink";
 // utils
 import { Logos } from "@/utils/types";
 import { getOneDivisi, getPenugasanUser } from "@/utils/fetch";
-import { getEnrollmentPriorities, hasEnrolledInClass, hasMaxEnrollment } from "@/utils/auth";
+import {
+  getEnrollmentPriorities,
+  hasEnrolledInClass,
+  hasMaxEnrollment,
+} from "@/utils/auth";
 
 type DivisiPageProps = {
   params: {
@@ -29,7 +33,11 @@ type DivisiPageProps = {
 const Page = async ({ params }: DivisiPageProps) => {
   const accessToken = cookies().get("accessToken")?.value;
   const divisiData = await getOneDivisi(params.divisi, accessToken as string);
-  const { penugasan } = await getPenugasanUser(params.divisi, accessToken as string);
+  const hasEnrolledHere: boolean = await hasEnrolledInClass(params.divisi);
+  const { penugasan } = await getPenugasanUser(
+    params.divisi,
+    accessToken as string,
+  );
 
   if (!divisiData) {
     notFound();
@@ -53,9 +61,13 @@ const Page = async ({ params }: DivisiPageProps) => {
             </ButtonLink>
 
             <div className="flex flex-col justify-between space-y-3 md:flex-row md:items-end lg:flex-grow xl:pr-0">
-              <Title data={divisiData} slug={params.divisi}/>
+              <Title data={divisiData} slug={params.divisi} />
               {/* Status */}
-              <Progress progress={divisiData.dipilihOleh.length} slots={divisiData.slot} params={params.divisi} />
+              <Progress
+                progress={divisiData.dipilihOleh.length}
+                slots={divisiData.slot}
+                params={params.divisi}
+              />
             </div>
 
             {/* Tentang */}
@@ -64,9 +76,12 @@ const Page = async ({ params }: DivisiPageProps) => {
             {/* Proyek */}
             <ProjectsSwiper divisiData={divisiData.proker} />
           </div>
-
           {/* right side 30% */}
-          <Penugasan data={divisiData} existingPenugasan={penugasan}/>
+          <Penugasan
+            data={divisiData}
+            hasEnrolled={hasEnrolledHere}
+            existingPenugasan={penugasan}
+          />
         </Container>
       </section>
     </>
@@ -83,13 +98,13 @@ const Title = ({
     judulPanjang: string;
     logoUrl: string;
   };
-  slug: string
+  slug: string;
 }) => {
   return (
     <div className="flex items-end gap-4">
       <Image
         alt="Logo"
-        className="w-[8rem]"
+        className="w-[4rem] sm:w-[8rem]"
         src={
           Logos[slug as keyof typeof Logos] ??
           "https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg?w=826&t=st=1729060915~exp=1729061515~hmac=dc911f470a5362d31529331c2e5ba014647fd3219c2e050b0d34e03a59d6002e"
@@ -100,7 +115,7 @@ const Title = ({
       />
       <div className="flex flex-col">
         <h1
-          className={`text-[3rem] font-semibold ${data.himakom === true ? "text-custom-blue" : "text-custom-orange"}`}
+          className={`text-[2rem] font-semibold sm:text-[3rem] ${data.himakom === true ? "text-custom-blue" : "text-custom-orange"}`}
         >
           {data.judul}
         </h1>
@@ -114,7 +129,7 @@ const About = ({ text }: { text: string }) => {
   return (
     <div className="w-full space-y-3 xl:pr-0">
       <h1 className="text-lg font-semibold">Tentang Kami</h1>
-      <div className="rounded-lg bg-custom-gray-dark p-3 text-pretty">
+      <div className="text-pretty rounded-lg bg-custom-gray-dark p-3">
         {text}
         {/* React Markdown juga */}
       </div>
@@ -135,7 +150,8 @@ const Progress = async ({
   const hasEnrolledHere: boolean = await hasEnrolledInClass(params);
   const hasReachedMax: boolean = await hasMaxEnrollment();
   // get the priorities that the user has taken
-  const { prioritiesTaken } = await getEnrollmentPriorities();
+  const { prioritiesTaken, divisionsByPriority } =
+    await getEnrollmentPriorities();
 
   return (
     <div className="flex h-auto w-full flex-col justify-between gap-2 rounded-lg bg-custom-gray-dark p-3 md:w-64">
@@ -143,10 +159,18 @@ const Progress = async ({
 
       <div className="flex justify-between">
         <h4>Pendaftar</h4>
-        <h4>{progress}/{slots}</h4>
+        <h4>
+          {progress}/{slots}
+        </h4>
       </div>
 
-      <PopupUrutan hasEnrolled={hasEnrolledHere} prioritiesTaken={prioritiesTaken} hasMax={hasReachedMax} params={params} />
+      <PopupUrutan
+        hasEnrolled={hasEnrolledHere}
+        prioritiesTaken={prioritiesTaken}
+        hasMax={hasReachedMax}
+        enrolledDivisionsSorted={divisionsByPriority}
+        params={params}
+      />
     </div>
   );
 };
