@@ -4,7 +4,7 @@ export const getAllDivisi = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi`, {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include",
-        cache: "no-cache",
+        cache: "force-cache",
     });
     const { semuaDivisi } = await res.json();
 
@@ -16,7 +16,8 @@ export const getAllDivisi = async (accessToken: string) => {
 export const getOneDivisi = async (slug: string, accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi/${slug}`, {
         headers: {Cookie: `accessToken=${accessToken};`},
-        credentials: "include"
+        credentials: "include",
+        next: { revalidate: 20 }
     });
     const { satuDivisi } = await res.json();
 

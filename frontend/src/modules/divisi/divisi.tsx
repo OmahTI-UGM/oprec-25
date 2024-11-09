@@ -2,15 +2,11 @@
 import DivisiPilihan from "./components/DivisiPilihan";
 import DivisiLengkap from "./components/DivisiLengkap";
 import Wawancara from "./components/Wawancara";
-import { getCurrentUser } from "@/utils/auth";
 import {
   getAllDivisi,
   getEnrolledDivisi,
-  getPilihanWawancara,
-  getAllWawancara,
 } from "@/utils/fetch";
 import { cookies } from "next/headers";
-import Avatar from "@/components/Avatar";
 
 const Divisi = async () => {
   const accessToken = cookies().get("accessToken")?.value;

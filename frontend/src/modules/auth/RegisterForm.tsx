@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
-import ButtonLink from "@/components/ui/ButtonLink";
-import { ArrowLeft, Eye, EyeOff, Info, LoaderCircle, X } from "lucide-react";
-import Link from "next/link";
+import { Eye, EyeOff, Info, LoaderCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface FormData {
