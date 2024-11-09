@@ -115,8 +115,9 @@ const DivisiCard = ({
             src={logoUrl}
             alt={title || "Logo"}
             sizes="100%"
-            className="object-contain" // Ensures the image fits inside without distortion
+            className="object-contain"
             fill
+            priority
           />
         )}
       </div>
