@@ -3,7 +3,8 @@ const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 export const getAllDivisi = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi`, {
         headers: {Cookie: `accessToken=${accessToken};`},
-        credentials: "include"
+        credentials: "include",
+        cache: "no-cache",
     });
     const { semuaDivisi } = await res.json();
 
@@ -25,7 +26,8 @@ export const getOneDivisi = async (slug: string, accessToken: string) => {
 export const getAllWawancara = async (accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/wawancara`, {
         headers: {Cookie: `accessToken=${accessToken};`},
-        credentials: "include"
+        credentials: "include",
+        cache: "no-cache",
     });
     const wawancara = await res.json();
 

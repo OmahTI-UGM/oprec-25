@@ -5,6 +5,8 @@ import Popup from "./Popup";
 
 interface PilihanWaktuProps {
   variant?: "omahti" | "himakom";
+  slugWawancara: string;
+  pilihanDivisi: any;
   wawancara: any;
   pilihan: any;
   onSelect?: () => void;
@@ -14,19 +16,23 @@ interface ScheduleSlot {
   id: string;
   sesi: Date;
   himakom: boolean;
+  sessionId: string;
 }
 
 const PilihanWaktuCard = ({
   variant = "omahti",
+  slugWawancara,
+  pilihanDivisi,
   wawancara,
   pilihan,
 }: PilihanWaktuProps) => {
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(
     pilihan && pilihan.sesi && pilihan.sesi.length > 0
       ? {
-          id: pilihan.sesi[0]._id, 
+          id: pilihan._id, 
           sesi: new Date(pilihan.sesi[0].jam), 
           himakom: variant === 'himakom',
+          sessionId: pilihan.sesi[0]._id
         }
       : null
   );
@@ -34,8 +40,9 @@ const PilihanWaktuCard = ({
     "gagal" | "berhasil" | "konfirmasi"
   >("gagal");
 
-  const handleSlotSelect = (id: string, sesi: Date, himakom: boolean) => {
-    setSelectedSlot({ id, sesi, himakom });
+  const handleSlotSelect = (id: string, sesi: Date, himakom: boolean, sessionId: string) => {
+    setSelectedSlot({ id, sesi, himakom, sessionId });
+    console.log(selectedSlot);
     setPopupType("konfirmasi");
   };
 
@@ -64,6 +71,8 @@ const PilihanWaktuCard = ({
       <JadwalWawancara
         variant={variant === "himakom" ? "himakom" : "omahti"}
         disabled={Boolean(pilihan) ?? false}
+        slugWawancara={slugWawancara}
+        pilihanDivisi={pilihanDivisi}
         wawancara={wawancara}
         selectedSlot={selectedSlot}
         onSlotSelect={handleSlotSelect}

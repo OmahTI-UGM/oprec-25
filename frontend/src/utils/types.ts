@@ -25,7 +25,7 @@ export const Logos = {
   "mobapps": MobApps,
   "uiux": UIUX,
   "hr": HR,
-  "ic": IPC,
+  "ipc": IPC,
   "media": Media,
   "pr": PR,
   "snf": SF,

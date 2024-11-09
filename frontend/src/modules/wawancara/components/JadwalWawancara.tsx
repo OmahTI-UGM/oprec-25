@@ -1,18 +1,20 @@
 // next and react modules
 
 // fetch
-import { hasEnrolled } from "@/utils/auth";
-import { useEffect, useState } from "react";
-
 interface ScheduleSlot {
   id: string; // ID of the tanggal item
   sesi: Date; // Date object of the session's jam time
   himakom: boolean;
+  sessionId: string;
 }
+
+type DivisionType = 'backend' | 'frontend' | 'uiux' | 'dsai' | 'cp' | 'mobapps' | 'gamedev' | 'cysec' | 'ipc' | 'media' | 'pr' | 'hr' | 'snf' | 'secretary' | 'skilldev' | 'treasurer';
 
 interface JadwalWawancaraProps {
   variant: "himakom" | "omahti";
   disabled?: boolean;
+  slugWawancara: string;
+  pilihanDivisi: any;
   wawancara: {
     himakom: boolean;
     _id: string; // ID for the tanggal item
@@ -28,35 +30,33 @@ interface JadwalWawancaraProps {
         cp: { sisaSlot: number; lokasi: string };
         mobapps: { sisaSlot: number; lokasi: string };
         gamedev: { sisaSlot: number; lokasi: string };
+        cysec: { sisaSlot: number; lokasi: string };
+        ipc: { sisaSlot: number; lokasi: string };
+        media: { sisaSlot: number; lokasi: string };
+        pr: { sisaSlot: number; lokasi: string };
+        snf: { sisaSlot: number; lokasi: string };
+        secretary: { sisaSlot: number; lokasi: string };
+        skilldev: { sisaSlot: number; lokasi: string };
+        treasurer: { sisaSlot: number; lokasi: string };
+        hr: { sisaSlot: number; lokasi: string; };
         _id: string;
       };
       _id: string;
     }[];
   }[];
   selectedSlot: ScheduleSlot | null;
-  onSlotSelect: (id: string, sesi: Date, himakom: boolean) => void;
+  onSlotSelect: (id: string, sesi: Date, himakom: boolean, sessionId: string) => void;
 }
 
 const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
   variant,
+  slugWawancara,
+  pilihanDivisi,
   wawancara,
   disabled = false,
   selectedSlot,
   onSlotSelect,
 }) => {
-  const [loading, setLoading] = useState(true);
-  const [enrolledHimakom, setEnrolledHimakom] = useState<any | null>(null);
-  const [enrolledOmahti, setEnrolledOmahti] = useState<any | null>(null);
-
-  useEffect(() => {
-    const checkEnrollment = async () => {
-      const { hasHimakom, hasOmahti } = await hasEnrolled();
-      setEnrolledHimakom(hasHimakom);
-      setEnrolledOmahti(hasOmahti);
-      setLoading(false);
-    };
-    checkEnrollment();
-  }, []);
 
   return (
     <div className="relative h-auto w-full rounded-md bg-custom-silver p-4">
@@ -91,7 +91,6 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
               </h3>
               {item.sesi.map((session) => {
                 const jamDate = new Date(session.jam);
-
                 if (isNaN(jamDate.getTime())) {
                   console.error("Invalid time:", session.jam);
                   return null;
@@ -103,24 +102,50 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
                 });
 
                 return (
-                  <button
-                    key={session._id}
-                    onClick={() =>
-                      onSlotSelect(session._id, jamDate, item.himakom)
-                    }
-                    className={`mb-2 w-full rounded py-2 ${
-                      selectedSlot?.id === session._id &&
-                      selectedSlot?.sesi.getTime() === jamDate.getTime()
-                        ? variant === "himakom"
-                          ? "bg-custom-blue text-custom-silver"
-                          : `bg-custom-orange text-custom-silver hover:bg-custom-orange/80 ${disabled && 'hover:bg-custom-orange'}`
-                        : "bg-custom-gray-light text-custom-black transition-colors hover:bg-custom-gray-light/80"
-                    } ${disabled && "opacity-80 hover:bg-custom-gray-light"}`}
-                    disabled={disabled}
-                  >
-                    {timeString}
-                  </button>
+                  <div>
+                    {session?.slotDivisi[slugWawancara as DivisionType]?.sisaSlot > 0 ? (
+                      <button
+                        key={session._id}
+                        onClick={() =>
+                          onSlotSelect(item._id, jamDate, item.himakom, session._id)
+                        }
+                        className={`mb-2 w-full rounded py-2 ${
+                          selectedSlot?.sessionId === session._id &&
+                          selectedSlot?.sesi.getTime() === jamDate.getTime()
+                            ? variant === "himakom"
+                              ? "bg-custom-blue text-custom-silver"
+                              : `bg-custom-orange text-custom-silver hover:bg-custom-orange/80 ${
+                                  disabled ? "opacity-80" : "hover:bg-custom-orange"
+                                }`
+                            : "bg-custom-gray-light text-custom-black transition-colors hover:bg-custom-gray-light/80"
+                        } ${disabled ? "opacity-60 cursor-not-allowed bg-gray-400" : ""}`}
+                        disabled={disabled}
+                      >
+                        {timeString}
+                      </button>
+                    ) : (
+                      <button
+                        key={session._id}
+                        onClick={() =>
+                          onSlotSelect(item._id, jamDate, item.himakom, session._id)
+                        }
+                        disabled={true}
+                        className={`mb-2 w-full rounded py-2 ${
+                          selectedSlot?.sessionId === session._id &&
+                          selectedSlot?.sesi.getTime() === jamDate.getTime()
+                            ? variant === "himakom"
+                              ? "bg-custom-blue text-custom-silver opacity-60 cursor-not-allowed"
+                              : "bg-custom-orange text-custom-silver opacity-60 cursor-not-allowed"
+                            : "bg-custom-red text-custom-black opacity-60 cursor-not-allowed"
+                        }`}
+                      >
+                        {timeString}
+                      </button>
+                    )}
+                  </div>
                 );
+                
+                
               })}
             </div>
           );
@@ -128,13 +153,10 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
       </div>
 
       {/* overlay if user hasn't picked a division */}
-      {((variant === "himakom" && !enrolledHimakom) ||
-        (variant === "omahti" && !enrolledOmahti)) && (
+      {!pilihanDivisi && (
         <div className="absolute inset-0 grid place-items-center bg-custom-black/80 p-4 backdrop-blur-sm transition-all">
           <h1
-            className={`text-center transition-opacity duration-300 ${
-              loading ? "opacity-0" : "opacity-100"
-            } text-custom-silver`}
+            className={`text-center transition-opacity duration-300 text-custom-silver`}
           >
             Isi divisi pilihanmu sebelum memilih jadwal wawancara.
           </h1>
