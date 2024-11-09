@@ -35,7 +35,6 @@ const DivisiLengkap = ({
     <div className="flex w-full flex-col gap-4 rounded-lg bg-custom-gray-dark p-4">
       <h1 className="space-x-4 text-lg">
         Divisi <span className="font-semibold">{divisiTitle}</span>
-        <Keterangan />
       </h1>
 
       <div className="flex w-full items-center justify-between gap-2">
@@ -73,7 +72,7 @@ const DivisiLengkap = ({
             <SwiperSlide key={divisiong.id}>
               <DivisiCard
                 title={divisiong.judul}
-                logoUrl={Logos[divisiong.slug as keyof typeof Logos]}  // Ensure correct logo is passed
+                logoUrl={Logos[divisiong.slug as keyof typeof Logos]} // Ensure correct logo is passed
                 slug={divisiong.slug}
                 // full={true}
                 full={divisiong.slot === divisiong.dipilihOleh.length}
@@ -104,12 +103,12 @@ const DivisiCard = ({
   logoUrl,
 }: {
   title?: string;
-  logoUrl?: StaticImageData;  // Ensure it's StaticImageData for imported images
+  logoUrl?: StaticImageData; // Ensure it's StaticImageData for imported images
   slug?: string;
   full?: boolean;
 }) => (
   <div className="flex items-center justify-between gap-5 rounded-md bg-custom-gray p-1.5">
-    <div className="relative aspect-square rounded-sm flex items-center justify-center p-2 h-6">
+    <div className="relative flex aspect-square h-6 items-center justify-center rounded-sm p-2">
       <div className="">
         {logoUrl && (
           <Image
@@ -131,14 +130,6 @@ const DivisiCard = ({
         <ChevronRight />
       </Button>
     </Link>
-  </div>
-);
-
-
-const Keterangan = () => (
-  <div className="inline-flex items-center gap-1 rounded-sm bg-custom-black px-1.5 text-xs">
-    <div className="aspect-square h-3 border-[1px] border-black bg-custom-red" />
-    = Full
   </div>
 );
 
