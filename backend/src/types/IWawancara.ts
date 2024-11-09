@@ -19,7 +19,7 @@ export interface ISlotDivisiPerSesi extends Document{
     hr: IDivisiSlot,
     treasurer: IDivisiSlot,
     secretary: IDivisiSlot,
-    ic: IDivisiSlot,
+    ipc: IDivisiSlot,
     skilldev: IDivisiSlot,
     snf: IDivisiSlot,
     pr: IDivisiSlot,

@@ -254,11 +254,11 @@ const seedDivisi = async () => {
         },
       },
       {
-        judul: 'IC',
+        judul: 'IPC',
         judulPanjang: 'Internal Control',
         logoDivisi: 'dsaihima_logo.png',
         slot: 6,
-        slug: 'ic',
+        slug: 'ipc',
         proker: [
           {
             url: 'https://example.com/dsaihima_proker',
@@ -382,7 +382,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -420,7 +420,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -464,7 +464,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -502,7 +502,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -546,7 +546,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -584,7 +584,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -628,7 +628,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -666,7 +666,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -710,7 +710,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },
@@ -748,7 +748,7 @@ const wawancaraData = [
             sisaSlot: 8,
             lokasi: 'Gedung B',
           },
-          ic: {
+          ipc: {
             sisaSlot: 5,
             lokasi: 'Gedung C',
           },

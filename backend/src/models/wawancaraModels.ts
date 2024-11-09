@@ -46,7 +46,7 @@ const slotDivisiPerSesiSchema: Schema<ISlotDivisiPerSesi> = new Schema({
         sisaSlot: Number,
         lokasi: String
     },
-    ic: {
+    ipc: {
         sisaSlot: Number,
         lokasi: String
     },
