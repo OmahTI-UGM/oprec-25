@@ -290,7 +290,7 @@ export const getAllUsersAndTheirFilteredTugas = async (req: IGetRequestWithUser,
         // Use the division's `_id` to find users who have chosen this division
         const users = await User.find({
             'divisiPilihan.divisiId': adminDivision._id,
-        }).populate<{ tugas: IPenugasan[] }>("tugas").populate("divisiPilihan.divisiId").populate("diterimaDi");
+        }).populate<{ tugas: IPenugasan[] }>("tugas").populate("divisiPilihan.divisiId").populate("diterimaDi").populate("tanggalPilihanOti.tanggalId").populate("tanggalPilihanHima.tanggalId");
         // Filter each user's tugas based on `disubmitDi` matching `adminDivision._id`
         const usersWithFilteredTugas = users.map((user: IUser) => {
             // Set `filteredTugas` to an empty array if `user.tugas` is null or undefined
@@ -354,10 +354,16 @@ export const getUserDiterimaDimana = async (req: IGetRequestWithUser, res: Respo
         res.status(401).json({message: "Unauthorized"});
         return;
     }
+    const currentDate = new Date();
+    const releaseDate = new Date("2024-12-04T08:00:00.000Z");
     try {
         const user = await User.findById(req.user.userId).populate("diterimaDi");
         if(!user) {
             res.status(404).json({message: "User not found"});
+            return;
+        }
+        if((currentDate < releaseDate)) {
+            res.status(403).json({message: "Forbidden: Access Denied"});
             return;
         }
         const diterimaDi = user.diterimaDi;
