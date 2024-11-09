@@ -10,12 +10,12 @@ const WaktuPilihan = ({
   const isEmpty = !filteredHima && !filteredOti;
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
-    return date.toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "2-digit" });
+    return date.toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "2-digit" });
   };
 
   const formatTime = (isoString: string) => {
     const date = new Date(isoString);
-    return date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+    return date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   };
   return (
     <div className="my-8">
