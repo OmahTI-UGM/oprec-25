@@ -70,7 +70,7 @@ const AdminDashboard = ({allUsers, admin}: {allUsers: any, admin: any}) => {
                     (user.tugas.length > 0) ? (
                       <a 
                       className="px-4 py-2 bg-black hover:bg-gray-600 rounded-lg flex items-center justify-center gap-2 text-sm"
-                      href={user.tugas}
+                      href={user.tugas[0].link}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

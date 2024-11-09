@@ -114,7 +114,7 @@ export async function middleware(request: NextRequest) {
         return response;
       }
       if(!refreshResponse.ok) {
-        const response = NextResponse.next();
+        const response = NextResponse.redirect(request.url);
         // Delete accessToken and refreshToken cookies
         response.cookies.set("refreshToken", "", { maxAge: -1 });
         response.cookies.set("accessToken", "", { maxAge: -1 });
