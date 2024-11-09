@@ -47,9 +47,13 @@ export async function middleware(request: NextRequest) {
         PUBLIC_API_URL,
         accessToken,
       );
+      const { user } = await validationResponse.json();
+      if(user.isAdmin){
+        return NextResponse.redirect(new URL("/admin", request.url));
+      }
       if (validationResponse.ok) {
         const { user } = await validationResponse.json();
-        const nextResponse = NextResponse.next();
+        const nextResponse = NextResponse.redirect(new URL("/divisi", request.url));
         // Attach user data to request headers
         nextResponse.headers.set("x-user-id", user.userId);
         nextResponse.headers.set("x-user-NIM", user.NIM);
@@ -71,7 +75,7 @@ export async function middleware(request: NextRequest) {
           refreshToken,
         );
         if (refreshResponse.ok) {
-          const response = NextResponse.redirect(request.url);
+          const response = NextResponse.redirect(new URL("/divisi", request.url));
           const setCookieHeader = refreshResponse.headers.get("set-cookie");
           if (setCookieHeader) {
             response.headers.set("set-cookie", setCookieHeader);
@@ -96,7 +100,7 @@ export async function middleware(request: NextRequest) {
   if (isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
     if (validationResponse.ok) {
-      return NextResponse.redirect(new URL("/", request.url)); // Changed from "/"
+      return NextResponse.redirect(new URL("/divisi", request.url)); // Changed from "/"
     } else if (validationResponse.status === 401 && refreshToken) {
       const refreshResponse = await refreshTokenValidation(
         PUBLIC_API_URL,
@@ -176,6 +180,10 @@ export async function middleware(request: NextRequest) {
   // Validate token for protected routes
   if (!isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
+    const { user } = await validationResponse.json();
+    if(user.isAdmin){
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
     if (validationResponse.ok) {
       const { user } = await validationResponse.json();
       const nextResponse = NextResponse.next();
