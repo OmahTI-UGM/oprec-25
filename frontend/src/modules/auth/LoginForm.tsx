@@ -46,7 +46,7 @@ const LoginForm = () => {
       }
     } catch (err: any) {
       setLoading(false);
-      setError(err.message || "Failed to log in");
+      setError(err || "Failed to log in");
     }
   };
 
