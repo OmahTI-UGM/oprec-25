@@ -15,6 +15,8 @@ import himakom5 from "@/assets/beranda/about/slug/galeri/himakom-5.webp";
 import himakom6 from "@/assets/beranda/about/slug/galeri/himakom-6.webp";
 import himakom7 from "@/assets/beranda/about/slug/galeri/himakom-7.webp";
 import himakom8 from "@/assets/beranda/about/slug/galeri/himakom-8.webp";
+import himakom9 from "@/assets/beranda/about/slug/galeri/himakom-9.webp";
+import himakom10 from "@/assets/beranda/about/slug/galeri/himakom-10.webp";
 import omahti1 from "@/assets/beranda/about/slug/galeri/omahti-1.webp";
 import omahti2 from "@/assets/beranda/about/slug/galeri/omahti-2.webp";
 import omahti3 from "@/assets/beranda/about/slug/galeri/omahti-3.webp";
@@ -37,10 +39,12 @@ const projects: Project[] = [
   { id: 6, image: himakom6.src, makomti: 'himakom' },
   { id: 7, image: himakom7.src, makomti: 'himakom' },
   { id: 8, image: himakom8.src, makomti: 'himakom' },
+  { id: 9, image: himakom9.src, makomti: 'himakom' },
+  { id: 10, image: himakom10.src, makomti: 'himakom' },
   // OmahTI projects
-  { id: 5, image: omahti1.src, makomti: 'omahti' },
-  { id: 6, image: omahti2.src, makomti: 'omahti' },
-  { id: 7, image: omahti3.src, makomti: 'omahti' },
+  { id: 11, image: omahti1.src, makomti: 'omahti' },
+  { id: 12, image: omahti2.src, makomti: 'omahti' },
+  { id: 13, image: omahti3.src, makomti: 'omahti' },
 ];
 
 // ProjectCard component

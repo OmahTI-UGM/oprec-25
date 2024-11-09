@@ -4,7 +4,7 @@ export const Makomti = [
     nama: "Himakom",
     namaLengkap: "Himpunan Mahasiswa Ilmu Komputer",
     desc: "HIMAKOM adalah himpunan mahasiswa Ilmu Komputer yang mendukung pengembangan keterampilan teknis dan akademis mahasiswa melalui seminar, pelatihan, dan kompetisi. HIMAKOM berfokus pada membangun komunitas solid, jaringan profesional, dan kesiapan karir anggotanya dalam bidang teknologi komputer.",
-    manfaat: ["Komunitas yang Solid", "Pengembangan Soft Skills", "Relasi", "Proker Bervariasi"],
+    manfaat: ["Komunitas yang Solid", "Pengembangan Soft Skills", "Relasi", "Proker Bervariasi", "Leadership", "Management"],
     kegiatan: ["galeri 1", "walafiat", "bertemu mirs"],
     divisi: ["Treasurer", "Secretary", "IPC", "HR", "Skill Dev", "S&F" ,"PR", "Media"]
 
