@@ -32,10 +32,7 @@ const LoginForm = () => {
         credentials: "include",
       });
 
-      if (!response.ok) {
-        const responseJSON = await response.json();
-        throw new Error(responseJSON);
-      };
+      if (!response.ok) throw new Error("Incorrect email or password.");
 
       const user = await response.json();
 
@@ -46,7 +43,7 @@ const LoginForm = () => {
       }
     } catch (err: any) {
       setLoading(false);
-      setError(err || "Failed to log in");
+      setError(err.message || "Failed to log in");
     }
   };
 
