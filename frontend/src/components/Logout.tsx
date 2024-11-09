@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Logout({ className }: { className?: string }) {
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -36,7 +38,16 @@ export default function Logout({ className }: { className?: string }) {
 
       router.push("/");
       router.refresh();
+      toast({
+        title: "Berhasil Keluar",
+        description: "Berhasil keluar dari akun Anda.",
+      });
     } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Gagal Keluar",
+        description: "Terjadi kesalahan saat mencoba keluar dari akun Anda.",
+      });
       setLoading(false);
     }
   };
@@ -44,7 +55,7 @@ export default function Logout({ className }: { className?: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        className={`flex aspect-square shrink-0 items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white lg:aspect-auto hover:bg-custom-gray/90 ${className}`}
+        className={`flex aspect-square shrink-0 items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white hover:bg-custom-gray/90 lg:aspect-auto ${className}`}
       >
         <LogOutIcon className="h-5" />
         <p className="hidden lg:block">Log Out</p>
@@ -53,7 +64,8 @@ export default function Logout({ className }: { className?: string }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Konfirmasi Keluar</AlertDialogTitle>
           <AlertDialogDescription className="text-[0.9rem]">
-            Apakah Anda yakin ingin keluar? Anda perlu masuk kembali untuk mengakses akun Anda.
+            Apakah Anda yakin ingin keluar? Anda perlu masuk kembali untuk
+            mengakses akun Anda.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="*:text-[0.9rem]">
