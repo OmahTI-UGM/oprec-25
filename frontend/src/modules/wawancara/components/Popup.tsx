@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import ErrorPopup from "@/components/ErrorPopup";
 import { useRouter } from "next/navigation";
+import PopupBerhasil from "../../../components/PopupBerhasil";
 interface ScheduleSlot {
   id: string;
   sesi: Date;
@@ -34,7 +35,8 @@ export default function Popup({
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>("");
-
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>("");
   const getContent = () => {
     switch (type) {
       case "gagal":
@@ -98,8 +100,10 @@ export default function Popup({
         );
         const responseJSON = await response.json();
         if (response.ok) {
+          setLoading(false);
+          setSuccessMessage(responseJSON.message);
+          setShowSuccessModal(true);
           // Handle successful confirmation here (e.g., show success popup)
-          router.refresh;
         } else {
           setLoading(false);
           setErrorMessage(responseJSON.message);
@@ -124,6 +128,13 @@ export default function Popup({
           open={showErrorModal}
           onErrorClose={handleErrorClose}
           errorMessage={errorMessage || ""}
+        />
+      )}
+      {showSuccessModal && (
+        <PopupBerhasil
+          open={showSuccessModal}
+          onBerhasilClose={() => setShowSuccessModal(false)}
+          successMessage={successMessage || ""}
         />
       )}
       <AlertDialogTrigger disabled={disabled} asChild>

@@ -14,6 +14,7 @@ import PopupDivisiBerhasil from "./PopupDivisiBerhasil";
 import Cookies from "js-cookie";
 import ErrorPopup from "@/components/ErrorPopup";
 import { useRouter } from "next/navigation";
+import { set } from "react-hook-form";
 type PopUpMilihProps = {
   className?: string;
   hasEnrolled: boolean;
@@ -75,7 +76,8 @@ const PopupUrutan = ({
           setShowSuccessModal(true); // Show success modal on success
         }
       } catch (error) {
-        console.error(error);
+        setShowErrorModal(true);
+        setErrorMessage("");
       }
     }
   };

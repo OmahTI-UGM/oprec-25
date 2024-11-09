@@ -102,7 +102,7 @@ const JadwalWawancara: React.FC<JadwalWawancaraProps> = ({
                 });
 
                 return (
-                  <div>
+                  <div key={session._id}>
                     {session?.slotDivisi[slugWawancara as DivisionType]?.sisaSlot > 0 ? (
                       <button
                         key={session._id}
