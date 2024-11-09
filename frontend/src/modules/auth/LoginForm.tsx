@@ -27,12 +27,15 @@ const LoginForm = () => {
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" , "Accept": "application/json"},
         body: JSON.stringify(data),
         credentials: "include",
       });
 
-      if (!response.ok) throw new Error("Incorrect email or password.");
+      if (!response.ok) {
+        const responseJSON = await response.json();
+        throw new Error(responseJSON);
+      };
 
       const user = await response.json();
 
