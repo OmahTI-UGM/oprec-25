@@ -1,3 +1,4 @@
+'use client'
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -5,8 +6,10 @@ import {
   AlertDialogAction,
   AlertDialogContent,
 } from "@/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 export default function PopupDivisiBerhasil({ open, onClose }: { open: boolean; onClose:()=>void }) {
+
   return (
     <AlertDialog open={open}>
       <AlertDialogContent className="rounded-lg bg-custom-gray-dark p-0 w-[90vw] xxs:w-[76vw] xs:w-[56vw] sm:w-[48vw] md:w-[40vw] lg:w-[38vw] xl:w-[30vw] 2xl:w-[25vw] h-auto">

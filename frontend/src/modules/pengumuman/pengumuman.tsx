@@ -8,7 +8,7 @@ const Pengumuman = () => {
       <div className="flex flex-col h-96 items-center justify-center gap-4 rounded-xl bg-custom-gray-dark p-6">
         <Smile size={100} />
         <h1 className="text-xl text-center font-medium">kamu dapat membuka pengumuman</h1>
-        <PopupPengumuman status="terima" category="Data Science & Artificial Intelligent"/>
+        <PopupPengumuman status="terima" category="Data Science & Artificial Intelligence"/>
       </div>
     </div>
   );

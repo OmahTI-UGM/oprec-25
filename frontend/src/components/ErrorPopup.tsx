@@ -38,7 +38,7 @@ export default function ErrorPopup({
 
         {/* Content Section */}
         <div className="text-center mt-6 sm:mt-8 lg:mt-16 px-4">
-          <p className="text-white text-sm lg:text-base mb-0 sm:mb-1 lg:mb-2">
+          <p className="text-white text-[0.9rem] lg:text-base mb-0 sm:mb-1 lg:mb-2">
             Terjadi Kesalahan
           </p>
           <h2 className="text-white text-lg xs:text-lg sm:text-xl lg:text-2xl font-bold mb-0 sm:mb-1 lg:mb-2">
@@ -51,7 +51,7 @@ export default function ErrorPopup({
           <AlertDialogAction asChild>
             <Button
               onClick={onErrorClose}
-              className="w-full h-8 sm:h-10 text-sm lg:text-base"
+              className="w-full h-8 sm:h-10 text-[0.9rem]"
             >
               Kembali
             </Button>

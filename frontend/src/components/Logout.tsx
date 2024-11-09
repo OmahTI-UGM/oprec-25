@@ -44,21 +44,20 @@ export default function Logout({ className }: { className?: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        className={`flex aspect-square h-12 shrink-0 items-center justify-center gap-4 rounded-sm bg-custom-gray p-2 text-white hover:bg-custom-gray/90 lg:aspect-auto lg:bg-custom-gray-dark lg:p-2 lg:hover:bg-custom-gray-dark/80 ${className}`}
+        className={`flex aspect-square shrink-0 items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white lg:aspect-auto hover:bg-custom-gray/90 ${className}`}
       >
         <LogOutIcon className="h-5" />
         <p className="hidden lg:block">Log Out</p>
       </AlertDialogTrigger>
       <AlertDialogContent className="scale-90 rounded-lg lg:scale-100">
         <AlertDialogHeader>
-          <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
+          <AlertDialogTitle>Konfirmasi Keluar</AlertDialogTitle>
           <AlertDialogDescription className="text-[0.9rem]">
-            Are you sure you want to log out? You will need to sign in again to
-            access your account.
+            Apakah Anda yakin ingin keluar? Anda perlu masuk kembali untuk mengakses akun Anda.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="*:text-[0.9rem]">
-          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={loading}>Kembali</AlertDialogCancel>
           <Button
             variant={`destructive`}
             size={`lg`}

@@ -12,6 +12,7 @@ import {
 import PopupDivisiBerhasil from "./PopupDivisiBerhasil";
 import Cookies from "js-cookie";
 import ErrorPopup from "@/components/ErrorPopup";
+import { useRouter } from "next/navigation";
 type PopUpMilihProps = {
   className?: string;
   hasEnrolled: boolean;
@@ -27,6 +28,8 @@ export default function PopupUrutan({
   params,
   prioritiesTaken,
 }: PopUpMilihProps) {
+
+  const router = useRouter();
   const priorityNumbers = [1, 2, 3, 4];
   const [clickedButtons, setClickedButtons] = useState<number | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -72,7 +75,9 @@ export default function PopupUrutan({
 
   const handleClose = () => {
     setShowSuccessModal(false);
+    router.refresh;
   };
+
   const handleErrorClose = () => {
     setShowErrorModal(false);
   };

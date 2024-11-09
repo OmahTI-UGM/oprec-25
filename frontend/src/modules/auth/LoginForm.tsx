@@ -41,7 +41,6 @@ const LoginForm = () => {
       } else {
         router.push("/divisi");
       }
-      router.refresh();
     } catch (err: any) {
       setLoading(false);
       setError(err.message || "Failed to log in");

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 // next
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -44,12 +44,6 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ admin = false }) => {
           tag: "Pengumuman",
           newTab: false,
         },
-        {
-          icon: <CircleHelp className="h-5 shrink-0" />,
-          href: "https://wa.me/628157929797",
-          tag: "Bantuan",
-          newTab: true,
-        },
       ];
 
   return (
@@ -81,7 +75,9 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ admin = false }) => {
 
 const Help = () => (
   <Link
-    href="/"
+    href="https://wa.me/628157929797"
+    target="_blank"
+    rel="noopener noreferrer"
     className="flex aspect-square shrink-0 items-center justify-center gap-4 rounded-md bg-custom-gray px-2 py-3 text-white hover:bg-custom-gray/90"
   >
     <CircleHelp className="h-5" />

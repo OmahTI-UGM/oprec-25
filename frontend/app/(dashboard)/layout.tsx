@@ -19,12 +19,13 @@ export default async function Layout({
 
       <div className="flex-grow">
         <DashboardNavbar admin={isAdmin} />
+        <Avatar className="top-8 right-6 lg:hidden" />
         <Container
           parentClass={`pt-0 w-screen lg:w-[80vw] lg:pt-8 min-h-screen`}
           className="relative"
         >
           {/* avatar component */}
-          <Avatar />
+          <Avatar className={`hidden lg:flex`} />
           {children}
         </Container>
       </div>

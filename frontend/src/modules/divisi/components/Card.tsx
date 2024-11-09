@@ -3,13 +3,13 @@ import Link from "next/link";
 import React from "react";
 
 interface CardProps {
-  id?: number;
+  id: number;
   variant?: "himakom" | "omahti";
   title: string;
   slug: string
 }
 
-const DivisiCard = ({ id = 1, variant = "omahti", title, slug }: CardProps) => {
+const DivisiCard = ({ id, variant = "omahti", title, slug }: CardProps) => {
   return (
     <div className="w-full min-h-40 flex flex-col justify-between gap-4 rounded-lg bg-custom-gray-dark p-4">
       <div className="flex gap-2 items-center">
