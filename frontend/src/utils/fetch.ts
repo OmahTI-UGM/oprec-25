@@ -74,3 +74,13 @@ export const getAllUsersAndTheirFilteredTugas = async (accessToken: string) => {
 
     return users;
 }
+
+export const getPenerimaanUser = async (accessToken: string) => {
+    const res = await fetch(`${PUBLIC_API_URL}/auth/user/pengumuman`, {
+        credentials: "include",
+        headers: {Cookie: `accessToken=${accessToken};`},
+    });
+    const pengumumanUser = await res.json();
+    
+    return pengumumanUser;
+}

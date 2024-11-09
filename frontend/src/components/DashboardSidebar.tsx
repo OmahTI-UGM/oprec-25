@@ -39,7 +39,7 @@ const DashboardSidebar = ({ admin = false }: { admin?: boolean }) => {
         },
         {
           icon: <CircleHelp className="h-5 shrink-0" />,
-          href: "https://wa.me/628157929797",
+          href: "https://wa.me/6287778480114",
           tag: "Bantuan",
           newTab: true,
         },
