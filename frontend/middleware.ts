@@ -47,11 +47,11 @@ export async function middleware(request: NextRequest) {
         PUBLIC_API_URL,
         accessToken,
       );
-      const { user } = await validationResponse.json();
-      if(user.isAdmin){
-        return NextResponse.redirect(new URL("/admin", request.url));
-      }
       if (validationResponse.ok) {
+        const { user } = await validationResponse.json();
+        if(user.isAdmin){
+          return NextResponse.redirect(new URL("/admin", request.url));
+        }
         const nextResponse = NextResponse.redirect(new URL("/divisi", request.url));
         // Attach user data to request headers
         nextResponse.headers.set("x-user-id", user.userId);
@@ -179,11 +179,11 @@ export async function middleware(request: NextRequest) {
   // Validate token for protected routes
   if (!isPublicRoute && accessToken) {
     const validationResponse = await validateToken(PUBLIC_API_URL, accessToken);
-    const { user } = await validationResponse.json();
-    if(user.isAdmin){
-      return NextResponse.redirect(new URL("/admin", request.url));
-    }
     if (validationResponse.ok) {
+      const { user } = await validationResponse.json();
+      if(user.isAdmin){
+        return NextResponse.redirect(new URL("/admin", request.url));
+      }
       const nextResponse = NextResponse.next();
       // Attach user data to request headers
       nextResponse.headers.set("x-user-id", user.userId);
