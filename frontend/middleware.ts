@@ -52,7 +52,6 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/admin", request.url));
       }
       if (validationResponse.ok) {
-        const { user } = await validationResponse.json();
         const nextResponse = NextResponse.redirect(new URL("/divisi", request.url));
         // Attach user data to request headers
         nextResponse.headers.set("x-user-id", user.userId);
@@ -185,7 +184,6 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/admin", request.url));
     }
     if (validationResponse.ok) {
-      const { user } = await validationResponse.json();
       const nextResponse = NextResponse.next();
       // Attach user data to request headers
       nextResponse.headers.set("x-user-id", user.userId);
