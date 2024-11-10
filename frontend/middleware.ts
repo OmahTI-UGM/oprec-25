@@ -87,7 +87,7 @@ export async function middleware(request: NextRequest) {
           );
           // Delete accessToken and refreshToken cookies
           response.cookies.set("refreshToken", "", { maxAge: -1, path: "/", domain: ".makomti.web.id" });
-          response.cookies.set("accessToken", "", { maxAge: 1, path: "/", domain: ".makomti.web.id" });
+          response.cookies.set("accessToken", "", { maxAge: -1, path: "/", domain: ".makomti.web.id" });
           return response;
         }
       }
@@ -123,8 +123,8 @@ export async function middleware(request: NextRequest) {
     }
     // If validation fails, proceed to login
     const response = NextResponse.next();
-    response.cookies.set("refreshToken", "", { maxAge: 1, path: "/", domain: ".makomti.web.id" });
-    response.cookies.set("accessToken", "", { maxAge: 1, path: "/", domain: ".makomti.web.id" });
+    response.cookies.set("refreshToken", "", { maxAge: -1, path: "/", domain: ".makomti.web.id" });
+    response.cookies.set("accessToken", "", { maxAge: -1, path: "/", domain: ".makomti.web.id" });
     return response;
   }
   if (isAdminRoute) {
