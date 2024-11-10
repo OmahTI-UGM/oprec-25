@@ -154,7 +154,9 @@ const Penugasan = ({
                 />
                 {errors.existingLink && (
                   <p className="text-sm text-red-500">
-                    {errors.existingLink.message && typeof errors.existingLink.message === 'string' && errors.existingLink.message}
+                    {errors.existingLink.message &&
+                      typeof errors.existingLink.message === "string" &&
+                      errors.existingLink.message}
                   </p>
                 )}
                 <Button size="lg" className="w-full text-base" type="submit">
@@ -174,14 +176,22 @@ const Penugasan = ({
                   placeholder="https://github.com/..."
                   {...register("link", {
                     required: "Link is required.",
-                    validate: (value) =>
-                      !/\s/.test(value) || "Link cannot contain spaces.",
+                    validate: {
+                      noSpaces: (value) =>
+                        !/\s/.test(value) || "Link cannot contain spaces.",
+                      validUrl: (value) =>
+                        /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
+                          value,
+                        ) || "Please enter a valid URL",
+                    },
                   })}
                   className="w-full appearance-none rounded-sm bg-[#535362] p-2 text-left focus:border-none focus:outline-none focus:ring-2 focus:ring-custom-blue"
                 />
                 {errors.link && (
                   <p className="text-sm text-red-500">
-                    {errors.link.message && typeof errors.link.message === 'string' && errors.link.message}
+                    {errors.link.message &&
+                      typeof errors.link.message === "string" &&
+                      errors.link.message}
                   </p>
                 )}
                 <Button size="lg" className="w-full text-base" type="submit">

@@ -139,11 +139,9 @@ const About = ({ text }: { text: string }) => {
 
 const Progress = async ({
   progress = 5,
-  slots = 10,
   params,
 }: {
   progress?: number;
-  slots?: number;
   params: string;
 }) => {
   // check if user has enrolled to this division or not
