@@ -39,14 +39,14 @@ export default function Logout({ className }: { className?: string }) {
       router.push("/");
       router.refresh();
       toast({
-        title: "Berhasil Keluar",
-        description: "Berhasil keluar dari akun Anda.",
+        title: "Logout Berhasil",
+        description: "Anda telah keluar dari akun",
       });
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Gagal Keluar",
-        description: "Terjadi kesalahan saat mencoba keluar dari akun Anda.",
+        title: "Logout Gagal",
+        description: "Gagal keluar dari akun. Silakan coba lagi",
       });
       setLoading(false);
     }
