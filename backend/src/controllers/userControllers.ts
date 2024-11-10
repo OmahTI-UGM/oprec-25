@@ -113,8 +113,8 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         })
         user.accessToken = tokens.accessToken;
         user.refreshToken = tokens.refreshToken
-        await user.save();
         setCookies(res, tokens, COOKIE_CONFIG);
+        await user.save();
          res.status(200).json({message: "Token refreshed"});
          return;
     } catch (err) {
