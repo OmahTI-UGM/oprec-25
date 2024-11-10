@@ -11,6 +11,29 @@ const AdminDashboard = ({ allUsers, admin }: { allUsers: any; admin: any }) => {
   const [pending, setPending] = useState(false);
   const { toast } = useToast();
 
+  // Helper function to format the date
+  const formatDate = (isoString: Date) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("id-ID", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  // Helper function to find dipilihOleh and jam from sesi (now supports an array of user IDs)
+  const getDipilihOlehAndJam = (sesi: any[], userId: string) => {
+    const sesiMatched = sesi?.find((sesiItem) =>
+      sesiItem.dipilihOleh?.includes(userId)
+    );
+    if (sesiMatched) {
+      return { dipilihOleh: sesiMatched.dipilihOleh, jam: sesiMatched.jam };
+    }
+    return { dipilihOleh: null, jam: null };
+  };
+
   const handleApprove = async (userId: string, acceptDivisionId: string) => {
     try {
       setPending(true);
@@ -23,7 +46,7 @@ const AdminDashboard = ({ allUsers, admin }: { allUsers: any; admin: any }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ userId, acceptDivisionId }),
-        },
+        }
       );
 
       toast({
@@ -79,73 +102,106 @@ const AdminDashboard = ({ allUsers, admin }: { allUsers: any; admin: any }) => {
               <th>Name</th>
               <th>Penugasan</th>
               <th>Status Penerimaan</th>
+              <th>Tanggal Pilihan Hima</th>
+              <th>Tanggal Pilihan OTI</th>
             </tr>
           </thead>
           <tbody>
             {allUsers && allUsers.length > 0 ? (
-              allUsers.map((user: any, index: number) => (
-                <tr
-                  key={user._id}
-                  className="border-t border-gray-700 *:px-6 *:py-4 *:text-sm"
-                >
-                  <td>{index + 1}</td>
-                  <td>{user.username}</td>
-                  <td className="">
-                    {user.tugas.length > 0 ? (
-                      <Link
-                        href={user.tugas[0].link}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                      >
-                        <Button size={`lg`} variant={`white`}>
-                          <EyeIcon size={16} />
-                          Lihat
+              allUsers.map((user: any, index: number) => {
+                // Get dipilihOleh and jam for both tanggalPilihanHima and tanggalPilihanOti
+                const { dipilihOleh: dipilihHima, jam: jamHima } = user.tanggalPilihanHima
+                  ? getDipilihOlehAndJam(user.tanggalPilihanHima.tanggalId.sesi, user._id)
+                  : { dipilihOleh: null, jam: null };
+
+                const { dipilihOleh: dipilihOti, jam: jamOti } = user.tanggalPilihanOti
+                  ? getDipilihOlehAndJam(user.tanggalPilihanOti.tanggalId.sesi, user._id)
+                  : { dipilihOleh: null, jam: null };
+
+                return (
+                  <tr
+                    key={user._id}
+                    className="border-t border-gray-700 *:px-6 *:py-4 *:text-sm"
+                  >
+                    <td>{index + 1}</td>
+                    <td>{user.username}</td>
+                    <td className="">
+                      {user.tugas.length > 0 ? (
+                        <Link
+                          href={user.tugas[0].link}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          <Button size={`lg`} variant={`white`}>
+                            <EyeIcon size={16} />
+                            Lihat
+                          </Button>
+                        </Link>
+                      ) : (
+                        <p className="text-sm text-custom-red opacity-80">
+                          Belum ada penugasan
+                        </p>
+                      )}
+                    </td>
+                    <td className="">
+                      {!user.diterimaDi ? (
+                        <Button
+                          size={`lg`}
+                          className=""
+                          variant={`whiteOutline`}
+                          onClick={() =>
+                            handleApprove(user._id, user.adminDivision._id)
+                          }
+                          disabled={pending}
+                        >
+                          {pending ? (
+                            <>
+                              <LoaderCircle size={16} className="animate-spin" />
+                              Approving...
+                            </>
+                          ) : (
+                            <>
+                              <UserRoundCheck size={16} />
+                              Terima ke divisi
+                            </>
+                          )}
                         </Button>
-                      </Link>
-                    ) : (
-                      <p className="text-sm text-custom-red opacity-80">
-                        Belum ada penugasan
-                      </p>
-                    )}
-                  </td>
-                  <td className="">
-                    {!user.diterimaDi ? (
-                      <Button
-                        size={`lg`}
-                        className=""
-                        variant={`whiteOutline`}
-                        onClick={() =>
-                          handleApprove(user._id, user.adminDivision._id)
-                        }
-                        disabled={pending}
-                      >
-                        {pending ? (
-                          <>
-                            <LoaderCircle size={16} className="animate-spin" />
-                            Approving...
-                          </>
-                        ) : (
-                          <>
-                            <UserRoundCheck size={16} />
-                            Terima ke divisi
-                          </>
-                        )}
-                      </Button>
-                    ) : (
-                      <p className="text-sm">
-                        User sudah diterima di{" "}
-                        <span className="text-custom-orange">
-                          {" "}
-                          {user.diterimaDi.judul}
-                        </span>
-                      </p>
-                    )}
-                  </td>
-                </tr>
-              ))
+                      ) : (
+                        <p className="text-sm">
+                          User sudah diterima di{" "}
+                          <span className="text-custom-orange">
+                            {" "}
+                            {user.diterimaDi.judul}
+                          </span>
+                        </p>
+                      )}
+                    </td>
+                    {/* Tanggal Pilihan Hima */}
+                    <td className="text-sm text-center">
+                      {dipilihHima ? (
+                        <>
+                          {formatDate(jamHima)}
+                        </>
+                      ) : (
+                        "Tidak ada pemilih"
+                      )}
+                    </td>
+                    {/* Tanggal Pilihan OTI */}
+                    <td className="text-sm text-center">
+                      {dipilihOti ? (
+                        <>
+                          {formatDate(jamOti)}
+                        </>
+                      ) : (
+                        "Tidak ada pemilih"
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
             ) : (
               <tr>
-                <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
+                <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
                   Belum ada pendaftar.
                 </td>
               </tr>

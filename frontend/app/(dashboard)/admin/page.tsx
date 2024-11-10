@@ -9,7 +9,6 @@ const Page = async () => {
   const allUsers = await getAllUsersAndTheirFilteredTugas(
     accessToken as string,
   );
-
   return <AdminDashboard allUsers={allUsers} admin={admin} />;
 };
 
