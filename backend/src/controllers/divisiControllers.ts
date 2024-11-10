@@ -86,10 +86,10 @@ async function handleDivisionSelection(
     user.divisiPilihan = user.divisiPilihan || [];
 
     if (isHimakom) {
-        if(user.tanggalPilihanHima?.tanggalId){throw new DivisionSelectionError("User sudah memilih wawancara OTI, sudah tidak bisa memilih divisi lain");}
+        if(user.tanggalPilihanHima?.tanggalId){throw new DivisionSelectionError("User sudah memilih wawancara Himakom, sudah tidak bisa memilih divisi lain");}
         user.divisiPilihanHima = user.divisiPilihanHima || [];
     } else {
-        if(user.tanggalPilihanOti?.tanggalId){throw new DivisionSelectionError("User sudah memilih wawancara Himakom, sudah tidak bisa memilih divisi lain");}
+        if(user.tanggalPilihanOti?.tanggalId){throw new DivisionSelectionError("User sudah memilih wawancara OTI, sudah tidak bisa memilih divisi lain");}
         user.divisiPilihanOti = user.divisiPilihanOti || [];
     }
 

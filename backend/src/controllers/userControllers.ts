@@ -46,7 +46,6 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         })
         return;
     } catch (err) {
-        console.log(err);
         res.status(500).json({message: "Registration error"});
         return;
     }
@@ -113,8 +112,8 @@ export const refresh = async (req: Request, res: Response): Promise<void> => {
         })
         user.accessToken = tokens.accessToken;
         user.refreshToken = tokens.refreshToken
-        setCookies(res, tokens, COOKIE_CONFIG);
         await user.save();
+        setCookies(res, tokens, COOKIE_CONFIG);
          res.status(200).json({message: "Token refreshed"});
          return;
     } catch (err) {
@@ -307,7 +306,6 @@ export const getAllUsersAndTheirFilteredTugas = async (req: IGetRequestWithUser,
         res.status(200).json(usersWithFilteredTugas);
         return;
     } catch (error) {
-        console.error("Error fetching and filtering users' tugas by division:", error);
         res.status(500).json({ message: "Internal server error" });
         return;
     }
@@ -343,7 +341,6 @@ export const updateUserDivisionAcceptance = async (req: IGetRequestWithUser, res
         res.status(200).json({ message: "User division acceptance updated successfully", user });
         return;
     } catch (error) {
-        console.error("Error updating user division acceptance:", error);
         res.status(500).json({ message: "Internal server error" });
         return;
     }
