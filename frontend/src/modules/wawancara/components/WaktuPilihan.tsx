@@ -8,12 +8,12 @@ const WaktuPilihan = ({
   slugHima,
 }: any) => {
   const isEmpty = !filteredHima && !filteredOti;
-  const formatDate = (isoString: string) => {
+  const formatDate = (isoString: Date) => {
     const date = new Date(isoString);
-    return date.toLocaleTimeString("id-ID", { year: "numeric", month: "long", day: "2-digit" });
+    return date.toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "2-digit" });
   };
 
-  const formatTime = (isoString: string) => {
+  const formatTime = (isoString: Date) => {
     const date = new Date(isoString);
     return date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
   };
