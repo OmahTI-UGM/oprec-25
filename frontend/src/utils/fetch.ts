@@ -17,7 +17,7 @@ export const getOneDivisi = async (slug: string, accessToken: string) => {
     const res = await fetch(`${PUBLIC_API_URL}/divisi/${slug}`, {
         headers: {Cookie: `accessToken=${accessToken};`},
         credentials: "include",
-        next: { revalidate: 20 }
+        next: { revalidate: 1800 }
     });
     const { satuDivisi } = await res.json();
 
