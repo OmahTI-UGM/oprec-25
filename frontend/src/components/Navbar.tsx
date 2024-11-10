@@ -107,16 +107,16 @@ const NavbarSidebar = ({ className }: { className?: string }) => {
                   variant="white"
                   size="lg"
                 >
-                  Masuk
+                  Sign In
                 </Button>
               </Link>
-              <Link href="dashboard/admin">
+              <Link href="auth/register">
                 <Button
                   className="w-full bg-custom-black delay-150 duration-700 animate-in slide-in-from-right hover:bg-custom-black/80"
                   variant="whiteOutline"
                   size="lg"
                 >
-                  Admin
+                  Sign Up
                 </Button>
               </Link>
             </div>
