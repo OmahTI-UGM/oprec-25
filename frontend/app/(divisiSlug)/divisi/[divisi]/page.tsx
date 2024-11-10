@@ -129,7 +129,7 @@ const About = ({ text }: { text: string }) => {
   return (
     <div className="w-full space-y-3 xl:pr-0">
       <h1 className="text-lg font-semibold">Tentang Kami</h1>
-      <div className="text-pretty rounded-lg bg-custom-gray-dark p-3">
+      <div className="text-justify rounded-lg bg-custom-gray-dark p-3">
         {text}
         {/* React Markdown juga */}
       </div>
@@ -160,7 +160,7 @@ const Progress = async ({
       <div className="flex justify-between">
         <h4>Pendaftar</h4>
         <h4>
-          {progress}/Wawancara Penuh
+          {progress}
         </h4>
       </div>
 

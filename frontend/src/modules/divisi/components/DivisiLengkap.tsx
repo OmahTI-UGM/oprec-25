@@ -53,7 +53,7 @@ const DivisiLengkap = ({
         </Button>
 
         <Swiper
-          className="mySwiper"
+          className="mySwiper cursor-grab active:cursor-grabbing"
           spaceBetween={10}
           modules={[Navigation]}
           navigation={{
@@ -125,7 +125,7 @@ const DivisiCard = ({
     <h3 className="truncate">{title}</h3>
     <Link href={`/divisi/${slug}`}>
       <Button
-        className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold"
+        className="aspect-square h-fit w-fit rounded-sm px-1.5 py-0.5 font-semibold hover:bg-custom-silver hover:text-custom-black active:scale-95"
         variant="secondary"
       >
         <ChevronRight />

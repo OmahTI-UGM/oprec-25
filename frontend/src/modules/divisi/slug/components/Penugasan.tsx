@@ -109,7 +109,7 @@ const Penugasan = ({
 
         <div className="flex flex-col gap-1">
           <h1 className="text-base font-semibold">Tools</h1>
-          <div className="w-full text-justify text-[0.9rem] leading-relaxed">
+          <div className="w-full text-pretty text-[0.9rem] leading-relaxed">
             {data.penugasan.toolsPenugasan}
           </div>
         </div>

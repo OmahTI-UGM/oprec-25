@@ -72,7 +72,7 @@ export default function ProjectsSwiper({ divisiData }: ProjectsSwiperProps) {
             640: { slidesPerView: 2.2, spaceBetween: 20 },
             1024: { slidesPerView: 3, spaceBetween: 24 },
           }}
-          className="relative w-full"
+          className="relative w-full mySwiper cursor-grab active:cursor-grabbing"
         >
           {divisiData.map((item: any) => (
             <SwiperSlide key={item._id?.$oid || item._id}>
