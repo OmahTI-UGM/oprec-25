@@ -17,7 +17,7 @@ const Pengumuman = async () => {
       <Title releaseDate={releaseDate} currentDate={currentDate}/>
       <div className="flex flex-col h-96 items-center justify-center gap-4 rounded-xl bg-custom-gray-dark p-6">
         <Smile size={100} />
-        {isAnnouncementAvailable ? (
+        {!isAnnouncementAvailable ? (
           <>
             <h1 className="text-xl text-center font-medium">
               Kamu dapat membuka pengumuman
